@@ -19,7 +19,7 @@
 ///		Ïê¼û£ºhttp://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef MYPSO_H 
+#ifndef MYPSO_H
 #define MYPSO_H
 
 #include <vector>
