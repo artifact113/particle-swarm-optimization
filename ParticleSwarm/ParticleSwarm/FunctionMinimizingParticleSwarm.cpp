@@ -1,4 +1,4 @@
-#include "MyPSO.h"
+ï»¿#include "MyPSO.h"
 #include <vector>
 
 using namespace std;
@@ -23,7 +23,7 @@ void FunctionMinimizingParticleSwarm::InitSwarm(FunctionBase *function,
 
 	for (int i=0; i != swarmSize; ++i)
 	{
-		/// ³õÊ¼»¯Î»ÖÃºÍËÙ¶È
+		/// åˆå§‹åŒ–ä½ç½®å’Œé€Ÿåº¦
 		vector<double> position;
 		vector<double> velocity;
 		for (int j=0; j != dimension; ++j)

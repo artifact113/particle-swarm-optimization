@@ -1,4 +1,4 @@
-#include "PSO.h"
+ï»¿#include "PSO.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -57,7 +57,7 @@ Particle& ParticleSwarm::operator [](int i)
 
 void ParticleSwarm::Iteration()
 {
-	//¼ÆËãÃ¿Ò»¸öÁ£×ÓµÄÏû·ÑÁ¿£¬²¢¸üĞÂ¸÷×ÔµÄÀúÊ·×î¼ÑÎ»ÖÃ
+	//è®¡ç®—æ¯ä¸€ä¸ªç²’å­çš„æ¶ˆè´¹é‡ï¼Œå¹¶æ›´æ–°å„è‡ªçš„å†å²æœ€ä½³ä½ç½®
 	for (int i = 0; i != Particles.size(); ++i)
 	{
 		Particles[i]->CalculateCost();
@@ -66,14 +66,14 @@ void ParticleSwarm::Iteration()
 
 	SortParticles();
 
-    //¸üĞÂÁ£×ÓÈºµÄÀúÊ·È«¾Ö×î¼ÑÎ»ÖÃ
+    //æ›´æ–°ç²’å­ç¾¤çš„å†å²å…¨å±€æœ€ä½³ä½ç½®
 	if (CurrentBestCost() < BestCost)
 	{
 		BestPosition = CurrentBestPosition();
 		BestCost = CurrentBestCost();
 	}
 
-	//¼ÆËãĞÂµÄÎ»ÖÃºÍËÙ¶È
+	//è®¡ç®—æ–°çš„ä½ç½®å’Œé€Ÿåº¦
 	for (int j = 0; j != Particles.size(); ++j)
 	{
 		if (UseGlobalOptimum)

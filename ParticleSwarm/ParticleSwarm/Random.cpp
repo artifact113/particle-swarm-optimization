@@ -1,4 +1,4 @@
-#include "Tools.h"
+﻿#include "Tools.h"
 #include <cstdlib>
 #include <ctime>
 

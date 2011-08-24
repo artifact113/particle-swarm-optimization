@@ -1,4 +1,4 @@
-#include "PSO.h"
+ï»¿#include "PSO.h"
 #include <vector>
 #include <cmath>
 
@@ -21,7 +21,7 @@ void Particle::UpdateHistory()
 	if(Cost < _bestCost)
 	{
 		_bestCost = Cost;
-		BestPosition = Position;	/// ½«µ±Ç°Î»ÖÃ¿½±´×÷ÀúÊ·×î¼ÑÎ»ÖÃ
+		BestPosition = Position;	/// å°†å½“å‰ä½ç½®æ‹·è´ä½œå†å²æœ€ä½³ä½ç½®
 	}
 
 }
@@ -34,7 +34,7 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 	}				
 
 	
-    ///	Éè¶¨×î´óËÙ¶È
+    ///	è®¾å®šæœ€å¤§é€Ÿåº¦
 	double xmax = 3;	//abs(Max(Position));
 	/*if ( abs(Min(Position)) > abs(Max(Position)) )
 	{
@@ -45,19 +45,19 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 
 	for (int i = 0; i != Velocity.size(); i++)
 	{
-		///	¼ÆËãËÙ¶ÈµÄÒ»Ğ©²ÎÊı
+		///	è®¡ç®—é€Ÿåº¦çš„ä¸€äº›å‚æ•°
 		double c1 = Swarm->TendencyToOwnBest;
 		double r1 = _rnd.NextDouble();
 		double c2 = Swarm->TendencyToGlobalBest;
 		double r2 = _rnd.NextDouble();
 		double m = Swarm->Momentum;
 
-		/// ¼ÆËãĞÂµÄËÙ¶È£»
+		/// è®¡ç®—æ–°çš„é€Ÿåº¦ï¼›
 		double newVelocity =m * Velocity[i] +
 				c1 * r1 * (BestPosition[i] - Position[i]) +
 				c2 * r2 * (bestPositionOfSwarm[i] - Position[i]);
 
-		///	ÏŞÖÆËÙ¶È²»³¬¹ıvmax£»
+		///	é™åˆ¶é€Ÿåº¦ä¸è¶…è¿‡vmaxï¼›
 		if (newVelocity > vmax)
 		{
 			newVelocity = vmax;
@@ -67,7 +67,7 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 			newVelocity = -vmax;
 		}
 
-		/// ¼ÆËãĞÂµÄËÙ¶ÈºÍÎ»ÖÃ
+		/// è®¡ç®—æ–°çš„é€Ÿåº¦å’Œä½ç½®
 		Velocity[i] = newVelocity;
 		Position[i] += Velocity[i];
 	}

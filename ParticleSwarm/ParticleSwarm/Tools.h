@@ -1,29 +1,29 @@
-//////////////////////////////////////////////////////////////////////////  
+ï»¿//////////////////////////////////////////////////////////////////////////  
 ///		COPYRIGHT NOTICE  
-///     Copyright (c) 2011, Îäºº´óÑ§×ÊÔ´»·¾³¿ÆÑ§Ñ§Ôº
+///     Copyright (c) 2011, æ­¦æ±‰å¤§å­¦èµ„æºç¯å¢ƒç§‘å­¦å­¦é™¢
 ///     All rights reserved.
 ///  
 /// @file Tools.h  
-/// @brief Î¢Á£ÈºÓÅ»¯Ëã·¨
+/// @brief å¾®ç²’ç¾¤ä¼˜åŒ–ç®—æ³•
 ///  
-/// ÊµÏÖÁËÊµÏÖPSOËã·¨µÄÒ»Ğ©¹¤¾ßÀàµÄ¶¨Òå
+/// å®ç°äº†å®ç°PSOç®—æ³•çš„ä¸€äº›å·¥å…·ç±»çš„å®šä¹‰
 ///  
 /// @version 1.0
 /// @author jingsam
 /// @date 2011-07-30
 ///  
 ///  
-///		ĞŞ¶©ËµÃ÷£º×î³õ°æ±¾
-///		±¾´úÂëÊÇ¸ù¾İG¨¹nther M. FOIDLµÄC#°æ±¾Particle swarm optimization
-///		for function optimization¸ÄĞ´,×ñ´ÓCDDL-1.0Ğ­Òé
-///		Ïê¼û£ºhttp://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
+///		ä¿®è®¢è¯´æ˜ï¼šæœ€åˆç‰ˆæœ¬
+///		æœ¬ä»£ç æ˜¯æ ¹æ®GÃ¼nther M. FOIDLçš„C#ç‰ˆæœ¬Particle swarm optimization
+///		for function optimizationæ”¹å†™,éµä»CDDL-1.0åè®®
+///		è¯¦è§ï¼šhttp://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
 //////////////////////////////////////////////////////////////////////////
 
 #ifndef TOOLS_H
 #define POOLS_H
 
 
-///	Ëæ»úÀà--Ëæ»úÊıÉú³ÉÆ÷
+///	éšæœºç±»--éšæœºæ•°ç”Ÿæˆå™¨
 class Random
 {
 	private:
@@ -35,10 +35,10 @@ class Random
         static const long int R = 3399;
 
 	public:
-		/// ¹¹Ôìº¯Êı
+		/// æ„é€ å‡½æ•°
 		explicit Random();
 
-		/// @return [0,1]Çø¼äÄÚµÄËæ»úÊı
+		/// @return [0,1]åŒºé—´å†…çš„éšæœºæ•°
 		double NextDouble();
 };
 
