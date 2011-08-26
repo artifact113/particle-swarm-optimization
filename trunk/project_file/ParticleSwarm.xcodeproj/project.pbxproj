@@ -1,0 +1,233 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		18290D251407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */; };
+		18290D261407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */; };
+		18290D271407FDEB00A6DB92 /* Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1D1407FDEB00A6DB92 /* Functions.cpp */; };
+		18290D281407FDEB00A6DB92 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1E1407FDEB00A6DB92 /* Main.cpp */; };
+		18290D291407FDEB00A6DB92 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D201407FDEB00A6DB92 /* Particle.cpp */; };
+		18290D2A1407FDEB00A6DB92 /* ParticleSwarm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D211407FDEB00A6DB92 /* ParticleSwarm.cpp */; };
+		18290D2B1407FDEB00A6DB92 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D231407FDEB00A6DB92 /* Random.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		184EDEBF1407F942002E6ACA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionMinimizingParticle.cpp; sourceTree = "<group>"; };
+		18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionMinimizingParticleSwarm.cpp; sourceTree = "<group>"; };
+		18290D1D1407FDEB00A6DB92 /* Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Functions.cpp; sourceTree = "<group>"; };
+		18290D1E1407FDEB00A6DB92 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
+		18290D1F1407FDEB00A6DB92 /* MyPSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPSO.h; sourceTree = "<group>"; };
+		18290D201407FDEB00A6DB92 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
+		18290D211407FDEB00A6DB92 /* ParticleSwarm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ParticleSwarm.cpp; sourceTree = "<group>"; };
+		18290D221407FDEB00A6DB92 /* PSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSO.h; sourceTree = "<group>"; };
+		18290D231407FDEB00A6DB92 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Random.cpp; sourceTree = "<group>"; };
+		18290D241407FDEB00A6DB92 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
+		184EDEC11407F942002E6ACA /* ParticleSwarm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ParticleSwarm; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		184EDEBE1407F942002E6ACA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		18290D1A1407FDEB00A6DB92 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */,
+				18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */,
+				18290D1D1407FDEB00A6DB92 /* Functions.cpp */,
+				18290D1E1407FDEB00A6DB92 /* Main.cpp */,
+				18290D1F1407FDEB00A6DB92 /* MyPSO.h */,
+				18290D201407FDEB00A6DB92 /* Particle.cpp */,
+				18290D211407FDEB00A6DB92 /* ParticleSwarm.cpp */,
+				18290D221407FDEB00A6DB92 /* PSO.h */,
+				18290D231407FDEB00A6DB92 /* Random.cpp */,
+				18290D241407FDEB00A6DB92 /* Tools.h */,
+			);
+			name = source;
+			path = ../source;
+			sourceTree = "<group>";
+		};
+		184EDEB61407F942002E6ACA = {
+			isa = PBXGroup;
+			children = (
+				18290D1A1407FDEB00A6DB92 /* source */,
+				184EDEC21407F942002E6ACA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		184EDEC21407F942002E6ACA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				184EDEC11407F942002E6ACA /* ParticleSwarm */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		184EDEC01407F942002E6ACA /* ParticleSwarm */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 184EDECB1407F943002E6ACA /* Build configuration list for PBXNativeTarget "ParticleSwarm" */;
+			buildPhases = (
+				184EDEBD1407F942002E6ACA /* Sources */,
+				184EDEBE1407F942002E6ACA /* Frameworks */,
+				184EDEBF1407F942002E6ACA /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ParticleSwarm;
+			productName = ParticleSwarm;
+			productReference = 184EDEC11407F942002E6ACA /* ParticleSwarm */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		184EDEB81407F942002E6ACA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 184EDEBB1407F942002E6ACA /* Build configuration list for PBXProject "ParticleSwarm" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 184EDEB61407F942002E6ACA;
+			productRefGroup = 184EDEC21407F942002E6ACA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				184EDEC01407F942002E6ACA /* ParticleSwarm */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		184EDEBD1407F942002E6ACA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				18290D251407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp in Sources */,
+				18290D261407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp in Sources */,
+				18290D271407FDEB00A6DB92 /* Functions.cpp in Sources */,
+				18290D281407FDEB00A6DB92 /* Main.cpp in Sources */,
+				18290D291407FDEB00A6DB92 /* Particle.cpp in Sources */,
+				18290D2A1407FDEB00A6DB92 /* ParticleSwarm.cpp in Sources */,
+				18290D2B1407FDEB00A6DB92 /* Random.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		184EDEC91407F943002E6ACA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		184EDECA1407F943002E6ACA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		184EDECC1407F943002E6ACA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		184EDECD1407F943002E6ACA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		184EDEBB1407F942002E6ACA /* Build configuration list for PBXProject "ParticleSwarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				184EDEC91407F943002E6ACA /* Debug */,
+				184EDECA1407F943002E6ACA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		184EDECB1407F943002E6ACA /* Build configuration list for PBXNativeTarget "ParticleSwarm" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				184EDECC1407F943002E6ACA /* Debug */,
+				184EDECD1407F943002E6ACA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 184EDEB81407F942002E6ACA /* Project object */;
+}
