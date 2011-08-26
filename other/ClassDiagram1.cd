@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FunctionMinimizingParticleSwarm">
+    <Position X="5" Y="6.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyPSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunctionMinimizingParticle">
+    <Position X="0.75" Y="6.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAEAAAAAAAAAAAAAAAABAAAABAAAAAA=</HashCode>
+      <FileName>MyPSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Random">
+    <Position X="9.25" Y="6.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAACAA=</HashCode>
+      <FileName>tools.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Particle">
+    <Position X="0.75" Y="1" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAgACAICAhBACAAgEAAAABAAgAAAAAgAAAAAAIAEAAA=</HashCode>
+      <FileName>PSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleSwarm">
+    <Position X="5" Y="1" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAAgQICAQQIAAQIAAEgAAAEEgAAAAAEAQAAAA=</HashCode>
+      <FileName>PSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunctionBase">
+    <Position X="9.25" Y="1" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SphereFunction">
+    <Position X="9.25" Y="3" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MyPSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
