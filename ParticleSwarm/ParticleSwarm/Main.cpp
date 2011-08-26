@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "MyPSO.h"
+
 using namespace std;
 
 Random Particle::_rnd;
@@ -51,5 +52,6 @@ int main()
 	}
 
 	system("pause");
+
 	return 1;
 }
