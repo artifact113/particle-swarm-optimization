@@ -4,7 +4,6 @@
 using namespace std;
 
 
-
 FunctionMinimizingParticleSwarm::FunctionMinimizingParticleSwarm(FunctionBase *function, 
 																 int swarmSize, 
 																 int dimension)
@@ -38,5 +37,10 @@ void FunctionMinimizingParticleSwarm::InitSwarm(FunctionBase *function,
 	} 
 
 	Particles = particles;
+    
+    vector<double> high(dimension,1);
+    vector<double> low(dimension,-1);
+    PositionHigh = high;
+    PositionLow = low;
 
 }

@@ -30,13 +30,8 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 	if (BestPosition.empty())
 	{
 		UpdateBest();
-	}				
+	}
 
-	
-    ///	设定最大速度
-	double xmax = 3;
-
-	double vmax = Swarm->PercentMaximumVelocityOfSearchSpace * xmax;
 
 	///	计算速度的一些参数
 	double c1 = Swarm->TendencyToOwnBest;
@@ -47,9 +42,14 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 
 	for (int i = 0; i != Velocity.size(); i++)
 	{
+        ///	设定最大速度
+        double xmax = Swarm->PositionHigh[i] - Swarm->PositionLow[i];
+        
+        double vmax = Swarm->PercentMaximumVelocityOfSearchSpace * xmax;
+        
 
 		/// 计算新的速度；
-		double newVelocity =m * Velocity[i] +
+		double newVelocity = m * Velocity[i] +
 				c1 * r1 * (BestPosition[i] - Position[i]) +
 				c2 * r2 * (bestPositionOfSwarm[i] - Position[i]);
 
@@ -63,9 +63,24 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 			newVelocity = -vmax;
 		}
 
-		/// 计算新的速度和位置
+		/// 计算新的速度
 		Velocity[i] = newVelocity;
-		Position[i] += Velocity[i];
+        
+        
+        /// 计算新的位置
+        double newPosition = Position[i] + Velocity[i];
+        
+        /// 限制位置不超过上下界
+        if (newPosition > Swarm->PositionHigh[i])
+        {
+            newPosition = Swarm->PositionHigh[i];
+        }
+        if (newPosition < Swarm->PositionLow[i])
+        {
+            newPosition = Swarm->PositionLow[i];
+        }
+        
+		Position[i] = newPosition;
 	}
 
 }

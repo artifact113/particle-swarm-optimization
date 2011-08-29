@@ -10,7 +10,7 @@ using namespace std;
 
 ParticleSwarm::ParticleSwarm()
 {
-	Momentum = 1.05;
+	Momentum = 1;
 	TendencyToOwnBest = 2;
 	TendencyToGlobalBest = 2;
 	PercentMaximumVelocityOfSearchSpace = 0.1;
@@ -31,7 +31,7 @@ ParticleSwarm::~ParticleSwarm()
 
 int ParticleSwarm::SwarmSize()
 {
-	return Particles.size();
+	return (int)Particles.size();
 }
 
 
