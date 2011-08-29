@@ -61,7 +61,7 @@ void ParticleSwarm::Iteration()
 	for (int i = 0; i != Particles.size(); ++i)
 	{
 		Particles[i]->CalculateCost();
-		Particles[i]->UpdateHistory();
+		Particles[i]->UpdateBest();
 	}
 
 	SortParticles();
