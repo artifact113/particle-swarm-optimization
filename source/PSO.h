@@ -36,23 +36,9 @@ class ParticleSwarm;
 class Particle
 { 
 	private:
-		//------------------------------------------------------
-		/// 取容器中的最大值;
-		/// 
-		/// @return 双精度容器中的最大值
-		/// @note 容器为空时，返回0
-		double Max(vector<double> position);
-
-		//------------------------------------------------------
-		/// 取容器中的最小值;
-		///
-		/// @return 双精度容器中的最小值
-		/// @note 容器为空时，返回0
-		double Min(vector<double> position);
 
 
 	protected:
-		double _bestCost;		/// 粒子的历史最佳消费量
 		static Random _rnd;		/// 随机数生成器
 
 
@@ -78,6 +64,10 @@ class Particle
 		vector<double> BestPosition;
 
 		//------------------------------------------------------
+		///	BestCost,粒子的历史最佳消费量;
+		double BestCost;
+
+		//------------------------------------------------------
 		///	索引器，返回粒子在某一维度上的位置;
 		double& operator[](int i);
 
@@ -96,7 +86,7 @@ class Particle
 
 		//------------------------------------------------------
 		///	更新粒子的历史最佳位置;
-		void UpdateHistory();
+		void UpdateBest();
 
 		//------------------------------------------------------
 		/// 更新粒子的位置与速度;
