@@ -113,6 +113,18 @@ class ParticleSwarm
 		/// Particles，粒子群所拥有的粒子；
 		vector<Particle*> Particles;
 
+        //------------------------------------------------------
+        /// PositionHigh，粒子位置的上界；
+        vector<double> PositionHigh;
+    
+        //------------------------------------------------------
+        /// PositionLow，粒子位置的下界；
+        vector<double> PositionLow;
+    
+        //------------------------------------------------------
+        /// PercentMaximumVelocityOfSearchSpace，vmax=k*xmax,k值；
+        double PercentMaximumVelocityOfSearchSpace;
+    
 		//------------------------------------------------------
 		/// Momentum，惯性系数；
 		double Momentum;
@@ -124,10 +136,6 @@ class ParticleSwarm
 		//------------------------------------------------------
 		/// TendencyToGlobalBest，社会系数；
 		double TendencyToGlobalBest;
-
-		//------------------------------------------------------
-		/// PercentMaximumVelocityOfSearchSpace，vmax=k*xmax,k值；
-		double PercentMaximumVelocityOfSearchSpace;
 
 		//------------------------------------------------------
 		/// UseGlobalOptimum，是否采用全局优化策略，默认true；
