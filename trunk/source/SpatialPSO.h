@@ -76,6 +76,18 @@ class FitnessFunction : public FunctionBase
 	public:
 		double Function(vector<double> position);
 
+		//------------------------------------------------------
+		/// 经济效益;
+		double Benefit(vector<double> position);
+
+		//------------------------------------------------------
+		/// 变更费用;
+		double ChangCost(vector<double> position);
+
+		//------------------------------------------------------
+		/// 空间紧凑度;
+		double Compactness(vector<double> position);
+
 };
 
 #endif
