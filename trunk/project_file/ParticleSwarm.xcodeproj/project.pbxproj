@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		18290D251407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */; };
 		18290D261407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */; };
-		18290D271407FDEB00A6DB92 /* Functions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1D1407FDEB00A6DB92 /* Functions.cpp */; };
 		18290D281407FDEB00A6DB92 /* Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D1E1407FDEB00A6DB92 /* Main.cpp */; };
 		18290D291407FDEB00A6DB92 /* Particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D201407FDEB00A6DB92 /* Particle.cpp */; };
 		18290D2A1407FDEB00A6DB92 /* ParticleSwarm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D211407FDEB00A6DB92 /* ParticleSwarm.cpp */; };
 		18290D2B1407FDEB00A6DB92 /* Random.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18290D231407FDEB00A6DB92 /* Random.cpp */; };
+		18BFEA96140CA115009B11F2 /* FitnessFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BFEA91140CA115009B11F2 /* FitnessFunction.cpp */; };
+		18BFEA97140CA115009B11F2 /* SpatialParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BFEA92140CA115009B11F2 /* SpatialParticle.cpp */; };
+		18BFEA98140CA115009B11F2 /* SpatialParticleSwarm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BFEA93140CA115009B11F2 /* SpatialParticleSwarm.cpp */; };
+		18BFEA99140CA115009B11F2 /* SphereFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 18BFEA95140CA115009B11F2 /* SphereFunction.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,7 +34,6 @@
 /* Begin PBXFileReference section */
 		18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionMinimizingParticle.cpp; sourceTree = "<group>"; };
 		18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FunctionMinimizingParticleSwarm.cpp; sourceTree = "<group>"; };
-		18290D1D1407FDEB00A6DB92 /* Functions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Functions.cpp; sourceTree = "<group>"; };
 		18290D1E1407FDEB00A6DB92 /* Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Main.cpp; sourceTree = "<group>"; };
 		18290D1F1407FDEB00A6DB92 /* MyPSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPSO.h; sourceTree = "<group>"; };
 		18290D201407FDEB00A6DB92 /* Particle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particle.cpp; sourceTree = "<group>"; };
@@ -40,6 +42,11 @@
 		18290D231407FDEB00A6DB92 /* Random.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Random.cpp; sourceTree = "<group>"; };
 		18290D241407FDEB00A6DB92 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		184EDEC11407F942002E6ACA /* ParticleSwarm */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ParticleSwarm; sourceTree = BUILT_PRODUCTS_DIR; };
+		18BFEA91140CA115009B11F2 /* FitnessFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FitnessFunction.cpp; sourceTree = "<group>"; };
+		18BFEA92140CA115009B11F2 /* SpatialParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatialParticle.cpp; sourceTree = "<group>"; };
+		18BFEA93140CA115009B11F2 /* SpatialParticleSwarm.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SpatialParticleSwarm.cpp; sourceTree = "<group>"; };
+		18BFEA94140CA115009B11F2 /* SpatialPSO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpatialPSO.h; sourceTree = "<group>"; };
+		18BFEA95140CA115009B11F2 /* SphereFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SphereFunction.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,9 +63,13 @@
 		18290D1A1407FDEB00A6DB92 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				18BFEA91140CA115009B11F2 /* FitnessFunction.cpp */,
+				18BFEA92140CA115009B11F2 /* SpatialParticle.cpp */,
+				18BFEA93140CA115009B11F2 /* SpatialParticleSwarm.cpp */,
+				18BFEA94140CA115009B11F2 /* SpatialPSO.h */,
+				18BFEA95140CA115009B11F2 /* SphereFunction.cpp */,
 				18290D1B1407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp */,
 				18290D1C1407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp */,
-				18290D1D1407FDEB00A6DB92 /* Functions.cpp */,
 				18290D1E1407FDEB00A6DB92 /* Main.cpp */,
 				18290D1F1407FDEB00A6DB92 /* MyPSO.h */,
 				18290D201407FDEB00A6DB92 /* Particle.cpp */,
@@ -136,11 +147,14 @@
 			files = (
 				18290D251407FDEB00A6DB92 /* FunctionMinimizingParticle.cpp in Sources */,
 				18290D261407FDEB00A6DB92 /* FunctionMinimizingParticleSwarm.cpp in Sources */,
-				18290D271407FDEB00A6DB92 /* Functions.cpp in Sources */,
 				18290D281407FDEB00A6DB92 /* Main.cpp in Sources */,
 				18290D291407FDEB00A6DB92 /* Particle.cpp in Sources */,
 				18290D2A1407FDEB00A6DB92 /* ParticleSwarm.cpp in Sources */,
 				18290D2B1407FDEB00A6DB92 /* Random.cpp in Sources */,
+				18BFEA96140CA115009B11F2 /* FitnessFunction.cpp in Sources */,
+				18BFEA97140CA115009B11F2 /* SpatialParticle.cpp in Sources */,
+				18BFEA98140CA115009B11F2 /* SpatialParticleSwarm.cpp in Sources */,
+				18BFEA99140CA115009B11F2 /* SphereFunction.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
