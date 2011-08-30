@@ -31,7 +31,7 @@
   <Class Name="ParticleSwarm">
     <Position X="5" Y="1" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>ACAAAAAAAgQICAQQIAAQIAAEgAAAEEgAAAAAEAQAAAA=</HashCode>
+      <HashCode>ACAAAAAAAgQICAQQIAAQoAAEgAAAEEgAACAAEAQAAAA=</HashCode>
       <FileName>e:\ParticleSwarm\source\PSO.h</FileName>
     </TypeIdentifier>
   </Class>

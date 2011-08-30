@@ -162,15 +162,15 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\source\FitnessFunction.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\source\FunctionMinimizingParticle.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\source\FunctionMinimizingParticleSwarm.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\source\Functions.cpp"
 				>
 			</File>
 			<File
@@ -189,6 +189,18 @@
 				RelativePath="..\source\Random.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\source\SpatialParticle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\source\SpatialParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\source\SphereFunction.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -201,6 +213,10 @@
 			</File>
 			<File
 				RelativePath="..\source\PSO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\source\SpatialPSO.h"
 				>
 			</File>
 			<File

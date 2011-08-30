@@ -25,11 +25,12 @@
 #include <vector>
 #include "PSO.h"
 
+using namespace std;
+
+
 class Particle;
 class ParticleSwarm;
 class FunctionBase;
-
-
 
 class FunctionMinimizingParticle : public Particle
 {
