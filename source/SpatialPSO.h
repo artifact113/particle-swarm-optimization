@@ -1,22 +1,22 @@
-//////////////////////////////////////////////////////////////////////////  
+ï»¿//////////////////////////////////////////////////////////////////////////  
 ///		COPYRIGHT NOTICE  
-///     Copyright (c) 2011, Îäºº´óÑ§×ÊÔ´»·¾³¿ÆÑ§Ñ§Ôº
+///     Copyright (c) 2011, æ­¦æ±‰å¤§å­¦èµ„æºç¯å¢ƒç§‘å­¦å­¦é™¢
 ///     All rights reserved.
 ///  
 /// @file MyPSO.h  
-/// @brief Î¢Á£ÈºÓÅ»¯Ëã·¨
+/// @brief å¾®ç²’ç¾¤ä¼˜åŒ–ç®—æ³•
 ///  
-/// ÊµÏÖÁËParticle¡¢ParticleSwarm¡¢FunctionBase»ùÀàµÄ¼Ì³ĞÀàµÄ¶¨Òå,ÒÔ½øĞĞ¿Õ¼ä²¼¾ÖÓÅ»¯
+/// å®ç°äº†Particleã€ParticleSwarmã€FunctionBaseåŸºç±»çš„ç»§æ‰¿ç±»çš„å®šä¹‰,ä»¥è¿›è¡Œç©ºé—´å¸ƒå±€ä¼˜åŒ–
 ///  
 /// @version 1.0
 /// @author jingsam
 /// @date 2011-07-30
 ///  
 ///  
-///		ĞŞ¶©ËµÃ÷£º×î³õ°æ±¾
-///		±¾´úÂëÊÇ¸ù¾İG¨¹nther M. FOIDLµÄC#°æ±¾Particle swarm optimization
-///		for function optimization¸ÄĞ´,×ñ´ÓCDDL-1.0Ğ­Òé
-///		Ïê¼û£ºhttp://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
+///		ä¿®è®¢è¯´æ˜ï¼šæœ€åˆç‰ˆæœ¬
+///		æœ¬ä»£ç æ˜¯æ ¹æ®GÃ¼nther M. FOIDLçš„C#ç‰ˆæœ¬Particle swarm optimization
+///		for function optimizationæ”¹å†™,éµä»CDDL-1.0åè®®
+///		è¯¦è§ï¼šhttp://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
 //////////////////////////////////////////////////////////////////////////
 #ifndef SPATIALPSO_H
 #define SPATIALPSO_H
@@ -40,15 +40,15 @@ class SpatialLayoutParticle : public Particle
 
 	public:
 		//------------------------------------------------------
-		/// ¹¹Ôìº¯Êı£»
+		/// æ„é€ å‡½æ•°ï¼›
 		SpatialLayoutParticle(FunctionBase* function,ParticleSwarm* swarm,vector<double> position,vector<double> velocity);
 		
 		//------------------------------------------------------
-		/// Îö¹¹º¯Êı£»
+		/// ææ„å‡½æ•°ï¼›
 		~SpatialLayoutParticle();
 
 		//------------------------------------------------------
-		/// Ïû·ÑÁ¿¼ÆËãº¯Êı£»
+		/// æ¶ˆè´¹é‡è®¡ç®—å‡½æ•°ï¼›
 		void CalculateCost();
 
 };
@@ -62,11 +62,11 @@ class SpatialLayoutParticleSwarm : public ParticleSwarm
 
 	public:
 		//------------------------------------------------------
-		/// ¹¹Ôìº¯Êı£»
+		/// æ„é€ å‡½æ•°ï¼›
 		SpatialLayoutParticleSwarm(FunctionBase* fuction,int swarmSize, int dimension);
 
 		//------------------------------------------------------
-		/// ³õÊ¼»¯º¯Êı£»
+		/// åˆå§‹åŒ–å‡½æ•°ï¼›
 		void InitSwarm(FunctionBase* fuction,int swarmSize, int dimension);
 };
 
@@ -77,15 +77,15 @@ class FitnessFunction : public FunctionBase
 		double Function(vector<double> position);
 
 		//------------------------------------------------------
-		/// ¾­¼ÃĞ§Òæ;
+		/// ç»æµæ•ˆç›Š;
 		double Benefit(vector<double> position);
 
 		//------------------------------------------------------
-		/// ±ä¸ü·ÑÓÃ;
+		/// å˜æ›´è´¹ç”¨;
 		double ChangCost(vector<double> position);
 
 		//------------------------------------------------------
-		/// ¿Õ¼ä½ô´Õ¶È;
+		/// ç©ºé—´ç´§å‡‘åº¦;
 		double Compactness(vector<double> position);
 
 };
