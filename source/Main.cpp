@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include <cmath>
 #include "MyPSO.h"
+#include "formmain.h"
 
 using namespace std;
 
@@ -10,6 +11,11 @@ Random ParticleSwarm::_rnd;
 
 int main()
 {
+	FormMain w;
+	w.show();
+	
+
+
 	cout<<"PSO Begaining..."<<endl;
 
 	int iteration = 0;
