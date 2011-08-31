@@ -88,6 +88,10 @@ class FitnessFunction : public FunctionBase
 		/// 空间紧凑度;
 		double Compactness(vector<double> position);
 
+		//------------------------------------------------------
+		/// 适宜性;
+		double Suitability(vector<double> position);
+
 };
 
 #endif
