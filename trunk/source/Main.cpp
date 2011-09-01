@@ -11,10 +11,6 @@ Random ParticleSwarm::_rnd;
 
 int main()
 {
-	FormMain w;
-	w.show();
-	
-
 
 	cout<<"PSO Begaining..."<<endl;
 

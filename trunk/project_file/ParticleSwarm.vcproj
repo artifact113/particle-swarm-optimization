@@ -236,22 +236,6 @@
 				>
 			</File>
 		</Filter>
-		<Filter
-			Name="界面文件"
-			>
-			<File
-				RelativePath="..\source\formmain.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\source\formmain.h"
-				>
-			</File>
-			<File
-				RelativePath="..\source\ui_formmain.h"
-				>
-			</File>
-		</Filter>
 	</Files>
 	<Globals>
 	</Globals>
