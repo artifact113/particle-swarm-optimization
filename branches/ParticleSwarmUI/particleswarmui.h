@@ -1,4 +1,4 @@
-#ifndef PARTICLESWARMUI_H
+﻿#ifndef PARTICLESWARMUI_H
 #define PARTICLESWARMUI_H
 
 

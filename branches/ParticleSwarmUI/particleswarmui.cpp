@@ -1,4 +1,4 @@
-#include "particleswarmui.h"
+﻿#include "particleswarmui.h"
 
 ParticleSwarmUI::ParticleSwarmUI()
 {
