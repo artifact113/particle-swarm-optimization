@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <cmath>
 #include "MyPSO.h"
-#include "formmain.h"
 
 using namespace std;
 
