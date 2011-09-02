@@ -300,6 +300,62 @@
 		<Filter
 			Name="PSO Sources"
 			>
+			<File
+				RelativePath=".\FitnessFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FunctionMinimizingParticle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FunctionMinimizingParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Main.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\MyPSO.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Particle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\PSO.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Random.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialParticle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialPSO.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SphereFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
