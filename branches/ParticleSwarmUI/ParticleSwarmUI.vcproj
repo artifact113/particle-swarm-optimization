@@ -297,6 +297,66 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<Filter
+			Name="PSO Sources"
+			>
+			<File
+				RelativePath="..\ParticleSwarm\source\FitnessFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\FunctionMinimizingParticle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\FunctionMinimizingParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\Main.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\MyPSO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\Particle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\ParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\PSO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\Random.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\SpatialParticle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\SpatialParticleSwarm.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\SpatialPSO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\SphereFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\ParticleSwarm\source\Tools.h"
+				>
+			</File>
+		</Filter>
 	</Files>
 	<Globals>
 		<Global
