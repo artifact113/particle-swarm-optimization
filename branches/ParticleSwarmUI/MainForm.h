@@ -1,4 +1,4 @@
-#ifndef MAINFORM_H
+﻿#ifndef MAINFORM_H
 #define MAINFORM_H
 
 #include <QDialog>
