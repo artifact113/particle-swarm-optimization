@@ -15,7 +15,7 @@ static const QgisPlugin::PLUGINTYPE sPluginType = QgisPlugin::UI;
 Plugin::Plugin(QgisInterface* iface)
 {
 	mIface = iface;
-	mAction = new QAction(QIcon(":/Resources/base.ico"),tr("SpatialPSO"), 0);
+	mAction = new QAction(QIcon("Resources/base.ico"),tr("SpatialPSO"), 0);
 }
 
 
