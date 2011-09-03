@@ -7,15 +7,15 @@
 
 //关于插件的信息
 static const QString sName = QObject::tr( "SpatialPSO" );
-static const QString sDescription = QObject::tr( "应用PSO算法进行土地利用空间布局优化" );
-static const QString sPluginVersion = QObject::tr( "Version 0.1" );
+static const QString sDescription = QObject::tr( "Apply PSO algorithm in land use spatial layout optimization" );
+static const QString sPluginVersion = QObject::tr( "Version 1.0" );
 static const QgisPlugin::PLUGINTYPE sPluginType = QgisPlugin::UI;
 
 
-Plugin::Plugin(QgisInterface* iface)                                              
+Plugin::Plugin(QgisInterface* iface)
 {
 	mIface = iface;
-	mAction = new QAction(QIcon(),tr("SpatialPSO"), 0);
+	mAction = new QAction(QIcon(":/Resources/base.ico"),tr("SpatialPSO"), 0);
 }
 
 
