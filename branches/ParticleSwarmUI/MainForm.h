@@ -16,13 +16,18 @@ public:
     ~MainForm();
 
 public slots:
-	void FoldOrExpand();		///	折叠或展开参数设置面板
-	void ChangeWeight();		///	计算权重值
+	void FoldOrExpand();		///	折叠或展开参数设置面板;
+	void ChangeWeight();		///	计算权重值;
+	void OpenFile();			///	打开文件;
+	void UpdateInfo(const QString &);			/// 更新文件相关信息;
 
 
 
 private:
     Ui::MainForm *ui;
+
+	double minEverEco;		/// 标记单位面积经济效益最低值;
+	double maxEverEco;		/// 标记单位面积经济效益最高值;
 };
 
 #endif // MAINFORM_H

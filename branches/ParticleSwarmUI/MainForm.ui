@@ -84,6 +84,9 @@
         <height>0</height>
        </size>
       </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
      </widget>
     </item>
     <item row="0" column="2">
@@ -183,6 +186,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtLD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>114</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -232,6 +247,9 @@
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
@@ -261,6 +279,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtMCD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>102</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -342,6 +372,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtYD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>114</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -391,6 +433,9 @@
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
         </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
@@ -420,6 +465,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtGD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>114</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -504,6 +561,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtQTNYD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>78</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -552,6 +621,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -582,6 +654,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtCXJSYD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>66</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -630,6 +714,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -660,6 +747,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtJTSLYD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>66</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -708,6 +807,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -731,6 +833,18 @@
      <layout class="QFormLayout" name="formLayout_19">
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtQTJSYD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>66</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -779,6 +893,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -816,6 +933,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtTTZZ_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>90</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -864,6 +993,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -880,7 +1012,7 @@
       <rect>
        <x>347</x>
        <y>117</y>
-       <width>164</width>
+       <width>158</width>
        <height>22</height>
       </rect>
      </property>
@@ -894,6 +1026,18 @@
       </item>
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtQTWLYTD_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>54</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -942,6 +1086,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -965,6 +1112,18 @@
      <layout class="QFormLayout" name="formLayout_22">
       <item row="0" column="1">
        <widget class="QDoubleSpinBox" name="TxtSY_2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>114</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="palette">
          <palette>
           <active>
@@ -1010,6 +1169,9 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1146,8 +1308,14 @@
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
+    <property name="wrapping">
+     <bool>false</bool>
+    </property>
     <property name="frame">
      <bool>false</bool>
+    </property>
+    <property name="readOnly">
+     <bool>true</bool>
     </property>
     <property name="buttonSymbols">
      <enum>QAbstractSpinBox::NoButtons</enum>
@@ -1202,7 +1370,7 @@
     <widget class="QGroupBox" name="groupBox_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>9</x>
        <y>0</y>
        <width>511</width>
        <height>81</height>
@@ -1239,6 +1407,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtMCD">
+         <property name="minimumSize">
+          <size>
+           <width>114</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1252,7 +1426,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1277,6 +1451,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtLD">
+         <property name="minimumSize">
+          <size>
+           <width>126</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1290,7 +1470,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1315,6 +1495,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtYD">
+         <property name="minimumSize">
+          <size>
+           <width>126</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1328,7 +1514,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1353,6 +1539,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtGD">
+         <property name="minimumSize">
+          <size>
+           <width>126</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1366,7 +1558,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1394,6 +1586,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtQTNYD">
+         <property name="minimumSize">
+          <size>
+           <width>90</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1407,7 +1605,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1417,7 +1615,7 @@
     <widget class="QGroupBox" name="groupBox_3">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>9</x>
        <y>85</y>
        <width>511</width>
        <height>55</height>
@@ -1438,6 +1636,12 @@
       <layout class="QFormLayout" name="formLayout_6">
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtQTJSYD">
+         <property name="minimumSize">
+          <size>
+           <width>78</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1451,7 +1655,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1483,6 +1687,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtCXJSYD">
+         <property name="minimumSize">
+          <size>
+           <width>78</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1496,7 +1706,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1521,6 +1731,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtJTSLYD">
+         <property name="minimumSize">
+          <size>
+           <width>78</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1534,7 +1750,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1544,7 +1760,7 @@
     <widget class="QGroupBox" name="groupBox_4">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>9</x>
        <y>144</y>
        <width>511</width>
        <height>55</height>
@@ -1572,6 +1788,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtQTWLYTD">
+         <property name="minimumSize">
+          <size>
+           <width>66</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1585,7 +1807,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1610,6 +1832,12 @@
        </item>
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtTTZZ">
+         <property name="minimumSize">
+          <size>
+           <width>102</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1623,7 +1851,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1641,6 +1869,12 @@
       <layout class="QFormLayout" name="formLayout_8">
        <item row="0" column="1">
         <widget class="QDoubleSpinBox" name="TxtSY">
+         <property name="minimumSize">
+          <size>
+           <width>126</width>
+           <height>0</height>
+          </size>
+         </property>
          <property name="wrapping">
           <bool>false</bool>
          </property>
@@ -1654,7 +1888,7 @@
           <enum>QAbstractSpinBox::NoButtons</enum>
          </property>
          <property name="maximum">
-          <double>9999.989999999999782</double>
+          <double>999999.989999999990687</double>
          </property>
         </widget>
        </item>
@@ -1730,6 +1964,9 @@
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
         </property>
+        <property name="maximum">
+         <double>9999999.990000000223517</double>
+        </property>
        </widget>
       </item>
       <item row="1" column="1">
@@ -1755,6 +1992,9 @@
         </property>
         <property name="buttonSymbols">
          <enum>QAbstractSpinBox::NoButtons</enum>
+        </property>
+        <property name="maximum">
+         <double>9999999.990000000223517</double>
         </property>
        </widget>
       </item>
@@ -2247,7 +2487,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="lblSuitFile"/>
+       <widget class="QLineEdit" name="TxtSuitFile"/>
       </item>
       <item>
        <widget class="QPushButton" name="BtnOpenSuit">
@@ -2277,7 +2517,7 @@
     <widget class="QGroupBox" name="groupBox_5">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>9</x>
        <y>49</y>
        <width>511</width>
        <height>121</height>
