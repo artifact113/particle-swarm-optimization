@@ -1180,7 +1180,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>4</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -2909,6 +2909,12 @@
      <property name="buttonSymbols">
       <enum>QAbstractSpinBox::NoButtons</enum>
      </property>
+     <property name="accelerated">
+      <bool>false</bool>
+     </property>
+     <property name="prefix">
+      <string/>
+     </property>
      <property name="maximum">
       <double>1.000000000000000</double>
      </property>
@@ -3074,11 +3080,6 @@
     </item>
    </layout>
   </widget>
-  <zorder>layoutWidget</zorder>
-  <zorder>tabWidget</zorder>
-  <zorder>layoutWidget</zorder>
-  <zorder>groupBox</zorder>
-  <zorder>line</zorder>
  </widget>
  <resources/>
  <connections>
