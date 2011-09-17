@@ -1,9 +1,12 @@
 ﻿#include "MainForm.h"
 #include "ui_MainForm.h"
+#include <string>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QTextCodec>
 #include "ogrsf_frmts.h"
+
+using namespace std;
 
 
 MainForm::MainForm(QWidget *parent) :
@@ -91,9 +94,7 @@ void MainForm::UpdateInfo(const QString & path)
 {
 
 	OGRRegisterAll();		// OGRRegisterAll()注册OGR支持格式的驱动器，这样可以访问OGR支持格式的文件
-
     OGRDataSource* poDS;	// OGRDataSource类代表数据源，一个数据源可以是一个或多个文件，也可以数据库
-
 
 	QByteArray byte = path.toUtf8();
 	const char* strPath = byte.data();
@@ -105,25 +106,14 @@ void MainForm::UpdateInfo(const QString & path)
 	}
 
 	OGRLayer  *poLayer;				// OGRLayer类表示数据源里的图层
-
     poLayer = poDS->GetLayer(0);	// 获取shapefile里的图层
-
 	ui->SpinTotalPolygon->setValue(poLayer->GetFeatureCount());
 
 
+	string layerName(poLayer->GetName()); 
+	string strSQL = "SELECT SUM(SHAPE_Area) FROM " + layerName;
+	OGRLayer  *resultLayer = poDS->ExecuteSQL(strSQL.c_str(),NULL,NULL);
 
-
-    OGRFeature *poFeature;			// OGRFeature类表示图层里的要素 
-
-	OGRFeatureDefn *poFDefn = poLayer->GetLayerDefn();	//OGRFeatureDefn类包含要素的类型信息
-
-	OGRFieldDefn *poFieldDefn;		//OGRFieldDefn类包含一个属性字段的类型信息
+	ui->SpinTotalArea->setValue(resultLayer->GetFeature(0)->GetFieldAsDouble(0)/666.67);
 	
-	int iField;                                                         /*属性字段的索引，要素通过该索引可以获取对应字段的值，要素类通过该索引可以获取对应字段的类型信息。
-	                                                                      同一个索引所获取的字段值与字段类型是一致的*/
-	OGRGeometry *poGeometry;                                            //OGRGeometry类表示要素的几何对象，封装了要素的几何数据
-
-
-    poLayer->ResetReading();                                            //重置数据读取
-
 }
