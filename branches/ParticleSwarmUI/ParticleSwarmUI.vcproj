@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="ParticleSwarmUI"
 	ProjectGUID="{49CC4E57-BD47-4D6D-8D09-707BAAE31DC6}"
+	RootNamespace="ParticleSwarmUI"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -400,6 +401,18 @@
 			</File>
 			<File
 				RelativePath=".\Tools.h"
+				>
+			</File>
+		</Filter>
+		<Filter
+			Name="Spatial PSO"
+			>
+			<File
+				RelativePath=".\Polygon.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Polygon.h"
 				>
 			</File>
 		</Filter>
