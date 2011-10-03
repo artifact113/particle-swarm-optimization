@@ -115,5 +115,6 @@ void MainForm::UpdateInfo(const QString & path)
 	OGRLayer  *resultLayer = poDS->ExecuteSQL(strSQL.c_str(),NULL,NULL);
 
 	ui->SpinTotalArea->setValue(resultLayer->GetFeature(0)->GetFieldAsDouble(0)/666.67);
+
 	
 }
