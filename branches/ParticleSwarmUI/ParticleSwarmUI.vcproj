@@ -167,6 +167,10 @@
 				RelativePath=".\Plugin.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Polygon.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
