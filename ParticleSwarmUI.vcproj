@@ -408,10 +408,6 @@
 			Name="Spatial PSO"
 			>
 			<File
-				RelativePath=".\Polygon.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Polygon.h"
 				>
 			</File>
