@@ -168,16 +168,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Polygon.cpp"
-				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Header Files"
-			Filter="h"
-			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
-			>
-			<File
 				RelativePath=".\Plugin.h"
 				>
 				<FileConfiguration
@@ -411,6 +401,10 @@
 		<Filter
 			Name="Spatial PSO"
 			>
+			<File
+				RelativePath=".\Polygon.cpp"
+				>
+			</File>
 			<File
 				RelativePath=".\Polygon.h"
 				>
