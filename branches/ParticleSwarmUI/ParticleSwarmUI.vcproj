@@ -409,6 +409,14 @@
 				RelativePath=".\Polygon.h"
 				>
 			</File>
+			<File
+				RelativePath=".\ShapefileOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ShapefileOperator.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
