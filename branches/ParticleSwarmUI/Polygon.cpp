@@ -1,5 +1,5 @@
 ﻿#include "Polygon.h"
 #include <vector>
-#include <ogr_geometry>
+#include "ogrsf_frmts.h"
 
 using namespace std;

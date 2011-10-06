@@ -2,7 +2,7 @@
 #define POLYGON_H
 
 #include <vector>
-#include <ogr_geometry>
+#include "ogrsf_frmts.h"
 
 using namespace std;
 
@@ -25,7 +25,7 @@ class LandUsePolygon
 
 	/*****************************************************************/
 	LandUsePolygon();		// 构造函数
-	~LandUsePloygon();		// 析构函数
+	~LandUsePolygon();		// 析构函数
 
 };
 
@@ -85,8 +85,8 @@ class LayerAssessor
 	double TotalScore();		// 总得分
 
 	/****************************************************************/
-	LandUseLayer();				// 构造函数
-	~LandUseLayer();			// 析构函数
+	LayerAssessor();			// 构造函数
+	~LayerAssessor();			// 析构函数
 
 };
 
