@@ -38,7 +38,7 @@ class LandUseLayer
 	vector<LandUsePolygon*> Polygons;	// 土地利用图斑集合
 	double TotalArea();					// 总面积
 
-	/*****************************************************************/
+	/****************************************************************/
 	vector<double> AvgBenefits;			// 各类土地类型效益，元/亩
 	double TotalBenefit();				// 土地总收益
 
