@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class LandUseLayer;
+
 
 // 土地利用图斑
 class LandUsePolygon
@@ -16,6 +18,7 @@ class LandUsePolygon
 	double Area;			// 面积
 	int OldUseCode;			// 原土地利用类型代码
 	int NewUseCode;			// 新土地利用类型代码
+	LandUseLayer* Layer;	// 所属图层
 
 	/*****************************************************************/
 	double Benefit();		// 土地效益
