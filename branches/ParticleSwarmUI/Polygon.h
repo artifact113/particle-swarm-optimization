@@ -11,8 +11,8 @@ using namespace std;
 class LandUsePolygon
 {
 	/*****************************************************************/
-	int ID;					// 唯一标识码
-	OGRPolygon Shape;		// 图形
+	long ID;				// 唯一标识码
+	OGRPolygon* Shape;		// 图形
 	double Area;			// 面积
 	int OldUseCode;			// 原土地利用类型代码
 	int NewUseCode;			// 新土地利用类型代码
@@ -24,7 +24,8 @@ class LandUsePolygon
 	double Compactness();	// 空间紧凑度
 
 	/*****************************************************************/
-	LandUsePolygon();		// 构造函数
+	// 构造函数
+	LandUsePolygon(long id, double area, int oldUseCode);
 	~LandUsePolygon();		// 析构函数
 
 };
@@ -54,8 +55,9 @@ class LandUseLayer
 	/****************************************************************/
 	double TotalCompactness();			// 土地紧凑度总得分
 
-	/*****************************************************************/
-	LandUseLayer();						// 构造函数
+	/****************************************************************/
+	// 构造函数
+	LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons);	
 	~LandUseLayer();					// 析构函数
 
 };
@@ -63,7 +65,7 @@ class LandUseLayer
 
 class LayerAssessor
 {
-	LandUseLayer* layer;		// 土地利用图层
+	LandUseLayer* Layer;		// 土地利用图层
 
 	/****************************************************************/
 	double BenefitScore();		// 效益得分
@@ -85,8 +87,8 @@ class LayerAssessor
 	double TotalScore();		// 总得分
 
 	/****************************************************************/
-	LayerAssessor();			// 构造函数
-	~LayerAssessor();			// 析构函数
+	LayerAssessor(LandUseLayer* layer);	// 构造函数
+	~LayerAssessor();					// 析构函数
 
 };
 
