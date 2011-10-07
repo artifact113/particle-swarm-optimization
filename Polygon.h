@@ -17,7 +17,7 @@ public:
 	long ID;				// 唯一标识码
 	OGRPolygon* Shape;		// 图形
 	double Area;			// 面积
-	int UseCodeNum;						// 土地利用类型数
+	int UseCodeNum;			// 土地利用类型数
 	int OldUseCode;			// 原土地利用类型代码
 	int NewUseCode;			// 新土地利用类型代码
 	LandUseLayer* Layer;	// 所属图层
@@ -92,7 +92,8 @@ public:
 	double TotalScore();		// 总得分
 
 	/****************************************************************/
-	LayerAssessor(LandUseLayer* layer);	// 构造函数
+	// 构造函数
+	LayerAssessor(LandUseLayer *layer, double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight);
 	~LayerAssessor();					// 析构函数
 
 };
