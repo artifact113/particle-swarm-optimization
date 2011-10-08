@@ -41,6 +41,7 @@ class LandUseLayer
 public:
 	int UseCodeNum;						// 土地利用类型数
 	vector<LandUsePolygon*> Polygons;	// 土地利用图斑集合
+	int PolygonsCount();				// 图斑个数
 	double TotalArea();					// 总面积
 
 	/****************************************************************/
@@ -52,7 +53,7 @@ public:
 	double TotalChangeCost();			// 土地变更总花费
 
 	/****************************************************************/
-	vector<int> AvgSuitabilities;		// 每块图斑的用地类型适宜性
+	vector<double> AvgSuitabilities;	// 每块图斑的用地类型适宜性
 	double TotalSuitability();			// 土地适宜性总得分
 
 
