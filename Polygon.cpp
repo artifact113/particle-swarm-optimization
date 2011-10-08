@@ -1,16 +1,16 @@
 ﻿#include "Polygon.h"
 #include <vector>
+#include <algorithm>
 #include "ogrsf_frmts.h"
 
 using namespace std;
 
 
 /*********************************LandUsePolygon****************************/
-LandUsePolygon::LandUsePolygon(long id, double area, int useCodeNum, int oldUseCode, LandUseLayer* layer)
+LandUsePolygon::LandUsePolygon(long id, double area, int oldUseCode, LandUseLayer* layer)
 {
 	ID = id;
 	Area = area;
-	UseCodeNum = useCodeNum;
 	OldUseCode = oldUseCode;
 	NewUseCode = oldUseCode;
 	Layer = layer;
@@ -34,7 +34,7 @@ double LandUsePolygon::Benefit()
 
 double LandUsePolygon::ChangeCost()
 {
-	double result = Area * Layer->AvgChangeCosts.at(OldUseCode + NewUseCode * UseCodeNum);
+	double result = Area * Layer->AvgChangeCosts.at(NewUseCode + OldUseCode * Layer->UseCodeNum);
 	return result;
 
 }
@@ -42,15 +42,10 @@ double LandUsePolygon::ChangeCost()
 
 double LandUsePolygon::Suitability()
 {
-	double result = 0;
-	for (int i=0; i != UseCodeNum; ++i)
-	{
-		double value = Layer->AvgSuitabilities.at(ID * UseCodeNum + i);
-		if ( value > result)
-		{
-			result = value;
-		}
-	}
+	vector<int>::iterator iter = AvgSuitabilities.begin();
+	vector<int>::iterator iterFirst = iter + ID * Layer->UseCodeNum;
+	vector<int>::iterator iterLast = iter + (ID +1) * Layer->UseCodeNum - 1;
+	int result = max_element(iterFirst,iterLast);
 	return result;
 }
 
@@ -65,8 +60,9 @@ double LandUsePolygon::Compactness()
 
 
 /*********************************LandUseLayer******************************/
-LandUseLayer::LandUseLayer(std::vector<LandUsePolygon*> polygons)
+LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons)
 {
+	UseCodeNum = useCodeNum;
 	Polygons = polygons;
 }
 
@@ -155,5 +151,8 @@ LayerAssessor::~LayerAssessor()
 {
 
 }
+
+
+
 
 
