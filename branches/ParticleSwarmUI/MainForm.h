@@ -20,6 +20,7 @@ public slots:
 	void ChangeWeight();		///	计算权重值;
 	void OpenFile();			///	打开文件;
 	void UpdateInfo(const QString &);			/// 更新文件相关信息;
+	void StartPSO();			/// 开始PSO计算
 
 
 

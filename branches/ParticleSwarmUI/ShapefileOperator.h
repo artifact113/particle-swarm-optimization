@@ -26,7 +26,6 @@ public:
 	/****************************************************************/
 	ShapefileReader(string fileName);			// 构造函数
 	~ShapefileReader();							// 析构函数
-
 };
 
 class ShapefileWriter
