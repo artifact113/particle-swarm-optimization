@@ -36,6 +36,9 @@ MainForm::MainForm(QWidget *parent) :
 
 	/// 更新文件相关信息
 	connect(ui->TxtPath,SIGNAL(textChanged(const QString &)),this,SLOT(UpdateInfo(const QString &)));
+
+	/// 开始PSO计算
+	connect(ui->BtnExecute,SIGNAL(clicked()),this,SLOT(StartPSO()));
 }
 
 
@@ -117,4 +120,11 @@ void MainForm::UpdateInfo(const QString & path)
 	ui->SpinTotalArea->setValue(resultLayer->GetFeature(0)->GetFieldAsDouble(0)/666.67);
 
 	
+}
+
+
+void MainForm::StartPSO()
+{
+
+
 }
