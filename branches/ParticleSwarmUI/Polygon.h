@@ -17,7 +17,6 @@ public:
 	long ID;				// 唯一标识码
 	OGRPolygon* Shape;		// 图形
 	double Area;			// 面积
-	int UseCodeNum;			// 土地利用类型数
 	int OldUseCode;			// 原土地利用类型代码
 	int NewUseCode;			// 新土地利用类型代码
 	LandUseLayer* Layer;	// 所属图层
@@ -30,7 +29,7 @@ public:
 
 	/*****************************************************************/
 	// 构造函数
-	LandUsePolygon(long id, double area, int useCodeNum, int oldUseCode, LandUseLayer* layer);
+	LandUsePolygon(long id, double area, int oldUseCode, LandUseLayer* layer);
 	~LandUsePolygon();		// 析构函数
 
 };
@@ -40,6 +39,7 @@ public:
 class LandUseLayer
 {
 public:
+	int UseCodeNum;						// 土地利用类型数
 	vector<LandUsePolygon*> Polygons;	// 土地利用图斑集合
 	double TotalArea();					// 总面积
 
@@ -61,7 +61,7 @@ public:
 
 	/****************************************************************/
 	// 构造函数
-	LandUseLayer(vector<LandUsePolygon*> polygons);	
+	LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons);	
 	~LandUseLayer();					// 析构函数
 
 };
