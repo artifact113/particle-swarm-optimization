@@ -12,24 +12,24 @@ class LandUseLayer;
 // 土地利用图斑
 class LandUsePolygon
 {
+private:
+	int _id;
+	OGRPolygon* _polygon;
+	double _area;
+	int _landUseCode;
+	LandUseLayer* _layer;
+
 public:
 	/*****************************************************************/
-	long ID;				// 唯一标识码
-	OGRPolygon* Shape;		// 图形
-	double Area;			// 面积
-	int OldUseCode;			// 原土地利用类型代码
-	int NewUseCode;			// 新土地利用类型代码
-	LandUseLayer* Layer;	// 所属图层
-
-	/*****************************************************************/
-	double Benefit();		// 土地效益
-	double ChangeCost();	// 土地变更花费
-	double Suitability();	// 土地适宜性
-	double Compactness();	// 空间紧凑度
+	int ID();				// 唯一标识码
+	OGRPolygon* Shape();	// 图形
+	double Area();			// 面积
+	int LandUseCode();		// 原土地利用类型代码
+	LandUseLayer* Layer();	// 所属图层
 
 	/*****************************************************************/
 	// 构造函数
-	LandUsePolygon(long id, double area, int oldUseCode, LandUseLayer* layer);
+	LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode, LandUseLayer* layer);
 	~LandUsePolygon();		// 析构函数
 
 };
@@ -38,14 +38,45 @@ public:
 // 土地利用图层
 class LandUseLayer
 {
+private:
+	int _useCodeNum;					
+	vector<LandUsePolygon*> _polygons;
+
+	int _polygonsCount;					
+	double _totalArea;
+	double _maxBenefit;
+	double _minBenefit;
+	double _maxChangeCost;
+	double _minChangeCost;
+	double _maxSuitability;
+	double _minSuitability;
+	double _maxCompactness;
+	double _minCompactness;
+
+	/****************************************************************/
+	int CalPolygonsCount();				
+	double CalTotalArea();
+	double CalMaxBenefit();
+	double CalMinBenefit();
+	double CalMaxChangeCost();
+	double CalMinChangeCost();
+	double CalMaxSuitability();
+	double CalMinSuitability();
+	double CalMaxCompactness();
+	double CalMinCompactness();
+
+
+
 public:
-	int UseCodeNum;						// 土地利用类型数
+	int UseCodeNum();					// 土地利用代码类型个数
 	vector<LandUsePolygon*> Polygons;	// 土地利用图斑集合
 	int PolygonsCount();				// 图斑个数
 	double TotalArea();					// 总面积
 
 	/****************************************************************/
 	vector<double> AvgBenefits;			// 各类土地类型效益，元/亩
+	double MaxBenefit();
+	double MinBenefit();
 	double TotalBenefit();				// 土地总收益
 
 	/****************************************************************/
@@ -68,10 +99,12 @@ public:
 };
 
 
+// 图层评价
 class LayerAssessor
 {
 public:
 	LandUseLayer* Layer;		// 土地利用图层
+	vector<int> NewUseCodes		// 新土地利用类型代码
 
 	/****************************************************************/
 	double BenefitScore();		// 效益得分
@@ -95,7 +128,7 @@ public:
 	/****************************************************************/
 	// 构造函数
 	LayerAssessor(LandUseLayer *layer, double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight);
-	~LayerAssessor();					// 析构函数
+	~LayerAssessor();			// 析构函数
 
 };
 

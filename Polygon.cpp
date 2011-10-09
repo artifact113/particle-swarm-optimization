@@ -7,13 +7,13 @@ using namespace std;
 
 
 /*********************************LandUsePolygon****************************/
-LandUsePolygon::LandUsePolygon(long id, double area, int oldUseCode, LandUseLayer* layer)
+LandUsePolygon::LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode, LandUseLayer* layer)
 {
-	ID = id;
-	Area = area;
-	OldUseCode = oldUseCode;
-	NewUseCode = oldUseCode;
-	Layer = layer;
+	_id = id;
+	_polygon = polygon;
+	_area = area;
+	_landUseCode = landUseCode;
+	_layer = layer;
 }
 
 
@@ -23,6 +23,10 @@ LandUsePolygon::~LandUsePolygon()
 
 
 }
+
+
+
+
 
 
 double LandUsePolygon::Benefit()
@@ -43,8 +47,8 @@ double LandUsePolygon::ChangeCost()
 double LandUsePolygon::Suitability()
 {
 	vector<double>::iterator iter =  Layer->AvgSuitabilities.begin();
-	vector<double>::iterator iterFirst = iter + ID * Layer->UseCodeNum;
-	vector<double>::iterator iterLast = iter + (ID +1) * Layer->UseCodeNum;
+	vector<double>::iterator iterFirst = iter + (ID-1) * Layer->UseCodeNum;
+	vector<double>::iterator iterLast = iter + ID * Layer->UseCodeNum;
 	double result = *max_element(iterFirst,iterLast);
 	return result;
 }
