@@ -22,7 +22,7 @@ private:
 public:
 	/*****************************************************************/
 	int ID();				// 唯一标识码
-	OGRPolygon* Shape();	// 图形
+	OGRPolygon* Polygon();	// 图形
 	double Area();			// 面积
 	int LandUseCode();		// 原土地利用类型代码
 	LandUseLayer* Layer();	// 所属图层
@@ -65,18 +65,24 @@ private:
 	double CalMaxCompactness();
 	double CalMinCompactness();
 
-
-
 public:
 	int UseCodeNum();					// 土地利用代码类型个数
-	vector<LandUsePolygon*> Polygons;	// 土地利用图斑集合
+	vector<LandUsePolygon*>& Polygons();// 土地利用图斑集合
+
 	int PolygonsCount();				// 图斑个数
 	double TotalArea();					// 总面积
+	double MaxBenefit();				// 最大效益
+	double MinBenefit();				// 最小效益
+	double MaxChangeCost();				// 最大变更费用
+	double MinChangeCost();				// 最小变更费用
+	double MaxSuitability();			// 最大适宜度
+	double MinSuitability();			// 最小适宜度
+	double MaxCompactness();			// 最大紧凑度
+	double MinCompactness();			// 最小紧凑度
+
 
 	/****************************************************************/
 	vector<double> AvgBenefits;			// 各类土地类型效益，元/亩
-	double MaxBenefit();
-	double MinBenefit();
 	double TotalBenefit();				// 土地总收益
 
 	/****************************************************************/
