@@ -42,8 +42,9 @@ private:
 	int _useCodeNum;					
 	vector<LandUsePolygon*> _polygons;
 
-	int _polygonsCount;					
-	double _totalArea;
+	int _polygonsCount;
+	vector<double> _useAreas;
+	double _totalArea;	
 
 	vector<double> _avgBenefits;	
 	double _maxBenefit;
@@ -57,11 +58,13 @@ private:
 	double _maxSuitability;
 	double _minSuitability;
 
+	vector<vector<int>> _avgCompactnesses;
 	double _maxCompactness;
 	double _minCompactness;
 
 	/****************************************************************/
-	int CalPolygonsCount();				
+	int CalPolygonsCount();
+	vector<double> CalUseAreas();
 	double CalTotalArea();
 	double CalMaxBenefit();
 	double CalMinBenefit();
@@ -77,24 +80,29 @@ public:
 	vector<LandUsePolygon*> &Polygons();					// 土地利用图斑集合
 
 	int PolygonsCount();									// 图斑个数
+	vector<double> &UseAreas();								// 分类统计各地类面积
 	double TotalArea();										// 总面积
 
 	/**************************************************************************************/
-	void AvgBenefits(vector<double> &avgBenefits);			// 各类土地类型效益，元/亩
+	void SetAvgBenefits(vector<double> &avgBenefits);		// 各类土地类型效益，元/亩
+	vector<double> &GetAvgBenefits();
 	double MaxBenefit();									// 最大效益
 	double MinBenefit();									// 最小效益
 
 	/**************************************************************************************/
-	void AvgChangeCosts(vector<double> &avgChangeCosts);	// 各类土地变更花费，元/亩
+	void SetAvgChangeCosts(vector<double> &avgChangeCosts);	// 各类土地变更花费，元/亩
+	vector<double> &GetChangeCosts();
 	double MaxChangeCost();									// 最大变更费用
 	double MinChangeCost();									// 最小变更费用
 
 	/**************************************************************************************/
-	void AvgSuitabilities(vector<double> &avgSuitabilities);// 每块图斑的用地类型适宜性
+	void SetAvgSuitabilities(vector<double> &avgSuitabilities);// 每块图斑的用地类型适宜性
+	vector<double> &GetSuitabilities();
 	double MaxSuitability();								// 最大适宜度
 	double MinSuitability();								// 最小适宜度
 
 	/**************************************************************************************/
+	vector<vector<int>> &GetAvgCompactnesses();				// 图斑空间邻接表
 	double MaxCompactness();								// 最大紧凑度
 	double MinCompactness();								// 最小紧凑度
 
