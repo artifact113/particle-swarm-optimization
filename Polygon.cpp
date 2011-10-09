@@ -20,14 +20,37 @@ LandUsePolygon::LandUsePolygon(int id, OGRPolygon* polygon,double area, int land
 LandUsePolygon::~LandUsePolygon()
 {
 
-
-
 }
 
 
+inline int LandUsePolygon::ID()
+{
+	return _id;
+}
 
 
+inline OGRPolygon* LandUsePolygon::Polygon()
+{
+	return _polygon;
+}
 
+
+inline double LandUsePolygon::Area()
+{
+	return _area;
+}
+
+
+inline int LandUsePolygon::LandUseCode()
+{
+	return _landUseCode;
+}
+
+
+inline LandUseLayer* LandUsePolygon::Layer()
+{
+	return _layer;
+}
 
 double LandUsePolygon::Benefit()
 {
