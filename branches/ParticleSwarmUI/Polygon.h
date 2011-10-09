@@ -72,6 +72,7 @@ private:
 	double CalMinChangeCost();
 	double CalMaxSuitability();
 	double CalMinSuitability();
+	vector<vector<int>> CalAvgCompactnesses(); 
 	double CalMaxCompactness();
 	double CalMinCompactness();
 
