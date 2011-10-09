@@ -44,12 +44,19 @@ private:
 
 	int _polygonsCount;					
 	double _totalArea;
+
+	vector<double> _avgBenefits;	
 	double _maxBenefit;
 	double _minBenefit;
+
+	vector<double> _avgChangeCosts;
 	double _maxChangeCost;
 	double _minChangeCost;
+
+	vector<double> _avgSuitabilities;
 	double _maxSuitability;
 	double _minSuitability;
+
 	double _maxCompactness;
 	double _minCompactness;
 
@@ -66,38 +73,33 @@ private:
 	double CalMinCompactness();
 
 public:
-	int UseCodeNum();					// 土地利用代码类型个数
-	vector<LandUsePolygon*>& Polygons();// 土地利用图斑集合
+	int UseCodeNum();										// 土地利用代码类型个数
+	vector<LandUsePolygon*> &Polygons();					// 土地利用图斑集合
 
-	int PolygonsCount();				// 图斑个数
-	double TotalArea();					// 总面积
-	double MaxBenefit();				// 最大效益
-	double MinBenefit();				// 最小效益
-	double MaxChangeCost();				// 最大变更费用
-	double MinChangeCost();				// 最小变更费用
-	double MaxSuitability();			// 最大适宜度
-	double MinSuitability();			// 最小适宜度
-	double MaxCompactness();			// 最大紧凑度
-	double MinCompactness();			// 最小紧凑度
+	int PolygonsCount();									// 图斑个数
+	double TotalArea();										// 总面积
 
+	/**************************************************************************************/
+	void AvgBenefits(vector<double> &avgBenefits);			// 各类土地类型效益，元/亩
+	double MaxBenefit();									// 最大效益
+	double MinBenefit();									// 最小效益
 
-	/****************************************************************/
-	vector<double> AvgBenefits;			// 各类土地类型效益，元/亩
-	double TotalBenefit();				// 土地总收益
+	/**************************************************************************************/
+	void AvgChangeCosts(vector<double> &avgChangeCosts);	// 各类土地变更花费，元/亩
+	double MaxChangeCost();									// 最大变更费用
+	double MinChangeCost();									// 最小变更费用
 
-	/****************************************************************/
-	vector<double> AvgChangeCosts;		// 各类土地变更花费，元/亩
-	double TotalChangeCost();			// 土地变更总花费
+	/**************************************************************************************/
+	void AvgSuitabilities(vector<double> &avgSuitabilities);// 每块图斑的用地类型适宜性
+	double MaxSuitability();								// 最大适宜度
+	double MinSuitability();								// 最小适宜度
 
-	/****************************************************************/
-	vector<double> AvgSuitabilities;	// 每块图斑的用地类型适宜性
-	double TotalSuitability();			// 土地适宜性总得分
+	/**************************************************************************************/
+	double MaxCompactness();								// 最大紧凑度
+	double MinCompactness();								// 最小紧凑度
 
 
-	/****************************************************************/
-	double TotalCompactness();			// 土地紧凑度总得分
-
-	/****************************************************************/
+	/**************************************************************************************/
 	// 构造函数
 	LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons);	
 	~LandUseLayer();					// 析构函数
