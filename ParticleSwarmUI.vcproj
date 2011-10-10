@@ -362,19 +362,11 @@
 				>
 			</File>
 			<File
-				RelativePath=".\Particle.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\ParticleSwarm.cpp"
+				RelativePath=".\PSO.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\PSO.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Random.cpp"
 				>
 			</File>
 			<File
@@ -391,6 +383,10 @@
 			</File>
 			<File
 				RelativePath=".\SphereFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Tools.cpp"
 				>
 			</File>
 			<File
