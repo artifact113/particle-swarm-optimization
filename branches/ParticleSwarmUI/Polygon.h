@@ -17,7 +17,6 @@ private:
 	OGRPolygon* _polygon;
 	double _area;
 	int _landUseCode;
-	LandUseLayer* _layer;
 
 public:
 	/*****************************************************************/
@@ -25,11 +24,11 @@ public:
 	OGRPolygon* Polygon();	// 图形
 	double Area();			// 面积
 	int LandUseCode();		// 原土地利用类型代码
-	LandUseLayer* Layer();	// 所属图层
+	LandUseLayer* Layer;	// 所属图层
 
 	/*****************************************************************/
 	// 构造函数
-	LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode, LandUseLayer* layer);
+	LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode);
 	~LandUsePolygon();		// 析构函数
 
 };
