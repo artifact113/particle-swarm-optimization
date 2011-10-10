@@ -92,13 +92,13 @@ public:
 
 	/**************************************************************************************/
 	void SetAvgChangeCosts(vector<double> &avgChangeCosts);	// 各类土地变更花费，元/亩
-	vector<double> &GetChangeCosts();
+	vector<double> &GetAvgChangeCosts();
 	double MaxChangeCost();									// 最大变更费用
 	double MinChangeCost();									// 最小变更费用
 
 	/**************************************************************************************/
 	void SetAvgSuitabilities(vector<double> &avgSuitabilities);// 每块图斑的用地类型适宜性
-	vector<double> &GetSuitabilities();
+	vector<double> &GetAvgSuitabilities();
 	double MaxSuitability();								// 最大适宜度
 	double MinSuitability();								// 最小适宜度
 
@@ -123,7 +123,7 @@ private:
 	LandUseLayer* Layer;		// 土地利用图层
 
 public:	
-	vector<int> NewUseCodes		// 新土地利用类型代码
+	vector<int> NewUseCodes;	// 新土地利用类型代码
 
 	/****************************************************************/
 	double TotalBenefit();		// 总效益
@@ -150,7 +150,8 @@ public:
 
 	/****************************************************************/
 	// 构造函数
-	LayerAssessor(LandUseLayer *layer, double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight);
+	LayerAssessor(LandUseLayer *layer);
+	LayerAssessor(LandUseLayer *layer, vector<int> &newUseCodes,double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight);
 	~LayerAssessor();			// 析构函数
 
 };
