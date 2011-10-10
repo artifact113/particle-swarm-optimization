@@ -64,21 +64,21 @@ LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons)
 	_useAreas = CalUseAreas();
 	_totalArea = CalTotalArea();
 
-	_avgBenefits(_useCodeNum,0);
+	_avgBenefits.assign(_useCodeNum,0);
 	_maxBenefit = 0;
 	_minBenefit = 0;
 
-	_avgChangeCosts(_useCodeNum * _useCodeNum, 0);
+	_avgChangeCosts.assign(_useCodeNum * _useCodeNum, 0);
 	_maxChangeCost = 0;
 	_minChangeCost = 0;
 
-	_avgSuitabilities(_polygonsCount * _useCodeNum, 0);
+	_avgSuitabilities.assign(_polygonsCount * _useCodeNum, 0);
 	_maxSuitability = 0;
 	_minSuitability = 0;
 
 	_avgCompactnesses = CalAvgCompactnesses();
 	_maxCompactness = CalMaxCompactness();
-	_minCompactness = CalMinCompactness();
+	_minCompactness = 0;
 }
 
 
@@ -178,7 +178,7 @@ void LandUseLayer::SetAvgSuitabilities(vector<double> &avgSuitabilities)
 }
 
 
-inline vector<double> &LandUseLayer::GetSuitabilities()
+inline vector<double> &LandUseLayer::GetAvgSuitabilities()
 {
 	return _avgSuitabilities;
 }
@@ -235,7 +235,7 @@ vector<double> LandUseLayer::CalUseAreas()
 double LandUseLayer::CalTotalArea()
 {
 	double result = 0;
-	vector<LandUsePolygon*>::iterator iter;
+	vector<double>::iterator iter;
 	for (iter = _useAreas.begin(); iter != _useAreas.end(); ++iter)
 	{
 		result += *iter;
@@ -246,14 +246,14 @@ double LandUseLayer::CalTotalArea()
 
 double LandUseLayer::CalMaxBenefit()
 {
-	double max = max_element(_avgBenefits.begin(), _avgBenefits.end());
+	double max = *max_element(_avgBenefits.begin(), _avgBenefits.end());
 	return max * _totalArea;
 }
 
 
 double LandUseLayer::CalMinBenefit()
 {
-	double min = min_element(_avgBenefits.begin(), _avgBenefits.end());
+	double min = *min_element(_avgBenefits.begin(), _avgBenefits.end());
 	return min * _totalArea;
 }
 
@@ -266,7 +266,7 @@ double LandUseLayer::CalMaxChangeCost()
 		vector<double>::iterator iter = _avgChangeCosts.begin();
 		vector<double>::iterator iterFirst = iter + i * _useCodeNum;
 		vector<double>::iterator iterLast = iter + (i+1) * _useCodeNum;
-		maxs.at(i) = max_element(iterFirst, iterLast);
+		maxs.at(i) = *max_element(iterFirst, iterLast);
 	}
 
 	double result = 0;
@@ -292,7 +292,7 @@ double LandUseLayer::CalMaxSuitability()
 		vector<double>::iterator iter = _avgSuitabilities.begin();
 		vector<double>::iterator iterFirst = iter + i * _useCodeNum;
 		vector<double>::iterator iterLast = iter + (i+1) * _useCodeNum;
-		double max = max_element(iterFirst, iterLast);
+		double max = *max_element(iterFirst, iterLast);
 		maxs.at(i) = max;
 	}
 
@@ -314,7 +314,7 @@ double LandUseLayer::CalMinSuitability()
 		vector<double>::iterator iter = _avgSuitabilities.begin();
 		vector<double>::iterator iterFirst = iter + i * _useCodeNum;
 		vector<double>::iterator iterLast = iter + (i+1) * _useCodeNum;
-		double min = min_element(iterFirst, iterLast);
+		double min = *min_element(iterFirst, iterLast);
 		mins.at(i) = min;
 	}
 
@@ -334,10 +334,10 @@ vector<vector<int>> LandUseLayer::CalAvgCompactnesses()
 	for (int i=0; i != _polygonsCount; ++i)
 	{
 		vector<int> adjacencys;
-		OGRPolygons* polygon = _polygons.at(i)->Polygon();
+		OGRPolygon* polygon = _polygons.at(i)->Polygon();
 		for (int j=0; j != _polygonsCount; ++j)
 		{
-			OGRPolygons* other = _polygons.at(j)->Polygon();
+			OGRPolygon* other = _polygons.at(j)->Polygon();
 			if (polygon->Touches(other))
 			{
 				adjacencys.push_back(j);
@@ -358,67 +358,33 @@ double LandUseLayer::CalMaxCompactness()
 	{
 		result += (*iter).size();
 	}
-	return result;
+	return result - _polygonsCount;
 }
 
 
 double LandUseLayer::CalMinCompactness()
 {
-	return _polygonsCount;
+	return 0;
 }
 
 
-double LandUseLayer::TotalBenefit()
-{
-	double result = 0;
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Polygons.begin(); iter != Polygons.end(); ++iter)
-	{
-		result += ((*iter)->Benefit());
-	}
-	return result;
-}
-
-
-double LandUseLayer::TotalChangeCost()
-{
-	double result = 0;
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Polygons.begin(); iter != Polygons.end(); ++iter)
-	{
-		result += ((*iter)->ChangeCost());
-	}
-	return result;
-}
-
-
-double LandUseLayer::TotalSuitability()
-{
-	double result = 0;
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Polygons.begin(); iter != Polygons.end(); ++iter)
-	{
-		result += ((*iter)->Suitability());
-	}
-	return result;
-}
-
-
-double LandUseLayer::TotalCompactness()
-{
-	double result = 0;
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Polygons.begin(); iter != Polygons.end(); ++iter)
-	{
-		result += ((*iter)->Compactness());
-	}
-	return result;
-}
 
 /*********************************LayerAssessor*****************************/
-LayerAssessor::LayerAssessor(LandUseLayer *layer, double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight)
+LayerAssessor::LayerAssessor(LandUseLayer *layer)
 {
 	Layer = layer;
+	NewUseCodes.assign(Layer->PolygonsCount(),0);
+	BenefitWeight = 0;
+	ChangeCostWeight = 0;
+	SuitabilityWeight = 0;
+	CompactnessWeight = 0;
+}
+
+
+LayerAssessor::LayerAssessor(LandUseLayer *layer, vector<int> &newUseCodes,double benefitWeight, double changeCostWeight, double suitabilityWeight, double compactnessWeight)
+{
+	Layer = layer;
+	NewUseCodes.assign(newUseCodes.begin(),newUseCodes.begin() + Layer->PolygonsCount());
 	BenefitWeight = benefitWeight;
 	ChangeCostWeight = changeCostWeight;
 	SuitabilityWeight = suitabilityWeight;
@@ -432,73 +398,119 @@ LayerAssessor::~LayerAssessor()
 }
 
 
+double LayerAssessor::TotalBenefit()
+{
+	vector<double> areas(Layer->UseCodeNum(),0);
+	for (int i=0; i != NewUseCodes.size(); ++i)
+	{
+		areas.at(NewUseCodes.at(i)) += Layer->Polygons().at(i)->Area();
+	}
+
+	double result = 0;
+	for (int j=0; j != Layer->UseCodeNum(); ++j)
+	{
+		result += (areas.at(j) * Layer->GetAvgBenefits().at(j));
+	}
+	return result;
+}
+
+
 double LayerAssessor::BenefitScore()
 {
-	double maxAvgBenefits = *max_element(Layer->AvgBenefits.begin(),Layer->AvgBenefits.end());
-	double minAvgBenefits = *min_element(Layer->AvgBenefits.begin(),Layer->AvgBenefits.end());
-	double maxTotalBenefit = maxAvgBenefits * Layer->TotalArea();
-	double minTotalBenefit = minAvgBenefits * Layer->TotalArea();
-	double score = 100 * (Layer->TotalBenefit() - minTotalBenefit)/(maxTotalBenefit - minTotalBenefit);
+	double score = 100;
+	double maxTotalBenefit = Layer->MaxBenefit();
+	double minTotalBenefit = Layer->MinBenefit();
+	double diff = maxTotalBenefit - minTotalBenefit;
+	if (diff > 0)
+	{
+		score = 100 * (TotalBenefit() - minTotalBenefit) / diff;
+	}
+	
 	return score;
+}
+
+
+double LayerAssessor::TotalChangeCost()
+{
+	double result = 0;
+	for (int i=0; i != NewUseCodes.size(); ++i)
+	{
+		int newUseCode = NewUseCodes.at(i);
+		int oldUseCode = Layer->Polygons().at(i)->LandUseCode();
+		result += Layer->GetAvgChangeCosts().at(oldUseCode * Layer->UseCodeNum() + newUseCode);
+	}
+	return result;
 }
 
 
 double LayerAssessor::ChangeCostScore()
 {
-	vector<double> maxAvgChangeCosts;
-	for (int i=0; i != Layer->UseCodeNum; ++i)
+	double score = 100;
+	double maxChangeCost = Layer->MaxChangeCost();
+	double minChangeCost = Layer->MinChangeCost();
+	double diff = maxChangeCost - minChangeCost;
+	if (diff > 0)
 	{
-		vector<double>::iterator  iter = Layer->AvgChangeCosts.begin();
-		vector<double>::iterator  iterFirst = iter + i * Layer->UseCodeNum;
-		vector<double>::iterator  iterLast = iter + (i+1) * Layer->UseCodeNum;
-		maxAvgChangeCosts.push_back(*max_element(iterFirst, iterLast));
+		score = 100 * (maxChangeCost - TotalChangeCost()) / diff;
 	}
-
-	vector<double> sumLandUses(Layer->UseCodeNum, 0);
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Layer->Polygons.begin(); iter != Layer->Polygons.end(); ++iter)
-	{
-		sumLandUses.at((*iter)->OldUseCode) += (*iter)->Area;
-	}
-
-	double maxChangeCost = 0;
-	for (int j=0; j != Layer->UseCodeNum; ++j)
-	{
-		maxChangeCost += maxAvgChangeCosts.at(j) * sumLandUses.at(j);
-	}
-
-
-	double score = 100 * (maxChangeCost - Layer->TotalChangeCost()) / maxChangeCost;
 	return score;
+}
+ 
+
+double LayerAssessor::TotalSuitability()
+{
+	double result = 0;
+	for (int i=0; i != NewUseCodes.size(); ++i)
+	{
+		result += Layer->GetAvgSuitabilities().at(i * Layer->UseCodeNum() + NewUseCodes.at(i));
+	}
+	return result;
 }
 
 
 double LayerAssessor::SuitabilityScore()
 {
-	double maxAvgSuitability = 0;
-	double minAvgSuitability = 0;
-
-	vector<double>::iterator iter = Layer->AvgSuitabilities.begin();
-	for (int i=0; i != Layer->PolygonsCount(); ++i)
+	double score = 100;
+	double maxSuitability = Layer->MaxSuitability();
+	double minSuitability = Layer->MinSuitability();
+	double diff = maxSuitability - minSuitability;
+	if (diff > 0)
 	{
-		vector<double>::iterator iterFirst = iter + i * Layer->UseCodeNum;
-		vector<double>::iterator iterLast = iter + (i+1) * Layer->UseCodeNum;
-		double max = *max_element(iterFirst, iterLast);
-		double min = *min_element(iterFirst, iterLast);
-
-		maxAvgSuitability += max;
-		minAvgSuitability += min;
+		score = 100 * (TotalSuitability() - minSuitability) / diff;
 	}
-
-	double score = 100 * (Layer->TotalSuitability() - minAvgSuitability) / (maxAvgSuitability - minAvgSuitability);
 	return score;	
+}
+
+
+double LayerAssessor::TotalCompactness()
+{
+	int result = 0;
+	for (int i=0; i != NewUseCodes.size(); ++i)
+	{
+		int useCode = NewUseCodes.at(i);
+		for (int j=0; j != Layer->GetAvgCompactnesses().at(i).size(); ++j)
+		{
+			int other = NewUseCodes.at(Layer->GetAvgCompactnesses().at(i).at(j));
+			if (useCode != other)
+			{
+				++result;
+			}
+		}
+	}
+	return (double)result;
 }
 
 
 double LayerAssessor::CompactnessScore()
 {
-	double maxCompactness = 100;
-	double score = 100 * (maxCompactness - Layer->TotalCompactness())/ maxCompactness;
+	double score = 100;
+	double maxCompactness = Layer->MaxCompactness();
+	double minCompactness = Layer->MinCompactness();
+	double diff = maxCompactness - minCompactness;
+	if (diff > 0)
+	{
+		score = 100 * (maxCompactness - TotalCompactness())/ maxCompactness;
+	}
 	return score;
 }
 
