@@ -7,13 +7,12 @@ using namespace std;
 
 
 /*********************************LandUsePolygon****************************/
-LandUsePolygon::LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode, LandUseLayer* layer)
+LandUsePolygon::LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode)
 {
 	_id = id;
 	_polygon = polygon;
 	_area = area;
 	_landUseCode = landUseCode;
-	_layer = layer;
 }
 
 
@@ -44,12 +43,6 @@ inline double LandUsePolygon::Area()
 inline int LandUsePolygon::LandUseCode()
 {
 	return _landUseCode;
-}
-
-
-inline LandUseLayer* LandUsePolygon::Layer()
-{
-	return _layer;
 }
 
 
