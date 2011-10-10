@@ -119,23 +119,29 @@ public:
 // 图层评价
 class LayerAssessor
 {
-public:
+private:
 	LandUseLayer* Layer;		// 土地利用图层
+
+public:	
 	vector<int> NewUseCodes		// 新土地利用类型代码
 
 	/****************************************************************/
+	double TotalBenefit();		// 总效益
 	double BenefitScore();		// 效益得分
 	double BenefitWeight;		// 效益权重
 
 	/****************************************************************/
+	double TotalChangeCost();	// 总变更费用
 	double ChangeCostScore();	// 变更花费得分
 	double ChangeCostWeight;	// 变更花费权重
 
 	/****************************************************************/
+	double TotalSuitability();	// 总适宜性
 	double SuitabilityScore();	// 适宜性得分
 	double SuitabilityWeight;	// 适宜性权重
 
 	/****************************************************************/
+	double TotalCompactness();	// 总紧凑度
 	double CompactnessScore();	// 空间紧凑度得分
 	double CompactnessWeight;	// 空间紧凑度权重
 

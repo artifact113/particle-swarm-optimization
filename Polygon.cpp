@@ -60,16 +60,31 @@ LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons)
 	_useCodeNum = useCodeNum;
 	_polygons = polygons;
 
+	_polygonsCount = CalPolygonsCount();
+	_useAreas = CalUseAreas();
+	_totalArea = CalTotalArea();
+
+	_avgBenefits(_useCodeNum,0);
+	_maxBenefit = 0;
+	_minBenefit = 0;
+
+	_avgChangeCosts(_useCodeNum * _useCodeNum, 0);
+	_maxChangeCost = 0;
+	_minChangeCost = 0;
+
+	_avgSuitabilities(_polygonsCount * _useCodeNum, 0);
+	_maxSuitability = 0;
+	_minSuitability = 0;
+
+	_avgCompactnesses = CalAvgCompactnesses();
+	_maxCompactness = CalMaxCompactness();
+	_minCompactness = CalMinCompactness();
 }
 
 
 LandUseLayer::~LandUseLayer()
 {
-	vector<LandUsePolygon*>::iterator iter;
-	for (iter = Polygons.begin(); iter != Polygons.end(); ++iter)
-	{
-		delete *iter;
-	}
+
 }
 
 
@@ -178,6 +193,12 @@ inline double LandUseLayer::MaxSuitability()
 inline double LandUseLayer::MinSuitability()
 {
 	return _minSuitability;
+}
+
+
+inline vector<vector<int>> &LandUseLayer::GetAvgCompactnesses()
+{
+	return _avgCompactnesses;
 }
 
 
@@ -307,6 +328,28 @@ double LandUseLayer::CalMinSuitability()
 }
 
 
+vector<vector<int>> LandUseLayer::CalAvgCompactnesses()
+{
+	vector<vector<int>> results;
+	for (int i=0; i != _polygonsCount; ++i)
+	{
+		vector<int> adjacencys;
+		OGRPolygons* polygon = _polygons.at(i)->Polygon();
+		for (int j=0; j != _polygonsCount; ++j)
+		{
+			OGRPolygons* other = _polygons.at(j)->Polygon();
+			if (polygon->Touches(other))
+			{
+				adjacencys.push_back(j);
+			}
+		}
+
+		results.push_back(adjacencys);
+	}
+	return results;
+}
+
+
 double LandUseLayer::CalMaxCompactness()
 {
 	double result = 0;
@@ -321,7 +364,7 @@ double LandUseLayer::CalMaxCompactness()
 
 double LandUseLayer::CalMinCompactness()
 {
-	return 0;
+	return _polygonsCount;
 }
 
 
