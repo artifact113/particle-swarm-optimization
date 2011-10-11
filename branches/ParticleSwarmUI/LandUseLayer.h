@@ -14,21 +14,19 @@ class LandUsePolygon
 {
 private:
 	int _id;
-	OGRPolygon* _polygon;
 	double _area;
 	int _landUseCode;
 
 public:
 	/*****************************************************************/
 	int ID();				// 唯一标识码
-	OGRPolygon* Polygon();	// 图形
 	double Area();			// 面积
 	int LandUseCode();		// 原土地利用类型代码
 	LandUseLayer* Layer;	// 所属图层
 
 	/*****************************************************************/
 	// 构造函数
-	LandUsePolygon(int id, OGRPolygon* polygon,double area, int landUseCode);
+	LandUsePolygon(int id, double area, int landUseCode);
 	~LandUsePolygon();		// 析构函数
 
 };
@@ -71,7 +69,6 @@ private:
 	double CalMinChangeCost();
 	double CalMaxSuitability();
 	double CalMinSuitability();
-	vector<vector<int>> CalAvgCompactnesses(); 
 	double CalMaxCompactness();
 	double CalMinCompactness();
 
@@ -102,6 +99,7 @@ public:
 	double MinSuitability();								// 最小适宜度
 
 	/**************************************************************************************/
+	void SetAvgCompactnesses(vector<vector<int>> &avgCompactnesses);// 每块图斑的邻接图斑
 	vector<vector<int>> &GetAvgCompactnesses();				// 图斑空间邻接表
 	double MaxCompactness();								// 最大紧凑度
 	double MinCompactness();								// 最小紧凑度

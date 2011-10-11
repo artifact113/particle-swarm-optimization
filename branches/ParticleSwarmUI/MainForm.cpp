@@ -9,6 +9,11 @@
 using namespace std;
 
 
+Random Particle::_rnd;
+Random Particle::_Rnd;
+Random SpatialParticleSwarm::_rnd;
+
+
 MainForm::MainForm(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::MainForm)
@@ -125,7 +130,7 @@ void MainForm::UpdateInfo(const QString & path)
 
 void MainForm::StartPSO()
 {
-
+	
 
 
 

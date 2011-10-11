@@ -36,7 +36,7 @@ private:
 
 	string _filePath;		/// 土地利用图层文件路径；
 
-	const int _useCodeNum = 11;
+	int _useCodeNum;
 	vector<double> _avgBenefits;
 	vector<double> _avgChangeCosts;
 	vector<double> _avgSuitabilities;
