@@ -342,10 +342,6 @@
 			Name="PSO Sources"
 			>
 			<File
-				RelativePath=".\MyPSO.h"
-				>
-			</File>
-			<File
 				RelativePath=".\PSO.cpp"
 				>
 			</File>
@@ -359,10 +355,6 @@
 			</File>
 			<File
 				RelativePath=".\SpatialPSO.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SphereFunction.cpp"
 				>
 			</File>
 			<File
