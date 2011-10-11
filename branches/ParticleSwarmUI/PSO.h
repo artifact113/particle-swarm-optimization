@@ -196,7 +196,7 @@ bool CompareTo(const Particle* p1, const Particle* p2);
 class FunctionBase
 {
 	public:
-		virtual double Function(vector<double> position) = 0;
+		virtual double Function(vector<double> &position) = 0;
 };
 
 

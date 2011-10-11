@@ -66,3 +66,16 @@ void SpatialParticleSwarm::InitSwarm(FunctionBase *function, int swarmSize, int 
 
 
 /************************************************SpatialFunctionBase************************************/
+SpatialFunctionBase::SpatialFunctionBase(LayerAssessor* layerAssessor)
+{	
+	_layerAssessor = layerAssessor;
+}
+
+
+double SpatialFunctionBase::Function(vector<double> &position)
+{	
+	vector<int> newUseCodes(position.begin(),position.end());
+	_layerAssessor->NewUseCodes = newUseCodes;
+	return _layerAssessor->TotalScore();
+	
+}

@@ -59,6 +59,10 @@ class SpatialParticleSwarm : public ParticleSwarm
 {
 	private:
 		static Random _rnd;
+
+		//------------------------------------------------------
+		/// 初始化函数；
+		void InitSwarm(FunctionBase *function, int swarmSize, int dimension, int range);
 	
 	protected:
 
@@ -66,10 +70,6 @@ class SpatialParticleSwarm : public ParticleSwarm
 		//------------------------------------------------------
 		/// 构造函数；
 		SpatialParticleSwarm(FunctionBase *function, int swarmSize, int dimension, int range);
-
-		//------------------------------------------------------
-		/// 初始化函数；
-		void InitSwarm(FunctionBase *function, int swarmSize, int dimension, int range);
 };
 
 
@@ -79,7 +79,8 @@ class SpatialFunctionBase : public FunctionBase
 		LayerAssessor* _layerAssessor;
 
 	public:
-		double Function(vector<double> position);
+		SpatialFunctionBase(LayerAssessor* layerAssessor);
+		double Function(vector<double> &position);
 };
 
 #endif
