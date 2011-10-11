@@ -1,5 +1,5 @@
-﻿#ifndef POLYGON_H
-#define POLYGON_H
+﻿#ifndef LANDUSELAYER_H
+#define LANDUSELAYER_H
 
 #include <vector>
 #include "ogrsf_frmts.h"
@@ -155,4 +155,4 @@ public:
 
 };
 
-#endif //POLYGON_H
+#endif //LANDUSELAYER_H

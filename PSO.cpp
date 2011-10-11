@@ -29,7 +29,7 @@ void Particle::UpdateBest()
 
 }
 
-void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
+void Particle::UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm)
 {
 	if (BestPosition.empty())
 	{
@@ -41,10 +41,10 @@ void Particle::UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm)
 	double c1 = Swarm->TendencyToOwnBest;
 	double r1 = _rnd.NextDouble();
 	double c2 = Swarm->TendencyToGlobalBest;
-	double r2 = _rnd.NextDouble();
+	double r2 = _Rnd.NextDouble();
 	double m = Swarm->Momentum;
 
-	for (int i = 0; i != Velocity.size(); i++)
+	for (int i = 0; i != Velocity.size(); ++i)
 	{
         ///	设定最大速度
         double xmax = Swarm->PositionHigh[i] - Swarm->PositionLow[i];

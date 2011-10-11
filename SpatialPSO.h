@@ -23,6 +23,7 @@
 
 #include <vector>
 #include "PSO.h"
+#include "LandUseLayer.h"
 
 using namespace std;
 
@@ -31,7 +32,7 @@ class Particle;
 class ParticleSwarm;
 class FunctionBase;
 
-class SpatialLayoutParticle : public Particle
+class SpatialParticle : public Particle
 {
 	private:
 		FunctionBase* _function;
@@ -41,11 +42,11 @@ class SpatialLayoutParticle : public Particle
 	public:
 		//------------------------------------------------------
 		/// 构造函数；
-		SpatialLayoutParticle(FunctionBase* function,ParticleSwarm* swarm,vector<double> position,vector<double> velocity);
+		SpatialParticle(FunctionBase* function,ParticleSwarm* swarm,vector<double> &position,vector<double> &velocity);
 		
 		//------------------------------------------------------
 		/// 析构函数；
-		~SpatialLayoutParticle();
+		~SpatialParticle();
 
 		//------------------------------------------------------
 		/// 消费量计算函数；
@@ -54,44 +55,31 @@ class SpatialLayoutParticle : public Particle
 };
 
 
-class SpatialLayoutParticleSwarm : public ParticleSwarm
+class SpatialParticleSwarm : public ParticleSwarm
 {
 	private:
+		static Random _rnd;
 	
 	protected:
 
 	public:
 		//------------------------------------------------------
 		/// 构造函数；
-		SpatialLayoutParticleSwarm(FunctionBase* fuction,int swarmSize, int dimension);
+		SpatialParticleSwarm(FunctionBase *function, int swarmSize, int dimension, int range);
 
 		//------------------------------------------------------
 		/// 初始化函数；
-		void InitSwarm(FunctionBase* fuction,int swarmSize, int dimension);
+		void InitSwarm(FunctionBase *function, int swarmSize, int dimension, int range);
 };
 
 
-class FitnessFunction : public FunctionBase
+class SpatialFunctionBase : public FunctionBase
 {
+	private:
+		LayerAssessor* _layerAssessor;
+
 	public:
 		double Function(vector<double> position);
-
-		//------------------------------------------------------
-		/// 经济效益;
-		double Benefit(vector<double> position);
-
-		//------------------------------------------------------
-		/// 变更费用;
-		double ChangCost(vector<double> position);
-
-		//------------------------------------------------------
-		/// 空间紧凑度;
-		double Compactness(vector<double> position);
-
-		//------------------------------------------------------
-		/// 适宜性;
-		double Suitability(vector<double> position);
-
 };
 
 #endif

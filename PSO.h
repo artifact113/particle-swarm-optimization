@@ -29,6 +29,7 @@ using namespace std;
 
 class Random;
 class ParticleSwarm;
+class FunctionBase;
 
 
 
@@ -39,7 +40,8 @@ class Particle
 
 
 	protected:
-		static Random _rnd;		/// 随机数生成器
+		static Random _rnd;		/// 随机数生成器1
+		static Random _Rnd;		/// 随机数生成器2
 
 
 	public:
@@ -92,7 +94,7 @@ class Particle
 		/// 更新粒子的位置与速度;
 		///
 		/// @param bestPositionOfSwarm 所属粒子群的最佳位置，用作“社会认知”部分
-		void UpdateVelocityAndPosition(vector<double> bestPositionOfSwarm);
+		void UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm);
 
 };
 
@@ -105,7 +107,6 @@ class ParticleSwarm
 
 	
 	protected:
-		static Random _rnd;		/// 随机数生成器
 
 
 	public:
