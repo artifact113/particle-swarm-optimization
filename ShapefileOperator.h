@@ -1,6 +1,7 @@
 ﻿#ifndef SHAPEFILEOPERATOR_H
 #define SHAPEFILEOPERATOR_H
 
+#include <vector>
 #include <string>
 #include "ogrsf_frmts.h"
 
@@ -9,28 +10,27 @@ using namespace std;
 
 class ShapefileReader
 {
-private:
-	string FilePath;							// shp文件路径
-
 public:
-	/****************************************************************/
-	int GetFeatureCount();						// 图斑数量
+	/*********************************************************************************/
+	// 图斑数量
+	static int GetFeatureCount(string filePath);		
+	
+	/*********************************************************************************/
+	// 获取指定文件、指定字段的一列值
+	static vector<string> GetFieldValues(string filePath, string fieldName);
 
-	/****************************************************************/
-	// 获取指定记录、指定字段的值
-	string GetFieldValue(string fieldName,long featureID);
+	/*********************************************************************************/
+	// 获取指定文件、指定字段、指定记录的值
+	static string GetValue(string filePath, string fieldName,long featureID);
 
-	/****************************************************************/
-	OGRPolygon* GetPolygon(long featureID);	// 获取图斑
-
-	/****************************************************************/
-	ShapefileReader(string fileName);			// 构造函数
-	~ShapefileReader();							// 析构函数
 };
 
 class ShapefileWriter
 {
-
+public:
+	/*********************************************************************************/
+	// 向指定文件、指定字段写值
+	static bool WriteToFile(string filePath, string fieldName, vector<string> &values);
 
 };
 
