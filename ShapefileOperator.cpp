@@ -121,7 +121,7 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 
 	// 获取数据源
 	OGRDataSource* poDS;
-	poDS = OGRSFDriverRegistrar::Open( filePath.c_str() , true );    
+	poDS = OGRSFDriverRegistrar::Open( filePath.c_str(), true );
 	if( poDS == NULL )
     {
 		return false;
@@ -156,7 +156,8 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 	// 写入值
 	fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
 	int size = values.size();
-	for (int i=0; i != poLayer->GetFeatureCount(); ++i)
+	int count = poLayer->GetFeatureCount();
+	for (int i=0; i != count; ++i)
 	{
 		if (i < size)
 		{
