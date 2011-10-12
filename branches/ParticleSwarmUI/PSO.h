@@ -40,22 +40,12 @@ class Particle
 
 
 	protected:
-		static Random _rnd;		/// 随机数生成器1
-		static Random _Rnd;		/// 随机数生成器2
 
 
 	public:
 		//------------------------------------------------------
-		///	Swarm,粒子所属的粒子群; 
-		ParticleSwarm* Swarm;
-
-		//------------------------------------------------------
 		///	Position,粒子的当前位置，浮点型容器;
 		vector<double> Position;
-
-		//------------------------------------------------------
-		///	Velocity,粒子的运动速度;
-		vector<double> Velocity;
 
 		//------------------------------------------------------
 		///	Cost,粒子的消费量,值越低越好;
@@ -68,6 +58,14 @@ class Particle
 		//------------------------------------------------------
 		///	BestCost,粒子的历史最佳消费量;
 		double BestCost;
+
+		//------------------------------------------------------
+		///	Velocity,粒子的运动速度;
+		vector<double> Velocity;
+
+		//------------------------------------------------------
+		///	Swarm,粒子所属的粒子群; 
+		ParticleSwarm* Swarm;
 
 		//------------------------------------------------------
 		///	索引器，返回粒子在某一维度上的位置;
@@ -125,22 +123,30 @@ class ParticleSwarm
         //------------------------------------------------------
         /// PercentMaximumVelocityOfSearchSpace，vmax=k*xmax,k值；
         double PercentMaximumVelocityOfSearchSpace;
+
+		//------------------------------------------------------
+		/// UseGlobalOptimum，是否采用全局优化策略，默认true；
+		bool UseGlobalOptimum;
     
 		//------------------------------------------------------
 		/// Momentum，惯性系数；
 		double Momentum;
 
 		//------------------------------------------------------
+		/// 随机数生成器1
+		Random _rnd;
+
+		//------------------------------------------------------
 		/// TendencyToOwnBest，认知系数；
 		double TendencyToOwnBest;
 
 		//------------------------------------------------------
-		/// TendencyToGlobalBest，社会系数；
-		double TendencyToGlobalBest;
+		/// 随机数生成器2
+		Random _Rnd;
 
 		//------------------------------------------------------
-		/// UseGlobalOptimum，是否采用全局优化策略，默认true；
-		bool UseGlobalOptimum;
+		/// TendencyToGlobalBest，社会系数；
+		double TendencyToGlobalBest;
 
 		//------------------------------------------------------
 		/// BestPosition，粒子群的全局最好粒子的位置；
@@ -152,7 +158,7 @@ class ParticleSwarm
 
 		//------------------------------------------------------
 		/// Indexer，索引器，返回某个粒子；
-		Particle& operator[](int i);
+		Particle* operator[](int i);
 
 
 

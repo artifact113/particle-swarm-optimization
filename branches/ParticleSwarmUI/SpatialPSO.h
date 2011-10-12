@@ -58,8 +58,6 @@ class SpatialParticle : public Particle
 class SpatialParticleSwarm : public ParticleSwarm
 {
 	private:
-		static Random _rnd;
-
 		//------------------------------------------------------
 		/// 初始化函数；
 		void InitSwarm(FunctionBase *function, int swarmSize, int dimension, int range);

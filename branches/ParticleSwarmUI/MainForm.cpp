@@ -11,10 +11,6 @@
 using namespace std;
 
 
-Random Particle::_rnd;
-Random Particle::_Rnd;
-Random SpatialParticleSwarm::_rnd;
-
 
 MainForm::MainForm(QWidget *parent) :
     QDialog(parent),

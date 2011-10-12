@@ -38,11 +38,11 @@ void Particle::UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm)
 
 
 	///	计算速度的一些参数
-	double c1 = Swarm->TendencyToOwnBest;
-	double r1 = _rnd.NextDouble();
-	double c2 = Swarm->TendencyToGlobalBest;
-	double r2 = _Rnd.NextDouble();
 	double m = Swarm->Momentum;
+	double c1 = Swarm->TendencyToOwnBest;
+	double r1 = Swarm->_rnd.NextDouble();
+	double c2 = Swarm->TendencyToGlobalBest;
+	double r2 = Swarm->_Rnd.NextDouble();
 
 	for (int i = 0; i != Velocity.size(); ++i)
 	{
@@ -100,11 +100,11 @@ double& Particle::operator [](int i)
 /*******************************************ParticleSwarm************************************/
 ParticleSwarm::ParticleSwarm()
 {
+	PercentMaximumVelocityOfSearchSpace = 0.1;
+	UseGlobalOptimum = true;
 	Momentum = 1;
 	TendencyToOwnBest = 2;
 	TendencyToGlobalBest = 2;
-	PercentMaximumVelocityOfSearchSpace = 0.1;
-	UseGlobalOptimum = true;
 	BestCost = 1.0e+100;
 }
 
@@ -139,15 +139,15 @@ double ParticleSwarm::CurrentBestCost()
 }
 
 
-Particle& ParticleSwarm::operator [](int i)
+Particle* ParticleSwarm::operator [](int i)
 {
-	return *(Particles.at(i));
+	return Particles.at(i);
 }
 
 
 void ParticleSwarm::Iteration()
 {
-	//计算每一个粒子的消费量，并更新各自的历史最佳位置
+	//计算每一个粒子的消费量，并更新各自的历史最佳位置 (*并行改进部分*)
 	for (int i = 0; i != Particles.size(); ++i)
 	{
 		Particles[i]->CalculateCost();
@@ -163,7 +163,7 @@ void ParticleSwarm::Iteration()
 		BestCost = CurrentBestCost();
 	}
 
-	//计算新的位置和速度
+	//计算新的位置和速度 (*并行改进部分*)
 	for (int j = 0; j != Particles.size(); ++j)
 	{
 		if (UseGlobalOptimum)
