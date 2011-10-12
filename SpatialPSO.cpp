@@ -21,7 +21,7 @@ SpatialParticle::SpatialParticle(FunctionBase* function,
 
 SpatialParticle::~SpatialParticle()
 {
-	delete _function;
+	
 }
 
 
@@ -43,6 +43,7 @@ SpatialParticleSwarm::SpatialParticleSwarm(FunctionBase *function, int swarmSize
 
 void SpatialParticleSwarm::InitSwarm(FunctionBase *function, int swarmSize, int dimension, int range)
 {
+	Random rnd;
 	for (int i=0; i != swarmSize; ++i)
 	{
 		/// 初始化位置和速度
@@ -50,8 +51,8 @@ void SpatialParticleSwarm::InitSwarm(FunctionBase *function, int swarmSize, int 
 		vector<double> velocity;
 		for (int j=0; j != dimension; ++j)
 		{
-			double x = _rnd.NextDouble() * (range-1);
-			double vx = _rnd.NextDouble() * (range-1);
+			double x = rnd.NextDouble() * (range-1);
+			double vx = rnd.NextDouble() * (range-1);
 			position.push_back(x);
 			velocity.push_back(vx);
 		}
@@ -76,6 +77,5 @@ double SpatialFunctionBase::Function(vector<double> &position)
 {	
 	vector<int> newUseCodes(position.begin(),position.end());
 	_layerAssessor->NewUseCodes = newUseCodes;
-	return _layerAssessor->TotalScore();
-	
+	return _layerAssessor->TotalScore();	
 }
