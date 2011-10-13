@@ -44,7 +44,6 @@ vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName
     poDS = OGRSFDriverRegistrar::Open(filePath.c_str());
     if( poDS == NULL )
     {
-		cout<<"Open file failed"<<endl;
 		return results;
     }
 
@@ -57,6 +56,10 @@ vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName
 	OGRFeatureDefn* poFeatureDefn;
 	poFeatureDefn = poLayer->GetLayerDefn();
 	int fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
+	if (fieldIndex == -1)
+	{
+		return results;
+	}
 
 
 	OGRFeature* poFeature;
@@ -102,6 +105,10 @@ string ShapefileReader::GetValue(string filePath, string fieldName, long feature
 	OGRFeatureDefn* poFeatureDefn;
 	poFeatureDefn = poLayer->GetLayerDefn();
 	int fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
+	if (fieldIndex == -1)
+	{
+		return "";
+	}
 
 	// 获取值
 	string value(poFeature->GetFieldAsString(fieldIndex));
@@ -110,6 +117,59 @@ string ShapefileReader::GetValue(string filePath, string fieldName, long feature
 	OGRDataSource::DestroyDataSource(poDS);
 
 	return value;
+}
+
+
+vector<vector<int>> ShapefileReader::GetAdjacency(string filePath)
+{
+	vector<vector<int>> results;
+	// 注册驱动器
+	OGRRegisterAll();
+
+	// 获取数据源
+    OGRDataSource* poDS;
+    poDS = OGRSFDriverRegistrar::Open(filePath.c_str());
+    if( poDS == NULL )
+    {
+		return results;
+    }
+
+	// 获取图层
+    OGRLayer* poLayer;
+    poLayer = poDS->GetLayer(0);
+	if( poLayer == NULL )
+    {
+		return results;
+    }
+
+	int featureCount = poLayer->GetFeatureCount();
+	for (int i=0; i != featureCount; ++i)
+	{
+		vector<int> a(1,i);
+		results.push_back(a);
+	}
+	
+	for (int i=0; i != featureCount; ++i)
+	{
+		OGRFeature* poFeature = poLayer->GetFeature(i);
+		OGRGeometry* poGeometry = poFeature->GetGeometryRef();
+		vector<int> adjacencys;
+		for (int j=0; j != featureCount; ++j)
+		{
+			OGRFeature* otherFeature = poLayer->GetFeature(j);
+			OGRGeometry* otherGeometry = otherFeature->GetGeometryRef();
+			if (poGeometry->Touches(otherGeometry))
+			{
+				adjacencys.push_back(j);
+			}
+			OGRFeature::DestroyFeature(otherFeature);
+		}
+		results.at(i) = adjacencys;
+		OGRFeature::DestroyFeature(poFeature);
+	}
+
+	OGRDataSource::DestroyDataSource( poDS );
+	return results;
 }
 
 
@@ -163,7 +223,7 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 		{
 			OGRFeature* poFeature = poLayer->GetFeature(i);
 			poFeature->SetField(fieldIndex, values.at(i).c_str());
-			poLayer->SetFeature(poFeature); 
+			poLayer->SetFeature(poFeature);
 			OGRFeature::DestroyFeature(poFeature);
 		}
 	}
