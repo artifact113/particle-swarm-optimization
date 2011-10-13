@@ -77,5 +77,5 @@ double SpatialFunctionBase::Function(vector<double> &position)
 {	
 	vector<int> newUseCodes(position.begin(),position.end());
 	_layerAssessor->NewUseCodes = newUseCodes;
-	return _layerAssessor->TotalScore();	
+	return 100 - _layerAssessor->TotalScore();
 }

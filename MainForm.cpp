@@ -76,10 +76,7 @@ void MainForm::ChangeWeight()
 
 	double sum = ui->TxtEcoTemp->value() + ui->TxtCostTemp->value() + ui->TxtSuitTemp->value() + ui->TxtCompTemp->value();
 
-	ui->TxtEcoWeight->setValue(ui->TxtEcoTemp->value()/sum);
-	ui->TxtCostWeight->setValue(ui->TxtCostTemp->value()/sum);
-	ui->TxtSuitWeight->setValue(ui->TxtSuitTemp->value()/sum);
-	ui->TxtCompWeight->setValue(ui->TxtCompTemp->value()/sum);
+
 }
 
 
