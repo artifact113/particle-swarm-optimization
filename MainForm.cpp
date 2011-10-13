@@ -154,6 +154,9 @@ void MainForm::setCompactnessWeight(int value)
 
 void MainForm::StartPSO()
 {
+
+	ui->stackedWidget->setCurrentIndex(1);
+
 	// 1、建立LandUseLayer来描述shape文件
 	string filePath(ui->TxtPath->text().toStdString());
 	int featureCount = ShapefileReader::GetFeatureCount(filePath);
