@@ -42,7 +42,7 @@ void Particle::UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm)
 	double c1 = Swarm->TendencyToOwnBest;
 	double r1 = Swarm->_rnd.NextDouble();
 	double c2 = Swarm->TendencyToGlobalBest;
-	double r2 = Swarm->_Rnd.NextDouble();
+	double r2 = Swarm->_rnd.NextDouble();
 
 	for (int i = 0; i != Velocity.size(); ++i)
 	{
