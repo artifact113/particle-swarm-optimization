@@ -52,7 +52,7 @@ void Particle::UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm)
         double vmax = Swarm->PercentMaximumVelocityOfSearchSpace * xmax;
         
 
-		/// 计算新的速度；
+		/// 计算新的速度；  
 		double newVelocity = m * Velocity[i] +
 				c1 * r1 * (BestPosition[i] - Position[i]) +
 				c2 * r2 * (bestPositionOfSwarm[i] - Position[i]);
