@@ -44,6 +44,7 @@ MainForm::MainForm(QWidget *parent) :
 	connect(ui->DialSuitability, SIGNAL(valueChanged(int)), this, SLOT(setSuitabilityWeight(int)));
 	connect(ui->DialCompact, SIGNAL(valueChanged(int)), this, SLOT(setCompactnessWeight(int)));
 
+	connect(ui->BtnOpenSuit,SIGNAL(clicked()),this,SLOT(OpenSuitFile()));
 
 	/// 开始PSO计算
 	connect(ui->BtnExecute,SIGNAL(clicked()),this,SLOT(StartPSO()));
@@ -99,7 +100,7 @@ void MainForm::UpdateInfo(const QString & path)
 	vector<LandUsePolygon*> polygons;
 	for (int i=0; i != featureCount; ++i)
 	{
-		int id = atoi(ids.at(i).c_str());
+		int id = i;			//atoi(ids.at(i).c_str());
 		double area = atof(areas.at(i).c_str()) / 10000;
 		int landUseCode = atoi(landUseCodes.at(i).c_str());
 		LandUsePolygon* polygon = new LandUsePolygon(id, area, landUseCode);
@@ -152,6 +153,17 @@ void MainForm::setCompactnessWeight(int value)
 }
 
 
+void MainForm::OpenSuitFile()
+{
+	QString fileName = QFileDialog::getOpenFileName(this,"Open",QDir::currentPath(),"shp files (*.shp)");
+	
+	if (!fileName.isNull())	// 用户选择了文件
+	{ 
+		ui->TxtSuitFile->setText(fileName);
+	}
+}
+
+
 void MainForm::StartPSO()
 {
 
@@ -167,7 +179,7 @@ void MainForm::StartPSO()
 	vector<LandUsePolygon*> polygons;
 	for (int i=0; i != featureCount; ++i)
 	{
-		int id = atoi(ids.at(i).c_str());
+		int id = i;			//atoi(ids.at(i).c_str());
 		double area = atof(areas.at(i).c_str()) / 10000;
 		int landUseCode = atoi(landUseCodes.at(i).c_str());
 		LandUsePolygon* polygon = new LandUsePolygon(id, area, landUseCode);

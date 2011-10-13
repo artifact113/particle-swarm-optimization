@@ -29,6 +29,8 @@ public slots:
 	void setSuitabilityWeight(int value);
 	void setCompactnessWeight(int value);
 
+	void OpenSuitFile();						///	打开文件;
+
 	void StartPSO();							/// 开始PSO计算
 
 
