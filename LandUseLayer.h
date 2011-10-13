@@ -2,6 +2,7 @@
 #define LANDUSELAYER_H
 
 #include <vector>
+#include <cstdlib>
 #include "ogrsf_frmts.h"
 
 using namespace std;
@@ -107,7 +108,7 @@ public:
 
 	/**************************************************************************************/
 	// 构造函数
-	LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons);	
+	LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons);	
 	~LandUseLayer();					// 析构函数
 
 };

@@ -23,6 +23,10 @@ public:
 	// 获取指定文件、指定字段、指定记录的值
 	static string GetValue(string filePath, string fieldName,long featureID);
 
+	/*********************************************************************************/
+	// 获取所有图斑的邻接矩阵
+	static vector<vector<int>> GetAdjacency(string filePath);
+
 };
 
 class ShapefileWriter

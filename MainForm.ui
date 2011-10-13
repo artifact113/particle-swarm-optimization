@@ -920,6 +920,61 @@
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
       </property>
      </item>
+     <item row="0" column="1">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="2">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="3">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="4">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="5">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="6">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="7">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="8">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="9">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="0" column="10">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="1" column="0">
+      <property name="text">
+       <string>100.00</string>
+      </property>
+     </item>
      <item row="1" column="1">
       <property name="text">
        <string>0.00</string>
@@ -929,6 +984,61 @@
       </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+      </property>
+     </item>
+     <item row="1" column="2">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="3">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="4">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="5">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="6">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="7">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="8">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="9">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="1" column="10">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="0">
+      <property name="text">
+       <string>100.00</string>
+      </property>
+     </item>
+     <item row="2" column="1">
+      <property name="text">
+       <string>50.00</string>
       </property>
      </item>
      <item row="2" column="2">
@@ -942,12 +1052,122 @@
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
       </property>
      </item>
+     <item row="2" column="3">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="4">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="5">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="6">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="7">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="8">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="9">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="2" column="10">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="0">
+      <property name="text">
+       <string>100.00</string>
+      </property>
+     </item>
+     <item row="3" column="1">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="2">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
      <item row="3" column="3">
       <property name="text">
        <string>0.00</string>
       </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+      </property>
+     </item>
+     <item row="3" column="4">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="5">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="6">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="7">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="8">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="9">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="3" column="10">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="0">
+      <property name="text">
+       <string>100.00</string>
+      </property>
+     </item>
+     <item row="4" column="1">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="2">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="3">
+      <property name="text">
+       <string>50.00</string>
       </property>
      </item>
      <item row="4" column="4">
@@ -958,12 +1178,122 @@
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
       </property>
      </item>
+     <item row="4" column="5">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="6">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="7">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="8">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="9">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="4" column="10">
+      <property name="text">
+       <string>50.00</string>
+      </property>
+     </item>
+     <item row="5" column="0">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="5" column="1">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="5" column="2">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="5" column="3">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="5" column="4">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
      <item row="5" column="5">
       <property name="text">
        <string>0.00</string>
       </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+      </property>
+     </item>
+     <item row="5" column="6">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="5" column="7">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="5" column="8">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="5" column="9">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="5" column="10">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="6" column="0">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="6" column="1">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="6" column="2">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="6" column="3">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="6" column="4">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="6" column="5">
+      <property name="text">
+       <string>0.00</string>
       </property>
      </item>
      <item row="6" column="6">
@@ -974,6 +1304,61 @@
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
       </property>
      </item>
+     <item row="6" column="7">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="6" column="8">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="6" column="9">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="6" column="10">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="7" column="0">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="7" column="1">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="7" column="2">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="7" column="3">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="7" column="4">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="7" column="5">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
+     <item row="7" column="6">
+      <property name="text">
+       <string>0.00</string>
+      </property>
+     </item>
      <item row="7" column="7">
       <property name="text">
        <string>0.00</string>
@@ -982,12 +1367,122 @@
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
       </property>
      </item>
+     <item row="7" column="8">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="7" column="9">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="7" column="10">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="8" column="0">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="8" column="1">
+      <property name="text">
+       <string>500.00</string>
+      </property>
+     </item>
+     <item row="8" column="2">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="8" column="3">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="8" column="4">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="8" column="5">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="8" column="6">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="8" column="7">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
      <item row="8" column="8">
       <property name="text">
-       <string>0.00</string>
+       <string>200.00</string>
       </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+      </property>
+     </item>
+     <item row="8" column="9">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="8" column="10">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="9" column="0">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="9" column="1">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="9" column="2">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="3">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="4">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="5">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="6">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="7">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="9" column="8">
+      <property name="text">
+       <string>300.00</string>
       </property>
      </item>
      <item row="9" column="9">
@@ -996,6 +1491,61 @@
       </property>
       <property name="flags">
        <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsUserCheckable</set>
+      </property>
+     </item>
+     <item row="9" column="10">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="0">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="10" column="1">
+      <property name="text">
+       <string>200.00</string>
+      </property>
+     </item>
+     <item row="10" column="2">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="3">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="4">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="5">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="6">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="7">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="8">
+      <property name="text">
+       <string>300.00</string>
+      </property>
+     </item>
+     <item row="10" column="9">
+      <property name="text">
+       <string>300.00</string>
       </property>
      </item>
      <item row="10" column="10">
@@ -1584,7 +2134,7 @@
     <attribute name="title">
      <string>算法参数</string>
     </attribute>
-    <widget class="QCheckBox" name="checkBox">
+    <widget class="QCheckBox" name="chkUseGlobal">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -1656,6 +2206,9 @@ p, li { white-space: pre-wrap; }
           <height>0</height>
          </size>
         </property>
+        <property name="value">
+         <double>2.000000000000000</double>
+        </property>
        </widget>
       </item>
      </layout>
@@ -1684,6 +2237,9 @@ p, li { white-space: pre-wrap; }
           <width>90</width>
           <height>0</height>
          </size>
+        </property>
+        <property name="value">
+         <double>2.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -1714,6 +2270,9 @@ p, li { white-space: pre-wrap; }
           <height>0</height>
          </size>
         </property>
+        <property name="value">
+         <double>1.000000000000000</double>
+        </property>
        </widget>
       </item>
      </layout>
@@ -1731,12 +2290,12 @@ p, li { white-space: pre-wrap; }
       <item row="0" column="0">
        <widget class="QLabel" name="label_43">
         <property name="text">
-         <string>粒子总数</string>
+         <string>搜索粒度</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QSpinBox" name="spinSwarmSize">
+       <widget class="QDoubleSpinBox" name="spinSearch">
         <property name="minimumSize">
          <size>
           <width>104</width>
@@ -1744,7 +2303,13 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="maximum">
-         <number>9999</number>
+         <double>1.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.100000000000000</double>
         </property>
        </widget>
       </item>
@@ -1789,6 +2354,9 @@ p, li { white-space: pre-wrap; }
         </property>
         <property name="maximum">
          <number>9999</number>
+        </property>
+        <property name="value">
+         <number>100</number>
         </property>
        </widget>
       </item>
@@ -1883,10 +2451,10 @@ p, li { white-space: pre-wrap; }
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>提示：本程序中涉及到的面积均以“公顷”为单位！</string>
    </property>
    <property name="textFormat">
-    <enum>Qt::AutoText</enum>
+    <enum>Qt::LogText</enum>
    </property>
   </widget>
   <widget class="QStackedWidget" name="stackedWidget">
@@ -1904,7 +2472,7 @@ p, li { white-space: pre-wrap; }
    <property name="currentIndex">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="stackedWidgetPage1" native="true">
+   <widget class="QWidget" name="stackedWidgetPage1">
     <widget class="QGroupBox" name="groupBox">
      <property name="geometry">
       <rect>
@@ -3047,7 +3615,7 @@ p, li { white-space: pre-wrap; }
        <enum>QAbstractSpinBox::NoButtons</enum>
       </property>
       <property name="maximum">
-       <double>999999.989999999990687</double>
+       <double>999999999.990000009536743</double>
       </property>
      </widget>
      <widget class="QSpinBox" name="SpinTotalPolygon">
@@ -3117,7 +3685,7 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="stackedWidgetPage2" native="true">
+   <widget class="QWidget" name="stackedWidgetPage2">
     <widget class="QGroupBox" name="groupBox_8">
      <property name="geometry">
       <rect>
@@ -3161,7 +3729,7 @@ p, li { white-space: pre-wrap; }
         <x>17</x>
         <y>90</y>
         <width>365</width>
-        <height>16</height>
+        <height>22</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_29">
@@ -3193,7 +3761,7 @@ p, li { white-space: pre-wrap; }
         <x>17</x>
         <y>58</y>
         <width>365</width>
-        <height>16</height>
+        <height>22</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_30">
@@ -3228,7 +3796,7 @@ p, li { white-space: pre-wrap; }
         <x>16</x>
         <y>24</y>
         <width>365</width>
-        <height>16</height>
+        <height>22</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_31">
@@ -3299,13 +3867,13 @@ p, li { white-space: pre-wrap; }
        <string>当前代数</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>18</x>
         <y>124</y>
         <width>365</width>
-        <height>16</height>
+        <height>22</height>
        </rect>
       </property>
       <layout class="QFormLayout" name="formLayout_28">

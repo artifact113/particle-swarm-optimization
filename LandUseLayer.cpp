@@ -21,19 +21,19 @@ LandUsePolygon::~LandUsePolygon()
 }
 
 
-inline int LandUsePolygon::ID()
+ int LandUsePolygon::ID()
 {
 	return _id;
 }
 
 
-inline double LandUsePolygon::Area()
+ double LandUsePolygon::Area()
 {
 	return _area;
 }
 
 
-inline int LandUsePolygon::LandUseCode()
+ int LandUsePolygon::LandUseCode()
 {
 	return _landUseCode;
 }
@@ -41,7 +41,7 @@ inline int LandUsePolygon::LandUseCode()
 
 
 /*********************************LandUseLayer******************************/
-LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons)
+LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons)
 {
 	_useCodeNum = useCodeNum;
 	_polygons = polygons;
@@ -75,35 +75,40 @@ LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> polygons)
 
 LandUseLayer::~LandUseLayer()
 {
+	vector<LandUsePolygon*>::iterator iter;
+	for (iter=_polygons.begin(); iter != _polygons.end(); ++iter)
+	{
+		delete *iter;
+	}
 
 }
 
 
-inline int LandUseLayer::UseCodeNum()
+ int LandUseLayer::UseCodeNum()
 {
 	return _useCodeNum;
 }
 
 
-inline vector<LandUsePolygon*> &LandUseLayer::Polygons()
+ vector<LandUsePolygon*> &LandUseLayer::Polygons()
 {
 	return _polygons;
 }
 
 
-inline int LandUseLayer::PolygonsCount()
+int LandUseLayer::PolygonsCount()
 {
 	return _polygonsCount;
 }
 
 
-inline vector<double> &LandUseLayer::UseAreas()
+vector<double> &LandUseLayer::UseAreas()
 {
 	return _useAreas;
 }
 
 
-inline double LandUseLayer::TotalArea()
+double LandUseLayer::TotalArea()
 {
 	return _totalArea;
 }
@@ -117,19 +122,19 @@ void LandUseLayer::SetAvgBenefits(vector<double> &avgBenefits)
 }
 
 
-inline vector<double> &LandUseLayer::GetAvgBenefits()
+ vector<double> &LandUseLayer::GetAvgBenefits()
 {
 	return _avgBenefits;
 }
 
 
-inline double LandUseLayer::MaxBenefit()
+ double LandUseLayer::MaxBenefit()
 {
 	return _maxBenefit;
 }
 
 
-inline double LandUseLayer::MinBenefit()
+ double LandUseLayer::MinBenefit()
 {
 	return _minBenefit;
 }
@@ -143,19 +148,19 @@ void LandUseLayer::SetAvgChangeCosts(vector<double> &avgChangeCosts)
 }
 
 
-inline vector<double> &LandUseLayer::GetAvgChangeCosts()
+ vector<double> &LandUseLayer::GetAvgChangeCosts()
 {
 	return _avgChangeCosts;
 }
 
 
-inline double LandUseLayer::MaxChangeCost()
+ double LandUseLayer::MaxChangeCost()
 {
 	return _maxChangeCost;
 }
 
 
-inline double LandUseLayer::MinChangeCost()
+ double LandUseLayer::MinChangeCost()
 {
 	return _minChangeCost;
 }
@@ -169,19 +174,19 @@ void LandUseLayer::SetAvgSuitabilities(vector<double> &avgSuitabilities)
 }
 
 
-inline vector<double> &LandUseLayer::GetAvgSuitabilities()
+ vector<double> &LandUseLayer::GetAvgSuitabilities()
 {
 	return _avgSuitabilities;
 }
 
 
-inline double LandUseLayer::MaxSuitability()
+ double LandUseLayer::MaxSuitability()
 {
 	return _maxSuitability;
 }
 
 
-inline double LandUseLayer::MinSuitability()
+ double LandUseLayer::MinSuitability()
 {
 	return _minSuitability;
 }
@@ -195,19 +200,19 @@ void LandUseLayer::SetAvgCompactnesses(vector<vector<int>> &avgCompactnesses)
 }
 
 
-inline vector<vector<int>> &LandUseLayer::GetAvgCompactnesses()
+ vector<vector<int>> &LandUseLayer::GetAvgCompactnesses()
 {
 	return _avgCompactnesses;
 }
 
 
-inline double LandUseLayer::MaxCompactness()
+ double LandUseLayer::MaxCompactness()
 {
 	return _maxCompactness;
 }
 
 
-inline double LandUseLayer::MinCompactness()
+ double LandUseLayer::MinCompactness()
 {
 	return _minCompactness;
 }

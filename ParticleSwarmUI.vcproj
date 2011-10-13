@@ -370,6 +370,14 @@
 			Name="Spatial PSO"
 			>
 			<File
+				RelativePath=".\DatatypeTransformer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Encoder.h"
+				>
+			</File>
+			<File
 				RelativePath=".\LandUseLayer.cpp"
 				>
 			</File>
