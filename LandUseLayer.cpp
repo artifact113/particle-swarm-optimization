@@ -27,7 +27,7 @@ LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons)
 	UseCodeNum = useCodeNum;
 	Polygons = polygons;
 
-	AvgBenefits.assign(_useCodeNum,0);
+	AvgBenefits.assign(UseCodeNum,0);
 
 	AvgChangeCosts.assign(UseCodeNum * UseCodeNum, 0);
 
@@ -41,7 +41,7 @@ LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons)
 LandUseLayer::~LandUseLayer()
 {
 	vector<LandUsePolygon*>::iterator iter;
-	for (iter=_polygons.begin(); iter != _polygons.end(); ++iter)
+	for (iter=Polygons.begin(); iter != Polygons.end(); ++iter)
 	{
 		delete *iter;
 	}
@@ -85,12 +85,11 @@ double LandUseLayer::MaxBenefit()
 }
 
 
-double LandUseLayer::CalMinBenefit()
+double LandUseLayer::MinBenefit()
 {
 	double min = *min_element(AvgBenefits.begin(), AvgBenefits.end());
 	return min * TotalArea();
 }
-
 
 double LandUseLayer::MaxChangeCost()
 {
@@ -140,7 +139,7 @@ double LandUseLayer::MaxSuitability()
 }
 
 
-double LandUseLayer::CalMinSuitability()
+double LandUseLayer::MinSuitability()
 {
 	vector<double> mins(PolygonsCount(),0);
 	for (int i=0; i != PolygonsCount(); ++i)
@@ -174,7 +173,7 @@ double LandUseLayer::MaxCompactness()
 }
 
 
-double LandUseLayer::CalMinCompactness()
+double LandUseLayer::MinCompactness()
 {
 	return 0;
 }
@@ -370,6 +369,6 @@ double LayerAssessor::TotalScore()
 		compactnessScore = CompactnessWeight * CompactnessScore();
 	}
 
-	double score = benefitScore + changeCostScore + suitabilityScores + compactnessScore;
+	double score = benefitScore + changeCostScore + suitabilityScore + compactnessScore;
 	return score/4;
 }

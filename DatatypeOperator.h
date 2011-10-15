@@ -12,10 +12,9 @@ using namespace std;
 class DatatypeOperator
 {
 public:
-	template <typename T>
-
 	/*******************************************************************/
-	/// 释放vector里的内存	
+	/// 释放vector里的内存
+	template <typename T>
 	static void DestroyVector(vector<T> &a)
 	{
 		vector<T>().swap(a);
@@ -23,7 +22,8 @@ public:
 
 	/*******************************************************************/
 	/// int\double->string
-	static string ConvertTostring(T value);
+	template <typename K>
+	static string ConvertTostring(K value)
 	{
 		stringstream strStream;
 		strStream<<value;
