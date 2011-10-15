@@ -9,9 +9,9 @@ using namespace std;
 /*********************************LandUsePolygon****************************/
 LandUsePolygon::LandUsePolygon(int id, double area, int landUseCode)
 {
-	_id = id;
-	_area = area;
-	_landUseCode = landUseCode;
+	ID = id;
+	Area = area;
+	LandUseCode = landUseCode;
 }
 
 
@@ -21,30 +21,10 @@ LandUsePolygon::~LandUsePolygon()
 }
 
 
- int LandUsePolygon::ID()
-{
-	return _id;
-}
-
-
- double LandUsePolygon::Area()
-{
-	return _area;
-}
-
-
- int LandUsePolygon::LandUseCode()
-{
-	return _landUseCode;
-}
-
-
-
 /*********************************LandUseLayer******************************/
 LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons)
 {
-	_useCodeNum = useCodeNum;
-	_polygons = polygons;
+	Polygons = polygons;
 
 	_polygonsCount = CalPolygonsCount();
 	_useAreas = CalUseAreas();
@@ -80,7 +60,6 @@ LandUseLayer::~LandUseLayer()
 	{
 		delete *iter;
 	}
-
 }
 
 
