@@ -487,7 +487,11 @@
 			Name="Spatial PSO"
 			>
 			<File
-				RelativePath=".\DatatypeTransformer.h"
+				RelativePath=".\DatatypeOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DatatypeOperator.h"
 				>
 			</File>
 			<File

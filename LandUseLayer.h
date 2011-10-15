@@ -75,23 +75,35 @@ public:
 	vector<int> NewUseCodes;	// 新土地利用类型代码
 
 	/****************************************************************/
-	double BenefitWeight;		// 效益权重
+	double MaxBenefit;			// 最大效益
+	double MinBenefit;			// 最小效益
 	double TotalBenefit();		// 总效益
+
+	double BenefitWeight;		// 效益权重
 	double BenefitScore();		// 效益得分
 
 	/****************************************************************/
-	double ChangeCostWeight;	// 变更花费权重
+	double MaxChangeCost;		// 最大变更费用
+	double MinChangeCost;		// 最小变更费用
 	double TotalChangeCost();	// 总变更费用
+
+	double ChangeCostWeight;	// 变更花费权重
 	double ChangeCostScore();	// 变更花费得分
 
 	/****************************************************************/
-	double SuitabilityWeight;	// 适宜性权重
+	double MaxSuitability;		// 最大适宜度
+	double MinSuitability;		// 最小适宜度	
 	double TotalSuitability();	// 总适宜性
+
+	double SuitabilityWeight;	// 适宜性权重
 	double SuitabilityScore();	// 适宜性得分	
 
 	/****************************************************************/
-	double CompactnessWeight;	// 空间紧凑度权重
+	double MaxCompactness;		// 最大紧凑度
+	double MinCompactness;		// 最小紧凑度
 	double TotalCompactness();	// 总紧凑度
+
+	double CompactnessWeight;	// 空间紧凑度权重	
 	double CompactnessScore();	// 空间紧凑度得分
 
 	/****************************************************************/
