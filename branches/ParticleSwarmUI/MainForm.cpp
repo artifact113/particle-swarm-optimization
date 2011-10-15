@@ -234,6 +234,8 @@ void MainForm::StartPSO()
 	// 适宜性评价
 	vector<double> avgSuitabilities(featureCount * 11, 0);
 	string suitFilePath(ui->TxtSuitFile->text().toStdString());
+	if (!suitFilePath.empty())
+	{
 	if (ui->ChkGD->isChecked())
 	{		
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "GDSYX");
@@ -322,6 +324,7 @@ void MainForm::StartPSO()
 			avgSuitabilities.at(i * 11 + 10) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
+	}
 
 	layer->AvgSuitabilities = avgSuitabilities;
 	DatatypeOperator::DestroyVector(avgSuitabilities);
@@ -350,7 +353,7 @@ void MainForm::StartPSO()
 	layerAssessor->MaxChangeCost = layer->MaxChangeCost();
 	layerAssessor->MinChangeCost = layer->MinChangeCost();
 	layerAssessor->MaxSuitability = layer->MaxSuitability();
-	layerAssessor->Suitability = layer->MinSuitability();
+	layerAssessor->MinSuitability = layer->MinSuitability();
 	layerAssessor->MaxCompactness = layer->MaxCompactness();
 	layerAssessor->MinCompactness = layer->MinCompactness();
 
