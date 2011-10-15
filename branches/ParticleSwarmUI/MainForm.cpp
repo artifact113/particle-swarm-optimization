@@ -1,7 +1,5 @@
 ﻿#include "MainForm.h"
 #include "ui_MainForm.h"
-#include <cstdlib>
-#include <sstream>
 #include <string>
 #include <QFileDialog>
 #include <QMessageBox>
@@ -10,6 +8,7 @@
 #include <QTableWidgetItem>
 #include "ogrsf_frmts.h"
 #include "LandUseLayer.h"
+#include "DatatypeOperator.h"
 #include "ShapefileOperator.h"
 #include "SpatialPSO.h"
 
@@ -100,14 +99,20 @@ void MainForm::UpdateInfo(const QString & path)
 	vector<LandUsePolygon*> polygons;
 	for (int i=0; i != featureCount; ++i)
 	{
-		int id = i;			//atoi(ids.at(i).c_str());
-		double area = atof(areas.at(i).c_str()) / 10000;
-		int landUseCode = atoi(landUseCodes.at(i).c_str());
+		int id = DatatypeOperator::stringToint(ids.at(i));
+		double area = DatatypeOperator::stringTodouble(areas.at(i)) / 10000;
+		int landUseCode = DatatypeOperator::stringToint(landUseCodes.at(i));
 		LandUsePolygon* polygon = new LandUsePolygon(id, area, landUseCode);
 		polygons.push_back(polygon);
 	}
 
+	DatatypeOperator::DestroyVector(ids);
+	DatatypeOperator::DestroyVector(areas);
+	DatatypeOperator::DestroyVector(landUseCodes);
+
 	LandUseLayer layer(_useCodeNum, polygons);
+	DatatypeOperator::DestroyVector(polygons);
+
 	vector<double> UseAreas = layer.UseAreas();
 	double totalArea = layer.TotalArea();
 
@@ -124,8 +129,7 @@ void MainForm::UpdateInfo(const QString & path)
 	ui->TxtQTJSYD_2->setValue(UseAreas.at(7));
 	ui->TxtSY_2->setValue(UseAreas.at(8));
 	ui->TxtTTZZ_2->setValue(UseAreas.at(9));
-	ui->TxtQTWLYTD_2->setValue(UseAreas.at(10));
-	
+	ui->TxtQTWLYTD_2->setValue(UseAreas.at(10));	
 }
 
 
@@ -179,14 +183,19 @@ void MainForm::StartPSO()
 	vector<LandUsePolygon*> polygons;
 	for (int i=0; i != featureCount; ++i)
 	{
-		int id = i;			//atoi(ids.at(i).c_str());
-		double area = atof(areas.at(i).c_str()) / 10000;
-		int landUseCode = atoi(landUseCodes.at(i).c_str());
+		int id = DatatypeOperator::stringToint(ids.at(i));
+		double area = DatatypeOperator::stringTodouble(areas.at(i)) / 10000;
+		int landUseCode = DatatypeOperator::stringToint(landUseCodes.at(i));
 		LandUsePolygon* polygon = new LandUsePolygon(id, area, landUseCode);
 		polygons.push_back(polygon);
 	}
 
-	LandUseLayer* layer = new LandUseLayer(11, polygons);
+	DatatypeOperator::DestroyVector(ids);
+	DatatypeOperator::DestroyVector(areas);
+	DatatypeOperator::DestroyVector(landUseCodes);
+
+	LandUseLayer* layer = new LandUseLayer(_useCodeNum, polygons);
+	DatatypeOperator::DestroyVector(polygons);
 
 	// 经济效益
 	vector<double> avgBenefits(11, 0);
@@ -202,6 +211,10 @@ void MainForm::StartPSO()
 	avgBenefits.at(9) = ui->TxtTTZZ->value();
 	avgBenefits.at(10) = ui->TxtQTWLYTD->value();
 
+	layer->AvgBenefits = avgBenefits;
+	DatatypeOperator::DestroyVector(avgBenefits);
+
+
 	// 变更费用
 	vector<double> avgChangeCosts(11 * 11, 0);
 	for (int i=0; i != 11; ++i)
@@ -214,6 +227,9 @@ void MainForm::StartPSO()
 		}
 	}
 
+	layer->AvgChangeCosts = avgChangeCosts;
+	DatatypeOperator::DestroyVector(avgChangeCosts);
+
 
 	// 适宜性评价
 	vector<double> avgSuitabilities(featureCount * 11, 0);
@@ -223,7 +239,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "GDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkYD->isChecked())
@@ -231,7 +247,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "YDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 1) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 1) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkLD->isChecked())
@@ -239,7 +255,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "LDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 2) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 2) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkMCD->isChecked())
@@ -247,7 +263,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "MCDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 3) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 3) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkQTNYD->isChecked())
@@ -255,7 +271,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "QTNYDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 4) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 4) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkCXJSYD->isChecked())
@@ -263,7 +279,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "CXJSYDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 5) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 5) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkJTSLYD->isChecked())
@@ -271,7 +287,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "JTSLYDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 6) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 6) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkQTJSYD->isChecked())
@@ -279,7 +295,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "QTJSYDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 7) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 7) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkSY->isChecked())
@@ -287,7 +303,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "SYSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 8) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 8) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkTTZZ->isChecked())
@@ -295,7 +311,7 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "TTZZSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 9) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 9) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
 	if (ui->ChkQTWLYTD->isChecked())
@@ -303,17 +319,20 @@ void MainForm::StartPSO()
 		vector<string> values = ShapefileReader::GetFieldValues(suitFilePath, "QTWLYTDSYX");
 		for (int i=0; i != values.size(); ++i)
 		{
-			avgSuitabilities.at(i * 11 + 10) = atof(values.at(i).c_str());
+			avgSuitabilities.at(i * 11 + 10) = DatatypeOperator::stringTodouble(values.at(i));
 		}
 	}
+
+	layer->AvgSuitabilities = avgSuitabilities;
+	DatatypeOperator::DestroyVector(avgSuitabilities);
+
 
 	// 空间紧凑度
 	vector<vector<int>> avgCompactnesses = ShapefileReader::GetAdjacency(filePath);
 
-	layer->SetAvgBenefits(avgBenefits);
-	layer->SetAvgChangeCosts(avgChangeCosts);
-	layer->SetAvgSuitabilities(avgSuitabilities);
-	layer->SetAvgCompactnesses(avgCompactnesses);
+	layer->AvgCompactnesses = avgCompactnesses;
+	DatatypeOperator::DestroyVector(avgCompactnesses);
+
 
 	LayerAssessor* layerAssessor = new LayerAssessor(layer);
 	double benefitWeight = ui->TxtEcoTemp->value();
@@ -325,6 +344,16 @@ void MainForm::StartPSO()
 	layerAssessor->ChangeCostWeight = changeCostWeight / sum;
 	layerAssessor->SuitabilityWeight = suitabilityWeight / sum;
 	layerAssessor->CompactnessWeight = compactnessWeight / sum;
+
+	layerAssessor->MaxBenefit = layer->MaxBenefit();
+	layerAssessor->MinBenefit = layer->MinBenefit();
+	layerAssessor->MaxChangeCost = layer->MaxChangeCost();
+	layerAssessor->MinChangeCost = layer->MinChangeCost();
+	layerAssessor->MaxSuitability = layer->MaxSuitability();
+	layerAssessor->Suitability = layer->MinSuitability();
+	layerAssessor->MaxCompactness = layer->MaxCompactness();
+	layerAssessor->MinCompactness = layer->MinCompactness();
+
 
 	SpatialFunctionBase* function = new SpatialFunctionBase(layerAssessor);
 	int swarmSize = ui->spinIteration->value();
@@ -338,16 +367,12 @@ void MainForm::StartPSO()
 
 	int maxIteration = ui->spinIteration->value();
 
-	double maxBenefit = layer->MaxBenefit();
-	double maxChangeCost = layer->MaxChangeCost();
-	double minSuitability = layer->MinSuitability();
-	double maxSuitability = layer->MaxSuitability();
-	double maxCompactness = layer->MaxCompactness();
-	ui->prgBenefit->setMaximum((int)maxBenefit);
-	ui->prgChangeCost->setMaximum((int)maxChangeCost);
-	ui->prgSuitability->setMinimum((int)minSuitability);
-	ui->prgSuitability->setMaximum((int)maxSuitability);
-	ui->prgCompactness->setMaximum((int)maxCompactness);
+	ui->prgBenefit->setMaximum((int)layerAssessor->MaxBenefit);
+	ui->prgBenefit->setMinimum((int)layerAssessor->MinBenefit);
+	ui->prgChangeCost->setMaximum((int)layerAssessor->MaxChangeCost);
+	ui->prgSuitability->setMaximum((int)layerAssessor->MaxSuitability);
+	ui->prgSuitability->setMinimum((int)layerAssessor->MinSuitability);	
+	ui->prgCompactness->setMaximum((int)layerAssessor->MaxCompactness);
 
 	vector<int> results;
 	double oldBestCost = 1.0e+100;
@@ -363,7 +388,7 @@ void MainForm::StartPSO()
 
 		}
 		results.assign(temp.begin(), temp.end());
-
+		DatatypeOperator::DestroyVector(temp);
 
 		double newBestCost = swarm->BestCost;		
 
@@ -389,12 +414,10 @@ void MainForm::StartPSO()
 	vector<int>::iterator iter;
 	for (iter=results.begin(); iter != results.end(); ++iter)
 	{
-		stringstream strStream;
-		strStream<<*iter;
-		values.push_back(strStream.str());
+		values.push_back(DatatypeOperator::ConvertTostring(*iter));
 	}
 
-	bool isSuccess = ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);
+	//bool isSuccess = ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);
 	
 	delete layer;
 	delete layerAssessor;

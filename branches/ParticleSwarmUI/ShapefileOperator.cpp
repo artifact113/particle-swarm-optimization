@@ -36,6 +36,7 @@ int ShapefileReader::GetFeatureCount(string filePath)
 vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName)
 {
 	vector<string> results;
+
 	// 注册驱动器
 	OGRRegisterAll();
 
@@ -50,7 +51,7 @@ vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName
 	// 获取图层
     OGRLayer* poLayer;
     poLayer = poDS->GetLayer(0);
-	poLayer->ResetReading();
+	int featureCount = poLayer->GetFeatureCount();
 
 	// 获取字段
 	OGRFeatureDefn* poFeatureDefn;
@@ -58,10 +59,11 @@ vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName
 	int fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
 	if (fieldIndex == -1)
 	{
-		return results;
+		return results.assign(featureCount, "");
 	}
 
 
+	poLayer->ResetReading();
 	OGRFeature* poFeature;
 	while ( (poFeature = poLayer->GetNextFeature()) != NULL )
 	{
@@ -123,6 +125,7 @@ string ShapefileReader::GetValue(string filePath, string fieldName, long feature
 vector<vector<int>> ShapefileReader::GetAdjacency(string filePath)
 {
 	vector<vector<int>> results;
+
 	// 注册驱动器
 	OGRRegisterAll();
 
@@ -143,28 +146,24 @@ vector<vector<int>> ShapefileReader::GetAdjacency(string filePath)
     }
 
 	int featureCount = poLayer->GetFeatureCount();
-	for (int i=0; i != featureCount; ++i)
-	{
-		vector<int> a(1,i);
-		results.push_back(a);
-	}
+	vector<int> temp;
+	results.assign(featureCount, temp);
 	
 	for (int i=0; i != featureCount; ++i)
 	{
 		OGRFeature* poFeature = poLayer->GetFeature(i);
-		OGRGeometry* poGeometry = poFeature->GetGeometryRef();
-		vector<int> adjacencys;
-		for (int j=0; j != featureCount; ++j)
+		OGRGeometry* poGeometry = poFeature->GetGeometryRef();		
+		for (int j=i+1; j != featureCount; ++j)
 		{
 			OGRFeature* otherFeature = poLayer->GetFeature(j);
 			OGRGeometry* otherGeometry = otherFeature->GetGeometryRef();
 			if (poGeometry->Touches(otherGeometry))
 			{
-				adjacencys.push_back(j);
+				results.at(i).push_back(j);
+				results.at(j).push_back(i);
 			}
 			OGRFeature::DestroyFeature(otherFeature);
-		}
-		results.at(i) = adjacencys;
+		}		
 		OGRFeature::DestroyFeature(poFeature);
 	}
 
@@ -211,7 +210,6 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 	{
 		return false;
 	}
-
 
 	// 写入值
 	fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
