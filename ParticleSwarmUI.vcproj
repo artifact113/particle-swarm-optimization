@@ -504,6 +504,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Render.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Render.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ShapefileOperator.cpp"
 				>
 			</File>
