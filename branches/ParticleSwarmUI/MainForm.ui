@@ -3748,6 +3748,9 @@ p, li { white-space: pre-wrap; }
          <property name="value">
           <number>0</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
          <property name="format">
           <string>%v</string>
          </property>
@@ -3775,6 +3778,9 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="value">
           <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
          <property name="format">
           <string>%v</string>
@@ -3815,6 +3821,9 @@ p, li { white-space: pre-wrap; }
          <property name="value">
           <number>0</number>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
          <property name="format">
           <string>%v</string>
          </property>
@@ -3846,6 +3855,15 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="value">
           <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="textVisible">
+          <bool>true</bool>
+         </property>
+         <property name="textDirection">
+          <enum>QProgressBar::TopToBottom</enum>
          </property>
          <property name="format">
           <string>%v</string>
@@ -3891,6 +3909,9 @@ p, li { white-space: pre-wrap; }
          </property>
          <property name="value">
           <number>0</number>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
          <property name="format">
           <string>%v</string>

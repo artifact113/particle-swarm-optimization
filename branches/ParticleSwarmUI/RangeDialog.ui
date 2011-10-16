@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>RangeDialog</class>
+ <widget class="QDialog" name="RangeDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -201,7 +201,7 @@
   <connection>
    <sender>pButnOK</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>RangeDialog</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -217,7 +217,7 @@
   <connection>
    <sender>pButnCancel</sender>
    <signal>clicked()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>RangeDialog</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

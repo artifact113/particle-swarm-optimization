@@ -8,7 +8,7 @@
 
 class QDialog;
 
-class RangeDialog : public QDialog , public Ui::Dialog
+class RangeDialog : public QDialog , public Ui::RangeDialog
 {
 	Q_OBJECT
 public:
