@@ -331,7 +331,7 @@ void MainForm::StartPSO()
 
 
 	// 空间紧凑度
-	vector<vector<int>> avgCompactnesses = ShapefileReader::GetAdjacency(filePath);
+	vector<vector<int>> avgCompactnesses(featureCount,vector<int>()); //= ShapefileReader::GetAdjacency(filePath);
 
 	layer->AvgCompactnesses = avgCompactnesses;
 	DatatypeOperator::DestroyVector(avgCompactnesses);
@@ -377,22 +377,13 @@ void MainForm::StartPSO()
 	ui->prgSuitability->setMinimum((int)layerAssessor->MinSuitability);	
 	ui->prgCompactness->setMaximum((int)layerAssessor->MaxCompactness);
 
-	vector<int> results;
+	vector<double> results;
 	double oldBestCost = 1.0e+100;
 	double sameCount = 0;
 	for (int i = 0; i != maxIteration; ++i)
 	{
 		swarm->Iteration();
-		vector<int> temp;
-		vector<double>::iterator iter;
-		for (iter=swarm->BestPosition.end(); iter != swarm->BestPosition.end(); ++iter)
-		{
-			temp.push_back((int)(*iter));
-
-		}
-		results.assign(temp.begin(), temp.end());
-		DatatypeOperator::DestroyVector(temp);
-
+		results.assign(swarm->BestPosition.begin(), swarm->BestPosition.end());
 		double newBestCost = swarm->BestCost;		
 
 		ui->prgBenefit->setValue((int)(layerAssessor->BenefitScore()));
@@ -406,6 +397,11 @@ void MainForm::StartPSO()
 		{
 			sameCount++;
 		}
+		else
+		{
+			sameCount = 0;
+		}
+		oldBestCost = newBestCost;
 		if (sameCount == 20)
 		{			
 			break;
@@ -414,10 +410,10 @@ void MainForm::StartPSO()
 	}
 	
 	vector<string> values;	
-	vector<int>::iterator iter;
+	vector<double>::iterator iter;
 	for (iter=results.begin(); iter != results.end(); ++iter)
 	{
-		values.push_back(DatatypeOperator::ConvertTostring(*iter));
+		values.push_back(DatatypeOperator::ConvertTostring((int)(*iter)));
 	}
 
 	//bool isSuccess = ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);

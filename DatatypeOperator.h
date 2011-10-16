@@ -44,7 +44,7 @@ public:
 		return atof(value.c_str());
 	}
 
-}
+};
 
 
 #endif // DATATYPEOPERATOR_H

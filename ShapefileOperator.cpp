@@ -59,7 +59,8 @@ vector<string> ShapefileReader::GetFieldValues(string filePath, string fieldName
 	int fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
 	if (fieldIndex == -1)
 	{
-		return results.assign(featureCount, "");
+		results.assign(featureCount, "");
+		return results;
 	}
 
 
