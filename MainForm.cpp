@@ -398,7 +398,7 @@ void MainForm::StartPSO()
 		}
 		ShapefileWriter::WriteToFile(filePath, "NewUseCode", results);
 		
-		//Render::uniquevalueRender3(_iface,path,"NewUseCode");
+		Render::uniquevalueRender(_iface,ui->TxtPath->text(),"NewUseCode");
 
 		double newBestCost = swarm->BestCost;		
 
