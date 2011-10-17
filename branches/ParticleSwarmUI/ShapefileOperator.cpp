@@ -199,7 +199,7 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 	OGRFeatureDefn* poFeatureDefn;
 	poFeatureDefn = poLayer->GetLayerDefn();
 	int fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
-	if (fieldIndex != -1)
+	if (fieldIndex == -1)
 	{
 		return false;
 	}

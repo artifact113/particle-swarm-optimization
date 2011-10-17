@@ -1,4 +1,4 @@
-ï»¿#include "Render.h"
+#include "Render.h"
 
 #include "qgssymbol.h"
 #include "qgsuniquevaluerenderer.h"
@@ -120,7 +120,7 @@ QString Render::BaseName(const QString& strPath)
 		return QString("");
 	}
 
-	const QChar *pChar = strPath.unicode();              //æœ‰/0
+	const QChar *pChar = strPath.unicode();              //ÓĞ/0
 
 	int i;
 	int nIndexDot = -1;
@@ -152,9 +152,9 @@ QString Render::BaseName(const QString& strPath)
 		return QString("");
 	}
 
-	const int nBaseNameNum = nIndexDot - nIndexIncline - 1 ;                        //å­—ç¬¦æ•°
+	const int nBaseNameNum = nIndexDot - nIndexIncline - 1 ;                        //×Ö·ûÊı
 
-	QChar *pNewChar = new QChar[nBaseNameNum + 1];                    //åŒ…å«\0
+	QChar *pNewChar = new QChar[nBaseNameNum + 1];                    //°üº¬\0
 
 	for( i = 0 ; i != nBaseNameNum ; ++i )
 	{
@@ -173,6 +173,27 @@ QString Render::BaseName(const QString& strPath)
 
 bool Render::uniquevalueRender( QgisInterface* iface , const QString& strPath , const QString& strFieldName , const QList<QString>* pUserUValuesList )
 {
+	QgsMapLayer* pMapLayer;
+	QgsMapCanvas* pMapCanvas = iface->mapCanvas();
+	int i;
+	int nLayerCount =  pMapCanvas->layerCount();
+
+
+
+	for( i = 0 ; i != nLayerCount; ++i )
+	{
+		pMapLayer =  pMapCanvas->layer( i ) ;
+		if( pMapLayer->source() == strPath  )
+		{
+			break;
+		}
+	}
+
+	if( i != nLayerCount )
+	{
+		return uniquevalueRender2( iface , dynamic_cast<QgsVectorLayer*> ( pMapLayer ) , strFieldName ,pUserUValuesList );
+	}
+	
 	QgsVectorLayer* pVectorLayer = new QgsVectorLayer( strPath , BaseName( strPath ) , "ogr"  );
 
 	const QGis::GeometryType geometryType =  pVectorLayer->geometryType();
