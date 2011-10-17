@@ -392,12 +392,13 @@ void MainForm::StartPSO()
 	{
 		swarm->Iteration();
 		vector<double>::iterator iter;
-		for (iter=BestPosition.begin(); iter != swarm->BestPosition.end(); ++iter)
+		for (iter = swarm->BestPosition.begin(); iter != swarm->BestPosition.end(); ++iter)
 		{
-			results.push_back(DatatypeOperator::ConvertTostring((int)*iter);
+			results.push_back(DatatypeOperator::ConvertTostring((int)*iter));
 		}
-		ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);
-		Render::uniquevalueRender2(_iface,,"NewUseCode");
+		ShapefileWriter::WriteToFile(filePath, "NewUseCode", results);
+		
+		//Render::uniquevalueRender3(_iface,path,"NewUseCode");
 
 		double newBestCost = swarm->BestCost;		
 
