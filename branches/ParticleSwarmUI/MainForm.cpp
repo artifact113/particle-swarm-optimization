@@ -11,12 +11,13 @@
 #include "DatatypeOperator.h"
 #include "ShapefileOperator.h"
 #include "SpatialPSO.h"
+#include "Render.h"
 
 using namespace std;
 
 
 
-MainForm::MainForm(QWidget *parent) :
+MainForm::MainForm(QgisInterface* iface,QWidget *parent) :_iface(iface)
     QDialog(parent),
     ui(new Ui::MainForm)
 {
@@ -91,6 +92,8 @@ void MainForm::UpdateInfo(const QString & path)
 	ui->stackedWidget->setCurrentIndex(0);
 
 	string filePath(path.toStdString());
+
+	Render::uniquevalueRender(_iface,path,"OldUseCode");
 
 	// 1、建立LandUseLayer来描述shape文件
 	int featureCount = ShapefileReader::GetFeatureCount(filePath);
