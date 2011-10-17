@@ -88,6 +88,8 @@ void MainForm::OpenFile()
 /// 更新文件相关信息
 void MainForm::UpdateInfo(const QString & path)
 {
+	ui->stackedWidget->setCurrentIndex(0);
+
 	string filePath(path.toStdString());
 
 	// 1、建立LandUseLayer来描述shape文件
@@ -343,10 +345,13 @@ void MainForm::StartPSO()
 	double suitabilityWeight = ui->TxtSuitTemp->value();
 	double compactnessWeight = ui->TxtCompTemp->value();
 	double sum = benefitWeight + changeCostWeight + suitabilityWeight + compactnessWeight;
-	layerAssessor->BenefitWeight = benefitWeight / sum;
-	layerAssessor->ChangeCostWeight = changeCostWeight / sum;
-	layerAssessor->SuitabilityWeight = suitabilityWeight / sum;
-	layerAssessor->CompactnessWeight = compactnessWeight / sum;
+	if (sum != 0)
+	{
+		layerAssessor->BenefitWeight = benefitWeight / sum;
+		layerAssessor->ChangeCostWeight = changeCostWeight / sum;
+		layerAssessor->SuitabilityWeight = suitabilityWeight / sum;
+		layerAssessor->CompactnessWeight = compactnessWeight / sum;
+	}
 
 	layerAssessor->MaxBenefit = layer->MaxBenefit();
 	layerAssessor->MinBenefit = layer->MinBenefit();
@@ -386,11 +391,11 @@ void MainForm::StartPSO()
 		results.assign(swarm->BestPosition.begin(), swarm->BestPosition.end());
 		double newBestCost = swarm->BestCost;		
 
-		ui->prgBenefit->setValue((int)(layerAssessor->BenefitScore()));
-		ui->prgChangeCost->setValue((int)(layerAssessor->ChangeCostScore()));
-		ui->prgSuitability->setValue((int)(layerAssessor->SuitabilityScore()));
-		ui->prgCompactness->setValue((int)(layerAssessor->CompactnessScore()));
-		ui->prgTotalScore->setValue((int)(100-layerAssessor->TotalScore()));
+		ui->prgBenefit->setValue((int)(layerAssessor->TotalBenefit()));
+		ui->prgChangeCost->setValue((int)(layerAssessor->TotalChangeCost()));
+		ui->prgSuitability->setValue((int)(layerAssessor->TotalSuitability()));
+		ui->prgCompactness->setValue((int)(layerAssessor->TotalCompactness()));
+		ui->prgTotalScore->setValue((int)(layerAssessor->TotalScore()));
 		ui->lcdIterationNum->display(i+1);
 
 		if (fabs(newBestCost - oldBestCost) < 0.01 )
@@ -422,5 +427,7 @@ void MainForm::StartPSO()
 	delete layerAssessor;
 	delete swarm;
 	delete function;
+
+	QMessageBox::information(this, "SpatialPSO","The Calculation is complete!");
 	
 }
