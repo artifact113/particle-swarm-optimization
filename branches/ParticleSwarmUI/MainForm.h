@@ -6,6 +6,7 @@
 #include <QDialog>
 #include "LandUseLayer.h"
 #include "SpatialPSO.h"
+#include "qgisplugin.h"		///	QGIS的头文件
 
 namespace Ui {
     class MainForm;

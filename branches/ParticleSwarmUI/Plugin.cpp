@@ -45,7 +45,7 @@ void Plugin::unload()
 
 void Plugin::Entrance()
 {
-	MainForm w;
+	MainForm w(mIface);
 	w.exec();
 }
 
