@@ -205,12 +205,12 @@ bool ShapefileWriter::WriteToFile(string filePath, string fieldName, vector<stri
 	}
 
 	// 创建字段
-	OGRFieldDefn poFieldDefn(fieldName.c_str(), OFTString);
+	/*OGRFieldDefn poFieldDefn(fieldName.c_str(), OFTString);
 	poFieldDefn.SetWidth(32);
 	if(poLayer->CreateField(&poFieldDefn) != OGRERR_NONE)
 	{
 		return false;
-	}
+	}*/
 
 	// 写入值
 	fieldIndex = poFeatureDefn->GetFieldIndex(fieldName.c_str());
