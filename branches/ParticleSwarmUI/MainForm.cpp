@@ -385,13 +385,20 @@ void MainForm::StartPSO()
 	ui->prgSuitability->setMinimum((int)layerAssessor->MinSuitability);	
 	ui->prgCompactness->setMaximum((int)layerAssessor->MaxCompactness);
 
-	vector<double> results;
+	vector<string> results;
 	double oldBestCost = 1.0e+100;
 	double sameCount = 0;
 	for (int i = 0; i != maxIteration; ++i)
 	{
 		swarm->Iteration();
-		results.assign(swarm->BestPosition.begin(), swarm->BestPosition.end());
+		vector<double>::iterator iter;
+		for (iter=BestPosition.begin(); iter != swarm->BestPosition.end(); ++iter)
+		{
+			results.push_back(DatatypeOperator::ConvertTostring((int)*iter);
+		}
+		ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);
+		Render::uniquevalueRender2(_iface,,"NewUseCode");
+
 		double newBestCost = swarm->BestCost;		
 
 		ui->prgBenefit->setValue((int)(layerAssessor->TotalBenefit()));
@@ -416,15 +423,6 @@ void MainForm::StartPSO()
 		}
 
 	}
-	
-	vector<string> values;	
-	vector<double>::iterator iter;
-	for (iter=results.begin(); iter != results.end(); ++iter)
-	{
-		values.push_back(DatatypeOperator::ConvertTostring((int)(*iter)));
-	}
-
-	//bool isSuccess = ShapefileWriter::WriteToFile(filePath, "NewUseCode", values);
 	
 	delete layer;
 	delete layerAssessor;
