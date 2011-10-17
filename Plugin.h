@@ -7,7 +7,7 @@
 #include "qgisplugin.h"		///	QGIS的头文件
 
 class QAction;
-class QgisInterface;	/// 该类定义了插件可访问的接口，即插件可以使用的应用程序功能
+class QgisInterface;		/// 该类定义了插件可访问的接口，即插件可以使用的应用程序功能
 class QString;
 
 

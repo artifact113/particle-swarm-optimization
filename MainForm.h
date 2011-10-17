@@ -16,7 +16,7 @@ class MainForm : public QDialog
     Q_OBJECT
 
 public:
-    explicit MainForm(QWidget *parent = 0);
+    explicit MainForm(QgisInterface* iface ,QWidget *parent = 0);
     ~MainForm();
 
 public slots:
@@ -37,6 +37,8 @@ public slots:
 
 private:
     Ui::MainForm *ui;
+
+	QgisInterface* _iface;
 
 	static const int _useCodeNum = 11;
 };
