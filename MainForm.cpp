@@ -17,7 +17,7 @@ using namespace std;
 
 
 
-MainForm::MainForm(QgisInterface* iface,QWidget *parent) :_iface(iface)
+MainForm::MainForm(QgisInterface* iface,QWidget *parent) :_iface(iface),
     QDialog(parent),
     ui(new Ui::MainForm)
 {
