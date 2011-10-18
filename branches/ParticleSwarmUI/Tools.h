@@ -19,8 +19,8 @@
 ///		详见：http://www.codeproject.com/KB/recipes/particleswarmoptimization.aspx
 //////////////////////////////////////////////////////////////////////////
 
-#ifndef TOOLS_H
-#define POOLS_H
+#ifndef _TOOLS_H_
+#define _TOOLS_H_
 
 
 ///	随机类--随机数生成器
@@ -43,4 +43,4 @@ class Random
 };
 
 
-#endif
+#endif // _TOOLS_H_

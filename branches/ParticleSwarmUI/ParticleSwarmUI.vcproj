@@ -460,6 +460,14 @@
 			Name="PSO Sources"
 			>
 			<File
+				RelativePath=".\DPSO.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\DPSO.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PSO.cpp"
 				>
 			</File>
