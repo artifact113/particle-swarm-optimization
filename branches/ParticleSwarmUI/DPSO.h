@@ -66,7 +66,7 @@ public:
 	vector<DiscreteParticle*> Particles;/// Particles，粒子群所拥有的粒子
 
     //-----------------------------------------------------------------------------------    
-    vector<vector<int>> RestirctDomain;	/// RestirctDomain,粒子在每维位置上的限制域
+    vector<vector<int>> Domain;			/// Domain,粒子在每维位置上的值域
 
 	//-----------------------------------------------------------------------------------	
 	bool UseGlobalOptimum;				/// UseGlobalOptimum，是否采用全局优化策略，默认true
