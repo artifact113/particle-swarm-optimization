@@ -2,10 +2,12 @@
 #define _FITNESSFUNCTION_H_
 
 #include <vector>
+#include "LandUseLayer.h"
 
 using namespace std;
 
 
+/// 适应度函数
 class FitnessFunction
 {
 public:
@@ -54,7 +56,7 @@ public:
 	vector<double> AvgChangeCosts;
 
 	ChangeCostFunction(LandUseLayer* layer, vector<double> &avgChangeCosts, bool isPositive = false);
-	double Score(vector<int> &landUseCodes);
+	double CurrentValue(vector<int> &landUseCodes);
 }
 
 
@@ -75,8 +77,20 @@ class CompactnessFunction : FitnessFunction
 public:
 	vector<vector<int>> AvgCompactnesses;
   
-	CompactnessFunction(LandUseLayer* layer, vector<double> &avgCompactnesses, bool isPositive = true);
+	CompactnessFunction(LandUseLayer* layer, vector<double> &avgCompactnesses, bool isPositive = false);
 	double CurrentValue(vector<int> &landUseCodes);
 }
 
+
+/// 图层评价
+class LayerAssessor
+{
+public:
+	vector<FitnessFunction*> Functions;
+	vector<double> Weights;
+
+	LayerAssessor(vector<FitnessFunction*> &functions, vector<double> &weights);
+
+	double TotalScore(vector<int> &landUseCodes);
+}
 #endif // _FITNESSFUNCTION_H_
