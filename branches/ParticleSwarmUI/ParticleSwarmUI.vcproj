@@ -468,6 +468,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FitnessFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FitnessFunction.h"
+				>
+			</File>
+			<File
 				RelativePath=".\PSO.cpp"
 				>
 			</File>

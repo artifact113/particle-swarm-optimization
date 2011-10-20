@@ -124,4 +124,11 @@ public:
 bool CompareTo(const DiscreteParticle* p1, const DiscreteParticle* p2);
 
 
+/// 消费函数类
+class DiscreteFunctionBase
+{
+	public:
+		virtual double Function(vector<int> &position) = 0;
+};
+
 #endif //_DPSO_H_
