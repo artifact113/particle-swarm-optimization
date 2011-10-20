@@ -22,7 +22,6 @@ public:
 	/*****************************************************************/
 	// 构造函数
 	LandUsePolygon(int id, double area, int landUseCode);
-	~LandUsePolygon();		// 析构函数
 };
 
 

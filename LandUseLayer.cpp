@@ -15,11 +15,6 @@ LandUsePolygon::LandUsePolygon(int id, double area, int landUseCode)
 }
 
 
-LandUsePolygon::~LandUsePolygon()
-{
-
-}
-
 
 /*********************************LandUseLayer******************************/
 LandUseLayer::LandUseLayer(int useCodeNum, vector<LandUsePolygon*> &polygons)
