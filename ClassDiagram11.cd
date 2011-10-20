@@ -63,5 +63,12 @@
       <FileName>LandUseLayer.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="SpatialFunctionBase">
+    <Position X="14.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>SpatialPSO.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="微软雅黑" Size="9" />
 </ClassDiagram>
