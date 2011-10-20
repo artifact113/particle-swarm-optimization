@@ -646,6 +646,10 @@
 				</FileConfiguration>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ClassDiagram11.cd"
+			>
+		</File>
 	</Files>
 	<Globals>
 		<Global

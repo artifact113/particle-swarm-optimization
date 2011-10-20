@@ -27,7 +27,7 @@ public:
 
 
 /// 面积约束
-class AreaFunction : FitnessFunction
+class AreaFunction : public FitnessFunction
 {
 public:
 	vector<double> AvgAreas;
@@ -39,7 +39,7 @@ public:
 
 
 /// 经济效益
-class BenefitFunction : FitnessFunction
+class BenefitFunction : public FitnessFunction
 {
 public:
 	vector<double> AvgBenefits;
@@ -50,7 +50,7 @@ public:
 
 
 /// 变更费用
-class ChangeCostFunction : FitnessFunction
+class ChangeCostFunction : public FitnessFunction
 {
 public:
 	vector<double> AvgChangeCosts;
@@ -61,7 +61,7 @@ public:
 
 
 /// 适宜性评价
-class SuitabilityFunction : FitnessFunction
+class SuitabilityFunction : public FitnessFunction
 {
 public:
 	vector<double> AvgSuitabilities;
@@ -72,7 +72,7 @@ public:
 
 
 /// 空间紧凑度
-class CompactnessFunction : FitnessFunction
+class CompactnessFunction : public FitnessFunction
 {
 public:
 	vector<vector<int>> AvgCompactnesses;
