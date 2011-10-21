@@ -1,4 +1,4 @@
-﻿#ifndef _DPSO_H_
+﻿﻿#ifndef _DPSO_H_
 #define _DPSO_H_
 
 #include <vector>
@@ -7,7 +7,7 @@ using namespace std;
 
 class DiscreteParticleSwarm;
 class Random;
-class FunctionBase;
+
 
 
 /// 粒子类
@@ -27,7 +27,7 @@ public:
 	double BestCost;				///	BestCost,粒子的历史最佳消费量
 
 	//-----------------------------------------------------------------------------------
-	vector<int> Velocity;			///	Velocity,粒子的运动速度
+	vector<vector<double>> Velocity;///	Velocity,粒子的运动速度
 
 	//-----------------------------------------------------------------------------------
 	DiscreteParticleSwarm* Swarm;	///	Swarm,粒子所属的粒子群
@@ -36,11 +36,7 @@ public:
 
 	//-----------------------------------------------------------------------------------
 	/// 构造函数;
-	Particle();
-
-	//-----------------------------------------------------------------------------------
-	/// 析构函数;
-	~Particle();
+	DiscreteParticle();
 
 	//-----------------------------------------------------------------------------------
 	///	消费函数，计算粒子的消费值;
@@ -52,7 +48,7 @@ public:
 
 	//-----------------------------------------------------------------------------------
 	/// 更新粒子的位置与速度;
-	void UpdateVelocityAndPosition(vector<int> &bestPositionOfSwarm);
+	void UpdateVelocityAndPosition(vector<int> &globeBestPosition);
 
 };
 
@@ -70,6 +66,9 @@ public:
 
 	//-----------------------------------------------------------------------------------	
 	bool UseGlobalOptimum;				/// UseGlobalOptimum，是否采用全局优化策略，默认true
+
+	//-----------------------------------------------------------------------------------	
+	double OptimizeRadius;				/// OptimizeRadius，寻优半径，用于局部优化策略
     
 	//-----------------------------------------------------------------------------------	
 	double Momentum;					/// Momentum，惯性系数
@@ -108,7 +107,7 @@ public:
 
 	//-----------------------------------------------------------------------------------
 	/// CurrentBestPosition,粒子群的当前代最好粒子的位置，第一个粒子的位置；
-	vector<double> CurrentBestPosition();
+	vector<int> CurrentBestPosition();
 
 	//-----------------------------------------------------------------------------------
 	/// Cost，粒子群的当前代最好粒子的消费量，第一个粒子的消费量；
