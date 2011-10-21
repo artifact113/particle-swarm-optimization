@@ -484,6 +484,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\SpatialDPSO.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpatialDPSO.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SpatialPSO.cpp"
 				>
 			</File>
