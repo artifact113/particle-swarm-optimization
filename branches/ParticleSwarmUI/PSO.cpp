@@ -26,8 +26,8 @@ void Particle::UpdateBest()
 		BestCost = Cost;
 		BestPosition = Position;	/// 将当前位置拷贝作历史最佳位置
 	}
-
 }
+
 
 void Particle::UpdateVelocityAndPosition(vector<double> &bestPositionOfSwarm)
 {
