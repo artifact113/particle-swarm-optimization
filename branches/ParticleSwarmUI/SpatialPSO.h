@@ -22,7 +22,7 @@
 #define _SPATIALPSO_H_
 
 #include <vector>
-#include "DPSO.h"
+#include "PSO.h"
 #include "FitnessFunction.h"
 
 
@@ -72,14 +72,14 @@ class SpatialParticleSwarm : public ParticleSwarm
 };
 
 
-class SpatialFunctionBase : public DiscreteFunctionBase
+class SpatialFunctionBase : public FunctionBase
 {
 	private:
 		LayerAssessor* _layerAssessor;
 
 	public:
 		SpatialFunctionBase(LayerAssessor* layerAssessor);
-		double Function(vector<int> &position);
+		double Function(vector<double> &position);
 };
 
 #endif // SPATIALPSO_H_
