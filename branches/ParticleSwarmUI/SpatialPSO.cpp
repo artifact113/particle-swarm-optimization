@@ -73,9 +73,16 @@ SpatialFunctionBase::SpatialFunctionBase(LayerAssessor* layerAssessor)
 }
 
 
-double SpatialFunctionBase::Function(vector<int> &position)
+double SpatialFunctionBase::Function(vector<double> &position)
 {
-	double score = _layerAssessor->TotalScore(position);
+	vector<int> newPosition;
+	vector<double>::iterator iter;
+	for (iter = position.begin(); iter != position.end(); ++iter)
+	{
+		newPosition.push_back((int)*iter);
+	}
+
+	double score = _layerAssessor->TotalScore(newPosition);
 
 	return 100 - score;
 }
