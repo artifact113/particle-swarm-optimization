@@ -40,6 +40,17 @@ class Random
 
 		/// @return [0,1]区间内的随机数
 		double NextDouble();
+
+		/// 自开机以来CPU经历的时钟周期数(RDTSC)
+		inline unsigned __int64 GetCycleCount()
+		{
+			__asm
+			{
+				_emit 0x0F;
+				_emit 0x31;
+			}
+		}
+
 };
 
 
