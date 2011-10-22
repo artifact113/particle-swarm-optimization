@@ -7,7 +7,7 @@ using namespace std;
 
 Random::Random()
 {
-	state = (unsigned)time(NULL);
+	state = GetCycleCount();
     if( state == 0 )
 	{
         state = 1;
