@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+ 
 /// ÊÊÓ¦¶Èº¯Êı
 class FitnessFunction
 {
