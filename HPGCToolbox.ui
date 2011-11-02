@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>HPGCToolbox</class>
+ <widget class="QWidget" name="HPGCToolbox">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>230</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>高性能智能地理计算工具箱</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="HPGCToolbox.qrc">
+    <normaloff>:/Resources/GCToolbox32.png</normaloff>:/Resources/GCToolbox32.png</iconset>
+  </property>
+  <property name="windowOpacity">
+   <double>1.000000000000000</double>
+  </property>
+  <widget class="QTreeWidget" name="treeToolbox">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>230</width>
+     <height>700</height>
+    </rect>
+   </property>
+   <attribute name="headerVisible">
+    <bool>false</bool>
+   </attribute>
+   <column>
+    <property name="text">
+     <string notr="true">1</string>
+    </property>
+   </column>
+  </widget>
+ </widget>
+ <resources>
+  <include location="HPGCToolbox.qrc"/>
+ </resources>
+ <connections/>
+</ui>

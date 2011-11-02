@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Resources/GCTool32.png</file>
+        <file>Resources/GCToolbox32.png</file>
+        <file>Resources/GCToolset32.png</file>
+        <file>Resources/ToolboxFolder32.png</file>
+    </qresource>
+</RCC>
