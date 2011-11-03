@@ -85,7 +85,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="F:\QGIS\Debug\plugins"
+			OutputDirectory=".\QGIS\Debug\plugins"
 			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)"
 			ConfigurationType="2"
 			>
@@ -261,6 +261,10 @@
 			UniqueIdentifier="{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}"
 			ParseFiles="false"
 			>
+			<File
+				RelativePath=".\config.xml"
+				>
+			</File>
 			<File
 				RelativePath=".\Resources\GCTool32.png"
 				>

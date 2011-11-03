@@ -28,6 +28,10 @@ protected:
 private:
 	QgisInterface* _iface;
 
+
+	/// 载入配置文件
+	bool loadConfig();
+
 };
 
 
