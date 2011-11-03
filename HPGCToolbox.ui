@@ -34,9 +34,24 @@
    </attribute>
    <column>
     <property name="text">
-     <string notr="true">1</string>
+     <string notr="true">Tools</string>
     </property>
    </column>
+   <item>
+    <property name="text">
+     <string>New Item</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>New Subitem</string>
+     </property>
+     <item>
+      <property name="text">
+       <string>New Subitem</string>
+      </property>
+     </item>
+    </item>
+   </item>
   </widget>
  </widget>
  <resources>
