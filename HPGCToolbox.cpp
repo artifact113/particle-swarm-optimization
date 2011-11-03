@@ -18,7 +18,17 @@ HPGCToolbox::~HPGCToolbox()
 
 
 void HPGCToolbox::resizeEvent(QResizeEvent* event)
-{
-	//treeToolbox->resize(event->size());
-　　//HPGCToolbox::resizeEvent(event); 
+{	
+	if (this->isFloating())
+	{
+		treeToolbox->move(0, 0);
+		treeToolbox->resize(this->size());		
+	}
+	else
+	{
+		treeToolbox->move(0, 20);
+		treeToolbox->resize(this->width(), this->height() - 20);
+	}
+	
+	QWidget::resizeEvent(event);
 }

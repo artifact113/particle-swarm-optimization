@@ -26,8 +26,8 @@ Plugin::Plugin(QgisInterface* iface)
 
 Plugin::~Plugin()
 {
-	delete _action;
 	delete _toolbox;
+	delete _action;	
 }
 
 
