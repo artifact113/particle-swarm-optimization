@@ -17,7 +17,7 @@ static const QgisPlugin::PLUGINTYPE sPluginType = QgisPlugin::UI;
 Plugin::Plugin(QgisInterface* iface)
 {
 	_iface = iface;
-	_action = new QAction(QIcon(":/Resources/GCToolbox32.png"),tr("HPGCToolbox"), 0);
+	_action = new QAction(QIcon(":/toolbox"),tr("HPGCToolbox"), 0);
 	_toolbox =new HPGCToolbox(_iface, QString("HPGCToolbox"));
 	_toolbox->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
 

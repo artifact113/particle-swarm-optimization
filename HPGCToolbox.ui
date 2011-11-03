@@ -14,7 +14,7 @@
    <string>高性能智能地理计算工具箱</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="HPGCToolbox.qrc">
+   <iconset>
     <normaloff>:/Resources/GCToolbox32.png</normaloff>:/Resources/GCToolbox32.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -29,6 +29,12 @@
      <height>700</height>
     </rect>
    </property>
+   <property name="editTriggers">
+    <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+   </property>
+   <property name="rootIsDecorated">
+    <bool>false</bool>
+   </property>
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
@@ -39,18 +45,12 @@
    </column>
    <item>
     <property name="text">
-     <string>New Item</string>
+     <string>HPGCToolbox</string>
     </property>
-    <item>
-     <property name="text">
-      <string>New Subitem</string>
-     </property>
-     <item>
-      <property name="text">
-       <string>New Subitem</string>
-      </property>
-     </item>
-    </item>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/toolboxfolder</normaloff>:/toolboxfolder</iconset>
+    </property>
    </item>
   </widget>
  </widget>

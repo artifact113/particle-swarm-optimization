@@ -2,6 +2,8 @@
 #include <QWidget>
 #include <QSize>
 #include <QResizeEvent>
+#include <QDomDocument>
+#include <QFile>
 
 HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
 : QDockWidget(title, parent), _iface(iface)
@@ -31,4 +33,10 @@ void HPGCToolbox::resizeEvent(QResizeEvent* event)
 	}
 	
 	QWidget::resizeEvent(event);
+}
+
+
+bool HPGCToolbox::loadConfig()
+{
+	return true;
 }
