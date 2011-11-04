@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<toolboxfolder name="HPGCToolbox">
+<toolboxfolder name="HPGCToolbox" id="0" config="./HPGCToolbox/config.xml">
   <toolcount>5</toolcount>
   <toolbox name="PSO" id="1">
-    <toolset name="DPSO" id="2" filename="./DLL/DPSO.dll">      
-      <tool name="土地利用结构优化" id="3" config="./Config/土地利用结构优化.xml"></tool>
-      <tool name="旅行商问题" id="4" config="./Config/旅行商问题.xml"></tool>
+    <toolset name="DPSO" id="2" filename="./HPGCToolbox/ToolsetDLL/DPSO.dll">      
+      <tool name="土地利用结构优化" id="3" config="./HPGCToolbox/Config/DPSO_土地利用结构优化.xml"></tool>
+      <tool name="旅行商问题" id="4" config="./HPGCToolbox/Config/DPSO_旅行商问题.xml"></tool>
     </toolset>
-    <toolset name="CPSO" id="5" filename="./DLL/CPSO.dll"></toolset>
+    <toolset name="CPSO" id="5" filename="./DLL/5.dll"></toolset>
   </toolbox>
 </toolboxfolder>
