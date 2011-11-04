@@ -262,10 +262,6 @@
 			ParseFiles="false"
 			>
 			<File
-				RelativePath=".\config.xml"
-				>
-			</File>
-			<File
 				RelativePath=".\Resources\GCTool32.png"
 				>
 				<FileConfiguration
