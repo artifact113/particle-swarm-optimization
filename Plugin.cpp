@@ -51,13 +51,16 @@ void Plugin::unload()
 
 void Plugin::pluginMain()
 {
-	if (_toolbox->isVisible())
+	if(_toolbox->loadConfig())
 	{
-		_iface->removeDockWidget(_toolbox);
-	}
-	else
-	{
-		_iface->addDockWidget(Qt::RightDockWidgetArea, _toolbox);
+		if (_toolbox->isVisible())
+		{
+			_iface->removeDockWidget(_toolbox);
+		}
+		else
+		{
+			_iface->addDockWidget(Qt::RightDockWidgetArea, _toolbox);
+		}
 	}
 }
 

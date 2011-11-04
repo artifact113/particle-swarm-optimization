@@ -15,6 +15,10 @@ class HPGCToolbox : public QDockWidget, public Ui::HPGCToolbox
 public:
 	explicit HPGCToolbox(QgisInterface* iface, const QString & title ,QWidget *parent = 0);
     ~HPGCToolbox();
+
+
+	/// 载入配置文件
+	bool loadConfig();
 	
 
 public slots:
@@ -28,10 +32,7 @@ protected:
 private:
 	QgisInterface* _iface;
 
-
-	/// 载入配置文件
-	bool loadConfig();
-
+	
 };
 
 

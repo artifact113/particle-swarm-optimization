@@ -8,8 +8,7 @@
 HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
 : QDockWidget(title, parent), _iface(iface)
 {
-	setupUi(this);
-	loadConfig();
+	setupUi(this);	
 }
 
 
@@ -39,6 +38,7 @@ void HPGCToolbox::resizeEvent(QResizeEvent* event)
 
 bool HPGCToolbox::loadConfig()
 {
+	QString filename("./HPGCToolbox/config.xml");
 
-	return true;
+	return false;
 }
