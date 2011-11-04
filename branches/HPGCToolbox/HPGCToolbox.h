@@ -6,6 +6,7 @@
 #include "qgisplugin.h"
 #include <QSize>
 #include <QResizeEvent>
+#include <QDomElement>
 
 
 class HPGCToolbox : public QDockWidget, public Ui::HPGCToolbox
@@ -32,6 +33,9 @@ protected:
 private:
 	QgisInterface* _iface;
 
+
+	/// 解析配置文件
+	bool parseConfig(QDomElement &root);
 	
 };
 
