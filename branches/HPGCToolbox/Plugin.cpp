@@ -20,7 +20,7 @@ Plugin::Plugin(QgisInterface* iface)
 	_action = new QAction(QIcon(":/toolbox"),tr("HPGCToolbox"), 0);
 	_toolbox =new HPGCToolbox(_iface, QString("HPGCToolbox"));		/// 进入HPGCTollbox
 	_toolbox->setAllowedAreas( Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-
+	_loadSuceess = _toolbox->loadConfig();
 }
 
 
@@ -51,7 +51,7 @@ void Plugin::unload()
 
 void Plugin::pluginMain()
 {
-	if(_toolbox->loadConfig())
+	if(_loadSuceess)
 	{
 		if (_toolbox->isVisible())
 		{

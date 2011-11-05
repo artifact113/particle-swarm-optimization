@@ -73,8 +73,9 @@ bool HPGCToolbox::loadConfig()
     }
 
 	// 解析配置文件
-	QTreeWidgetItem* rootItem = new QTreeWidgetItem(elementToItem(rootElement));
+	QTreeWidgetItem* rootItem = new QTreeWidgetItem(elementToItem(rootElement));	
 	treeToolbox->addTopLevelItem(rootItem);
+	rootItem->setExpanded(true);
     parseConfig(rootItem, rootElement);
 
 	return true; 
@@ -93,8 +94,9 @@ void HPGCToolbox::parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentEl
 		QDomElement element(nodes.at(i).toElement());
 		if (toolTypes.contains(element.tagName()))
 		{
-			QTreeWidgetItem* item = new QTreeWidgetItem(elementToItem(element));
+			QTreeWidgetItem* item = new QTreeWidgetItem(elementToItem(element));			
 			parentItem->addChild(item);
+			item->setExpanded(true);
 			if (element.hasChildNodes())
 			{
 				parseConfig(item, element);
