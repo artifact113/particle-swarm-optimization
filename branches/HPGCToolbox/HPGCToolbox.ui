@@ -32,26 +32,23 @@
    <property name="editTriggers">
     <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
    </property>
+   <property name="selectionBehavior">
+    <enum>QAbstractItemView::SelectItems</enum>
+   </property>
    <property name="rootIsDecorated">
     <bool>false</bool>
+   </property>
+   <property name="headerHidden">
+    <bool>true</bool>
    </property>
    <attribute name="headerVisible">
     <bool>false</bool>
    </attribute>
    <column>
     <property name="text">
-     <string notr="true">Tools</string>
+     <string notr="true">tools</string>
     </property>
    </column>
-   <item>
-    <property name="text">
-     <string>HPGCToolbox</string>
-    </property>
-    <property name="icon">
-     <iconset resource="HPGCToolbox.qrc">
-      <normaloff>:/toolboxfolder</normaloff>:/toolboxfolder</iconset>
-    </property>
-   </item>
   </widget>
  </widget>
  <resources>
