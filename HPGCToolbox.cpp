@@ -7,7 +7,7 @@
 #include <QString>
 #include <QMessageBox>
 #include <QTreeWidget>
-
+#include <QIcon>
 
 HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
 : QDockWidget(title, parent), _iface(iface)
@@ -64,8 +64,8 @@ bool HPGCToolbox::loadConfig()
 	file.close();
  
 	// 验证配置文件
-    QDomElement root = domDocument.documentElement();
-    if (root.tagName() != "toolboxfolder")
+    QDomElement rootElement = domDocument.documentElement();
+    if (rootElement.tagName() != "toolboxfolder")
 	{
 		file.close();
 		QMessageBox::warning(this,  tr("Warning"), tr("Incorrect config file!"));
@@ -73,65 +73,63 @@ bool HPGCToolbox::loadConfig()
     }
 
 	// 解析配置文件
-    parseConfig(root);
+	QTreeWidgetItem* rootItem = new QTreeWidgetItem(elementToItem(rootElement));
+	treeToolbox->addTopLevelItem(rootItem);
+    parseConfig(rootItem, rootElement);
 
 	return true; 
 }
 
 
 /// 解析配置文件
-bool HPGCToolbox::parseConfig(QDomElement &root)
+void HPGCToolbox::parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentElement)
 {
+	QDomNodeList nodes(parentElement.childNodes());
+	QStringList toolTypes;
+	toolTypes<<"toolboxfolder"<<"toolbox"<<"toolset"<<"tool";
 
-	treeToolbox->setHeaderItem(&itemRoot);
-	return true;
-}
-
-
-QTreeWidgetItem HPGCToolbox::traverse(QDomElement element)
-{
-	if (!element.hasChildNodes())
+	for (int i=0; i != nodes.count(); ++i)
 	{
-		QTreeWidgetItem item(elementToItem(element));
-		QDomElement sibling = element.nextSiblingElement();
-		while (!sibling.isNull())
+		QDomElement element(nodes.at(i).toElement());
+		if (toolTypes.contains(element.tagName()))
 		{
-			QTreeWidgetItem siblingItem = traverse(sibling);
-			sibling = sibling.nextSiblingElement();
+			QTreeWidgetItem* item = new QTreeWidgetItem(elementToItem(element));
+			parentItem->addChild(item);
+			if (element.hasChildNodes())
+			{
+				parseConfig(item, element);
+			}
 		}
-		return item;
 	}
-
-
-	
-
 }
 
 
+/// QDomElement转QTreeWidgetItem
 QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 {
-	QStringList strings()<<element.attribute("name")<<element.attribute("id");
-	QTreeWidgetItem item(strings);
-	item.setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable);
-	
-	switch(elementtagName())
+	QString toolType(element.tagName());
+	QTreeWidgetItem item;
+
+	if (toolType == "toolboxfolder")
 	{
-	case "tool":
-		item.setIcon(0, Icon(":/tool"));
-		break;
-	case "toolset":
-		item.setIcon(0, Icon(":/toolset"));
-		break;
-	case "toolbox":
-		item.setIcon(0, Icon(":/toolbox"));
-		break;
-	case "toolboxfolder":
-		item.setIcon(0, Icon(":/toolboxfolder"));
-		break;
-	default:
-		return NULL;
+		item.setIcon(0, QIcon(":/toolboxfolder"));		
+	}
+	else if (toolType == "toolbox")
+	{
+		item.setIcon(0, QIcon(":/toolbox"));		
+	}
+	else if (toolType == "toolset")
+	{
+		item.setIcon(0, QIcon(":/toolset"));
+	}
+	else if (toolType == "tool")
+	{
+		item.setIcon(0, QIcon(":/tool"));
 	}
 
+	item.setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+	item.setText(0, element.attribute("name"));
+	item.setText(1, element.attribute("id"));
 	return item;
 }
 

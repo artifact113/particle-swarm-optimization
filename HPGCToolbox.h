@@ -35,8 +35,10 @@ private:
 
 
 	/// 解析配置文件
-	bool parseConfig(QDomElement &root);
+	void parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentElement);
 	
+	/// QDomElement转QTreeWidgetItem
+	QTreeWidgetItem elementToItem(QDomElement &element);
 };
 
 
