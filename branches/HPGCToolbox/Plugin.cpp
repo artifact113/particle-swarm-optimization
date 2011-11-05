@@ -51,7 +51,7 @@ void Plugin::unload()
 
 void Plugin::pluginMain()
 {
-	if(_loadSuceess)
+	if(_loadSuceess)  // 加载成功，弹出界面
 	{
 		if (_toolbox->isVisible())
 		{
@@ -62,9 +62,20 @@ void Plugin::pluginMain()
 			_iface->addDockWidget(Qt::RightDockWidgetArea, _toolbox);
 		}
 	}
-	else
+	else			// 加载不成功，尝试重新载入
 	{
 		_loadSuceess = _toolbox->loadConfig();
+		if(_loadSuceess)
+		{
+			if (_toolbox->isVisible())
+			{
+				_iface->removeDockWidget(_toolbox);
+			}
+			else
+			{
+				_iface->addDockWidget(Qt::RightDockWidgetArea, _toolbox);
+			}
+		}
 	}
 }
 
