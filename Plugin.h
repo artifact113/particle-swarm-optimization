@@ -38,6 +38,7 @@ private:
 	QgisInterface* _iface;
 	QAction* _action;
 	HPGCToolbox* _toolbox;
+	bool _loadSuceess;
 };
 
 #endif // _PLUGIN_H_
