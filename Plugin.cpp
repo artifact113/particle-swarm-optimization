@@ -62,6 +62,10 @@ void Plugin::pluginMain()
 			_iface->addDockWidget(Qt::RightDockWidgetArea, _toolbox);
 		}
 	}
+	else
+	{
+		_loadSuceess = _toolbox->loadConfig();
+	}
 }
 
 

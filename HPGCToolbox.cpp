@@ -46,7 +46,7 @@ bool HPGCToolbox::loadConfig()
 	QFile file("./HPGCToolbox/config.xml");
 	if (!file.open(QFile::ReadOnly | QFile::Text))
 	{
-		QMessageBox::warning(this, tr("Warning"), tr("Open config file failed!"));
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Open config file failed!"));
         return false;
 	}
 
@@ -58,7 +58,7 @@ bool HPGCToolbox::loadConfig()
     if (!domDocument.setContent(&file, true, &errorStr, &errorLine, &errorColumn)) 
 	{
 		file.close();
-		QMessageBox::warning(this,  tr("Warning"),  tr("Read config file failed!"));
+		QMessageBox::warning(NULL, tr("HPGCToolbox"),  tr("Read config file failed!"));
 		return false;
     }
 	file.close();
@@ -68,7 +68,7 @@ bool HPGCToolbox::loadConfig()
     if (rootElement.tagName() != "toolboxfolder")
 	{
 		file.close();
-		QMessageBox::warning(this,  tr("Warning"), tr("Incorrect config file!"));
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Incorrect config file!"));
 		return false;
     }
 
