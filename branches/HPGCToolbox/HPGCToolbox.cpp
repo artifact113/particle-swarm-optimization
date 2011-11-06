@@ -17,6 +17,8 @@ HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *pa
 : QDockWidget(title, parent), _iface(iface)
 {
 	setupUi(this);
+
+	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 }
 
 
@@ -148,13 +150,57 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 	QString name = item->text(0);
 	QString id = item->text(1);
 
+	// 打开配置文件
+	QString filename("./HPGCToolbox/config.xml");
+	QDomElement rootElement = XmlOperator::XmlRead(filename);
+
+	if (rootElement.isNull())
+	{
+		return;
+	}
+
+	QDomElement* changedElement = elementByID(rootElement, id);
+	changedElement->setAttribute("name", name);
+
+	if (!XmlOperator::XmlWrite(rootElement, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+	}
 	
+}
 
 
-	
+/// 返回当前id的节点指针
+QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
+{
+	if (element.isNull())
+	{
+		return NULL;
+	}
 
-	
+	if (element.hasAttribute("id"))
+	{
+		if (element.attribute("id") == id)
+		{
+			return &element;
+		}
+	}
 
+
+	for (int i=0; i != element.childNodes().count(); ++i)
+	{
+		QDomElement childElement = element.childNodes().at(i).toElement();
+		if (childElement.hasAttribute("id"))
+		{
+			if (childElement.attribute("id") == id)
+			{
+				return &childElement;
+			}
+
+		}
+	}
+
+	return NULL;
 }
 
 
