@@ -262,6 +262,26 @@
 			ParseFiles="false"
 			>
 			<File
+				RelativePath=".\Resources\Delete32.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\GCTool32.png"
 				>
 				<FileConfiguration
@@ -331,7 +351,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Delete32.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -342,7 +362,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Delete32.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -458,6 +478,18 @@
 					</FileConfiguration>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Tool"
+			>
+			<File
+				RelativePath=".\XmlOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlOperator.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>

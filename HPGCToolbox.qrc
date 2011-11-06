@@ -4,5 +4,6 @@
         <file alias="toolbox">Resources/GCToolbox32.png</file>
         <file alias="toolset">Resources/GCToolset32.png</file>
         <file alias="toolboxfolder">Resources/ToolboxFolder32.png</file>
+        <file alias="delete">Resources/Delete32.png</file>
     </qresource>
 </RCC>
