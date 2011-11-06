@@ -2,11 +2,12 @@
 #define _HPGCTOOLBOX_H_
 
 #include "ui_HPGCToolbox.h"
-#include <QDockWidget>
 #include "qgisplugin.h"
+#include <QDockWidget>
 #include <QSize>
-#include <QResizeEvent>
+#include <QEvent>
 #include <QDomElement>
+#include <QTreeWidget>
 
 
 class HPGCToolbox : public QDockWidget, public Ui::HPGCToolbox
@@ -23,11 +24,13 @@ public:
 	
 
 public slots:
-	
+	void updateToolName(QTreeWidgetItem* item, int column);
 
 
 protected:
 	void resizeEvent(QResizeEvent* event);
+
+	void contextMenuEvent(QContextMenuEvent * event);
 
 
 private:
@@ -39,6 +42,7 @@ private:
 	
 	/// QDomElement转QTreeWidgetItem
 	QTreeWidgetItem elementToItem(QDomElement &element);
+
 };
 
 

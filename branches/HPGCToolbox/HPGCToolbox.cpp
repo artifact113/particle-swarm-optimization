@@ -1,18 +1,22 @@
 ﻿#include "HPGCToolbox.h"
 #include <QWidget>
 #include <QSize>
-#include <QResizeEvent>
-#include <QDomDocument>
+#include <QEvent>
+#include <QDomElement>
 #include <QFile>
 #include <QString>
 #include <QMessageBox>
 #include <QTreeWidget>
 #include <QIcon>
+#include <QMenu>
+#include <QAction>
+#include <QCursor>
+#include "XmlOperator.h"
 
 HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
 : QDockWidget(title, parent), _iface(iface)
 {
-	setupUi(this);	
+	setupUi(this);
 }
 
 
@@ -43,31 +47,17 @@ void HPGCToolbox::resizeEvent(QResizeEvent* event)
 bool HPGCToolbox::loadConfig()
 {
 	// 打开配置文件
-	QFile file("./HPGCToolbox/config.xml");
-	if (!file.open(QFile::ReadOnly | QFile::Text))
+	QString filename("./HPGCToolbox/config.xml");
+	QDomElement rootElement = XmlOperator::XmlRead(filename);
+
+	if (rootElement.isNull())
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Open config file failed!"));
-        return false;
+		return false;
 	}
 
-	// 读取配置文件
-    QString errorStr;
-    int errorLine;
-    int errorColumn; 
-    QDomDocument domDocument;
-    if (!domDocument.setContent(&file, true, &errorStr, &errorLine, &errorColumn)) 
-	{
-		file.close();
-		QMessageBox::warning(NULL, tr("HPGCToolbox"),  tr("Read config file failed!"));
-		return false;
-    }
-	file.close();
- 
 	// 验证配置文件
-    QDomElement rootElement = domDocument.documentElement();
     if (rootElement.tagName() != "toolboxfolder")
 	{
-		file.close();
 		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Incorrect config file!"));
 		return false;
     }
@@ -132,6 +122,39 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 	item.setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	item.setText(0, element.attribute("name"));
 	item.setText(1, element.attribute("id"));
+	item.setText(2, element.tagName());
 	return item;
 }
+
+
+/// 右键菜单
+void HPGCToolbox::contextMenuEvent(QContextMenuEvent *event)
+{
+	QMenu* popMenu = new QMenu(this);
+    popMenu->addAction(new QAction(tr("Add"), this));
+    popMenu->addAction(new QAction(tr("Delete"), this));
+	QTreeWidgetItem* item = treeToolbox->itemAt(mapFromGlobal(QCursor::pos()));
+    if(item)
+    {
+        popMenu->addAction(new QAction(tr("Edit"), this));
+    }    
+    popMenu->exec(QCursor::pos());
+}
+
+
+/// 更新工具名称
+void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
+{
+	QString name = item->text(0);
+	QString id = item->text(1);
+
+	
+
+
+	
+
+	
+
+}
+
 
