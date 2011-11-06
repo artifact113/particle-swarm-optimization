@@ -23,7 +23,7 @@ QDomElement XmlOperator::XmlRead(const QString &filename)
     int errorLine;
     int errorColumn; 
     QDomDocument domDocument;
-    if (!domDocument.setContent(&file, true, &errorStr, &errorLine, &errorColumn)) 
+    if (!domDocument.setContent(&file, false, &errorStr, &errorLine, &errorColumn)) 
 	{
 		file.close();
 		QMessageBox::warning(NULL, QObject::tr("Warning"),  QObject::tr("Read xml file failed!"));
