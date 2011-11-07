@@ -55,7 +55,7 @@ bool HPGCToolbox::loadConfig()
 	// 验证配置文件
     if (rootElement.tagName() != "toolboxfolder")
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Incorrect config file!"));
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
 		return false;
     }
 
@@ -77,7 +77,7 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 	QString id = item->text(1);
 	if(name.isEmpty() || id.isEmpty())
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("New name cannot be empty!"));
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("New name cannot be empty!"));
 		return;
 	}
 
@@ -96,11 +96,17 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 	}
 
 	QDomElement* changedElement = elementByID(rootElement, id);
+	if (!changedElement)
+	{
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		return;
+	}
+
 	changedElement->setAttribute("name", name);
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed update to config file!"));
 	}	
 }
 
@@ -121,7 +127,8 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	QAction* renTool = new QAction(QIcon(":/rename"), tr("Rename"), 0);
 	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
 
-	//conection();
+	connect(addToolbox, SIGNAL(triggered()), this, SLOT(addToolbox()));
+	connect(renTool, SIGNAL(triggered()), this, SLOT(renameTool()));
 
 
 	QString toolType = item->text(2);
@@ -161,6 +168,66 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	popMenu->exec(QCursor::pos());
 }
 
+
+/// 改名
+void HPGCToolbox::renameTool()
+{
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	treeToolbox->editItem(item, 0);
+}
+
+/// 添加工具箱
+void HPGCToolbox::addToolbox()
+{
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	QString id = item->text(1);
+	
+	// 打开配置文件
+	QString filename("./HPGCToolbox/config.xml");
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return;
+	}
+
+	QDomElement rootElement = document.documentElement();
+	if (rootElement.isNull())
+	{
+		return;
+	}
+
+	QDomElement* currentElement = elementByID(rootElement, id);
+	if (!currentElement)
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
+		return;
+	}
+
+	int count = rootElement.attribute("count", "-1").toInt();
+	QString newId = QString::number(count + 1);
+	QString newName = tr("New Toolbox");
+	
+	QDomElement newElement;
+	newElement.setAttribute("name", newName);
+	newElement.setAttribute("id", newId);	
+	currentElement->appendChild(newElement);
+	rootElement.setAttribute("count", newId);
+
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		return;
+	}
+
+	QTreeWidgetItem* newItem = new QTreeWidgetItem(treeToolbox);
+	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+	newItem->setText(0, newName);
+	newItem->setText(1, newId);
+	newItem->setText(2, "toolbox");
+	item->setIcon(0, QIcon(":/toolbox"));
+	item->addChild(newItem);
+
+}
 
 /***********************************************protected******************************************/
 /// 窗口大小变更事件

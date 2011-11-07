@@ -30,6 +30,12 @@ public slots:
 	/// 显示右键菜单
 	void showRightMenu(const QPoint &pos);
 
+	/// 改名
+	void renameTool();
+
+	/// 添加工具箱
+	void addToolbox();
+
 
 protected:
 	/// 窗口大小改变事件
