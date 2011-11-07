@@ -7,9 +7,9 @@
 class XmlOperator
 {
 public:
-	static QDomElement XmlRead(const QString& filename);
+	static QDomDocument XmlRead(const QString& filename);
 
-	static bool XmlWrite(const QDomElement& rootElement, const QString& filename);
+	static bool XmlWrite(const QDomDocument& document, const QString& filename);
 };
 
 
