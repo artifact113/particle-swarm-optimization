@@ -262,7 +262,7 @@
 			ParseFiles="false"
 			>
 			<File
-				RelativePath=".\Resources\Delete32.png"
+				RelativePath=".\Resources\Delete16.gif"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -351,7 +351,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Delete32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -362,8 +362,28 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Delete32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\Rename16.gif"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>
