@@ -53,7 +53,7 @@ private:
 	QTreeWidgetItem elementToItem(QDomElement &element);
 
 	/// 返回当前id的节点指针
-	QDomElement* elementByID(QDomElement &element, const QString &id);
+	QDomElement* elementByID(QDomElement &element, const QString &id, const QString &toolType);
 
 };
 

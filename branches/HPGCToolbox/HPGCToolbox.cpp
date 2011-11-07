@@ -75,6 +75,7 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 {
 	QString name = item->text(0);
 	QString id = item->text(1);
+	QString toolType = item->text(2);
 	if(name.isEmpty() || id.isEmpty())
 	{
 		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("New name cannot be empty!"));
@@ -95,7 +96,7 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 		return;
 	}
 
-	QDomElement* changedElement = elementByID(rootElement, id);
+	QDomElement* changedElement = elementByID(rootElement, id, toolType);
 	if (!changedElement)
 	{
 		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
@@ -181,6 +182,7 @@ void HPGCToolbox::addToolbox()
 {
 	QTreeWidgetItem* item = treeToolbox->currentItem();
 	QString id = item->text(1);
+	QString toolType = item->text(2);
 	
 	// 打开配置文件
 	QString filename("./HPGCToolbox/config.xml");
@@ -196,7 +198,7 @@ void HPGCToolbox::addToolbox()
 		return;
 	}
 
-	QDomElement* currentElement = elementByID(rootElement, id);
+	QDomElement* currentElement = elementByID(rootElement, id, toolType);
 	if (!currentElement)
 	{
 		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
@@ -232,6 +234,7 @@ void HPGCToolbox::addToolbox()
 	newItem->setText(1, newId);
 	newItem->setText(2, "toolbox");
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+	newItem->setExpanded(true);
 	item->addChild(newItem);
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
@@ -314,7 +317,7 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 
 
 /// 返回当前id的节点指针
-QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
+QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id, const QString &toolType)
 {
 	if (element.isNull())
 	{
@@ -329,9 +332,11 @@ QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
 		}
 	}
 
-	for (int i=0; i != element.childNodes().count(); ++i)
+
+	QDomNodeList allchildNodes(element.elementsByTagName(toolType));
+	for (int i=0; i != allchildNodes.count(); ++i)
 	{
-		QDomElement* childElement = &(element.childNodes().at(i).toElement());
+		QDomElement* childElement = new QDomElement(allchildNodes.at(i).toElement());
 		if (childElement->hasAttribute("id"))
 		{
 			if (childElement->attribute("id") == id)
