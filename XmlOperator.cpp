@@ -49,6 +49,8 @@ bool XmlOperator::XmlWrite(const QDomElement &rootElement, const QString &filena
 
 	// 写入文件
 	QTextStream out(&file);
+
+
 	rootElement.save(out, 4);
 	file.close();
 	return true;
