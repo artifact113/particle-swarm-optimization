@@ -6,38 +6,36 @@
 #include <QMessageBox>
 
 
-QDomElement XmlOperator::XmlRead(const QString &filename)
+QDomDocument XmlOperator::XmlRead(const QString &filename)
 {
-	QDomElement rootElement;
+	QDomDocument domDocument;
 
 	// 打开文件
 	QFile file(filename);
 	if (!file.open(QFile::ReadOnly | QFile::Text))
 	{
 		QMessageBox::warning(NULL, QObject::tr("Warning"), QObject::tr("Open xml file failed!"));
-        return rootElement;
+        return domDocument;
 	}
 
 	// 读取文件
     QString errorStr;
     int errorLine;
     int errorColumn; 
-    QDomDocument domDocument;
     if (!domDocument.setContent(&file, false, &errorStr, &errorLine, &errorColumn)) 
 	{
 		file.close();
 		QMessageBox::warning(NULL, QObject::tr("Warning"),  QObject::tr("Read xml file failed!"));
-		return rootElement;
+		return domDocument;
     }
 	file.close();
 
-	rootElement = domDocument.documentElement();
-	return rootElement;
+	return domDocument;
 }
 
 
 
-bool XmlOperator::XmlWrite(const QDomElement &rootElement, const QString &filename)
+bool XmlOperator::XmlWrite(const QDomDocument& document, const QString& filename)
 {
 	// 打开文件
 	QFile file(filename);
@@ -51,7 +49,7 @@ bool XmlOperator::XmlWrite(const QDomElement &rootElement, const QString &filena
 	QTextStream out(&file);
 
 
-	rootElement.save(out, 4);
+	document.save(out, 4);
 	file.close();
 	return true;
 }

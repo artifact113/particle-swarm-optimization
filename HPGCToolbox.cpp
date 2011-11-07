@@ -50,8 +50,13 @@ bool HPGCToolbox::loadConfig()
 {
 	// 打开配置文件
 	QString filename("./HPGCToolbox/config.xml");
-	QDomElement rootElement = XmlOperator::XmlRead(filename);
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return false;
+	}
 
+	QDomElement rootElement = document.documentElement();
 	if (rootElement.isNull())
 	{
 		return false;
@@ -149,11 +154,21 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 {
 	QString name = item->text(0);
 	QString id = item->text(1);
+	if(name.isEmpty() || id.isEmpty())
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("New name cannot be empty!"));
+		return;
+	}
 
 	// 打开配置文件
 	QString filename("./HPGCToolbox/config.xml");
-	QDomElement rootElement = XmlOperator::XmlRead(filename);
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return;
+	}
 
+	QDomElement rootElement = document.documentElement();
 	if (rootElement.isNull())
 	{
 		return;
@@ -162,7 +177,7 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
 	QDomElement* changedElement = elementByID(rootElement, id);
 	changedElement->setAttribute("name", name);
 
-	if (!XmlOperator::XmlWrite(rootElement, filename))
+	if (!XmlOperator::XmlWrite(document, filename))
 	{
 		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
 	}
@@ -189,14 +204,13 @@ QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
 
 	for (int i=0; i != element.childNodes().count(); ++i)
 	{
-		QDomElement childElement = element.childNodes().at(i).toElement();
-		if (childElement.hasAttribute("id"))
+		QDomElement* childElement = &(element.childNodes().at(i).toElement());
+		if (childElement->hasAttribute("id"))
 		{
-			if (childElement.attribute("id") == id)
+			if (childElement->attribute("id") == id)
 			{
-				return &childElement;
+				return childElement;
 			}
-
 		}
 	}
 
