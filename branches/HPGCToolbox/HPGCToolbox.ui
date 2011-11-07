@@ -29,6 +29,9 @@
      <height>700</height>
     </rect>
    </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::CustomContextMenu</enum>
+   </property>
    <property name="editTriggers">
     <set>QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
    </property>

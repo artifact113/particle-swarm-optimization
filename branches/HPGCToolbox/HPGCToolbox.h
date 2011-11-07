@@ -24,17 +24,20 @@ public:
 	
 
 public slots:
+	/// 更新工具名称
 	void updateToolName(QTreeWidgetItem* item, int column);
+
+	/// 显示右键菜单
+	void showRightMenu(const QPoint &pos);
 
 
 protected:
+	/// 窗口大小改变事件
 	void resizeEvent(QResizeEvent* event);
-
-	void contextMenuEvent(QContextMenuEvent * event);
-
 
 private:
 	QgisInterface* _iface;
+
 
 
 	/// 解析配置文件

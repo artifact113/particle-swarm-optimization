@@ -11,17 +11,23 @@
 #include <QMenu>
 #include <QAction>
 #include <QCursor>
+#include <QPoint>
 #include "XmlOperator.h"
 
+
+/***********************************************public*********************************************/
+/// 构造函数
 HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
 : QDockWidget(title, parent), _iface(iface)
 {
 	setupUi(this);
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+	connect(treeToolbox, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
 }
 
 
+/// 析构函数
 HPGCToolbox::~HPGCToolbox()
 {
 
@@ -29,23 +35,7 @@ HPGCToolbox::~HPGCToolbox()
 }
 
 
-void HPGCToolbox::resizeEvent(QResizeEvent* event)
-{	
-	if (this->isFloating())
-	{
-		treeToolbox->move(0, 0);
-		treeToolbox->resize(this->size());		
-	}
-	else
-	{
-		treeToolbox->move(0, 20);
-		treeToolbox->resize(this->width(), this->height() - 20);
-	}
-	
-	QWidget::resizeEvent(event);
-}
-
-
+/// 载入配置文件
 bool HPGCToolbox::loadConfig()
 {
 	// 打开配置文件
@@ -79,6 +69,119 @@ bool HPGCToolbox::loadConfig()
 }
 
 
+/***********************************************public slots***************************************/
+/// 更新工具名称
+void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
+{
+	QString name = item->text(0);
+	QString id = item->text(1);
+	if(name.isEmpty() || id.isEmpty())
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("New name cannot be empty!"));
+		return;
+	}
+
+	// 打开配置文件
+	QString filename("./HPGCToolbox/config.xml");
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return;
+	}
+
+	QDomElement rootElement = document.documentElement();
+	if (rootElement.isNull())
+	{
+		return;
+	}
+
+	QDomElement* changedElement = elementByID(rootElement, id);
+	changedElement->setAttribute("name", name);
+
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+	}	
+}
+
+
+/// 显示右键菜单
+void HPGCToolbox::showRightMenu(const QPoint &pos)
+{
+	QTreeWidgetItem* item = treeToolbox->itemAt(pos);
+	if (!item)
+	{
+		return;
+	}
+
+	QMenu* popMenu = new QMenu(treeToolbox);
+	QAction* addToolbox = new QAction(QIcon(":/toolbox"), tr("AddToolbox"), 0);
+	QAction* addToolset = new QAction(QIcon(":/toolset"), tr("AddToolset"), 0);
+	QAction* addTool = new QAction(QIcon(":/tool"), tr("AddTool"), 0);
+	QAction* renTool = new QAction(QIcon(":/rename"), tr("Rename"), 0);
+	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
+
+	//conection();
+
+
+	QString toolType = item->text(2);
+	if (toolType == "toolboxfolder")
+	{
+		popMenu->addAction(addToolbox);
+		popMenu->addSeparator();
+		popMenu->addAction(renTool);
+	}
+	else if (toolType == "toolbox")
+	{
+		popMenu->addAction(addToolbox);
+		popMenu->addAction(addToolset);
+		popMenu->addSeparator();
+		popMenu->addAction(renTool);
+		popMenu->addSeparator();
+		popMenu->addAction(delTool);
+
+	}
+	else if (toolType == "toolset")
+	{		
+		popMenu->addAction(addTool);
+		popMenu->addSeparator();
+		popMenu->addAction(renTool);
+		popMenu->addSeparator();
+		popMenu->addAction(delTool);
+
+	}
+	else if (toolType == "tool")
+	{
+		popMenu->addAction(renTool);		
+		popMenu->addSeparator();
+		popMenu->addAction(delTool);
+		
+	}
+	
+	popMenu->exec(QCursor::pos());
+}
+
+
+/***********************************************protected******************************************/
+/// 窗口大小变更事件
+void HPGCToolbox::resizeEvent(QResizeEvent* event)
+{	
+	if (this->isFloating())
+	{
+		treeToolbox->move(0, 0);
+		treeToolbox->resize(this->size());		
+	}
+	else
+	{
+		treeToolbox->move(0, 20);
+		treeToolbox->resize(this->width(), this->height() - 20);
+	}
+	
+	QWidget::resizeEvent(event);
+}
+
+
+/***********************************************private********************************************/
 /// 解析配置文件
 void HPGCToolbox::parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentElement)
 {
@@ -134,56 +237,6 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 }
 
 
-/// 右键菜单
-void HPGCToolbox::contextMenuEvent(QContextMenuEvent *event)
-{
-	QMenu* popMenu = new QMenu(this);
-    popMenu->addAction(new QAction(tr("Add"), this));
-    popMenu->addAction(new QAction(tr("Delete"), this));
-	QTreeWidgetItem* item = treeToolbox->itemAt(mapFromGlobal(QCursor::pos()));
-    if(item)
-    {
-        popMenu->addAction(new QAction(tr("Edit"), this));
-    }    
-    popMenu->exec(QCursor::pos());
-}
-
-
-/// 更新工具名称
-void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int column)
-{
-	QString name = item->text(0);
-	QString id = item->text(1);
-	if(name.isEmpty() || id.isEmpty())
-	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("New name cannot be empty!"));
-		return;
-	}
-
-	// 打开配置文件
-	QString filename("./HPGCToolbox/config.xml");
-	QDomDocument document = XmlOperator::XmlRead(filename);
-	if (document.isNull())
-	{
-		return;
-	}
-
-	QDomElement rootElement = document.documentElement();
-	if (rootElement.isNull())
-	{
-		return;
-	}
-
-	QDomElement* changedElement = elementByID(rootElement, id);
-	changedElement->setAttribute("name", name);
-
-	if (!XmlOperator::XmlWrite(document, filename))
-	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
-	}
-	
-}
-
 
 /// 返回当前id的节点指针
 QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
@@ -200,7 +253,6 @@ QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id)
 			return &element;
 		}
 	}
-
 
 	for (int i=0; i != element.childNodes().count(); ++i)
 	{
