@@ -129,7 +129,10 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
 
 	connect(addToolbox, SIGNAL(triggered()), this, SLOT(addToolbox()));
+	connect(addToolset, SIGNAL(triggered()), this, SLOT(addToolset()));
+	connect(addTool, SIGNAL(triggered()), this, SLOT(addTool()));
 	connect(renTool, SIGNAL(triggered()), this, SLOT(renameTool()));
+	connect(delTool, SIGNAL(triggered()), this, SLOT(deleteTool()));
 
 
 	QString toolType = item->text(2);
@@ -169,13 +172,6 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	popMenu->exec(QCursor::pos());
 }
 
-
-/// 改名
-void HPGCToolbox::renameTool()
-{
-	QTreeWidgetItem* item = treeToolbox->currentItem();
-	treeToolbox->editItem(item, 0);
-}
 
 /// 添加工具箱
 void HPGCToolbox::addToolbox()
@@ -240,6 +236,79 @@ void HPGCToolbox::addToolbox()
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 }
 
+
+
+/// 添加工具集
+void HPGCToolbox::addToolset()
+{
+
+}
+
+
+/// 添加工具
+void HPGCToolbox::addTool()
+{
+
+}
+
+
+/// 改名
+void HPGCToolbox::renameTool()
+{
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	treeToolbox->editItem(item, 0);
+}
+
+
+/// 删除工具箱
+void HPGCToolbox::deleteTool()
+{
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	QString id = item->text(1);
+	QString toolType = item->text(2);
+	
+	// 打开配置文件
+	QString filename("./HPGCToolbox/config.xml");
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return;
+	}
+
+	QDomElement rootElement = document.documentElement();
+	if (rootElement.isNull())
+	{
+		return;
+	}
+
+	QDomElement* currentElement = elementByID(rootElement, id, toolType);
+	if (!currentElement)
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
+		return;
+	}
+
+	QDomNode parentNode = currentElement->parentNode();
+	parentNode.removeChild(*currentElement);
+
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		return;
+	}
+
+	// 使用Qt你不得不掌握些奇淫技巧
+	if(!disconnect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int))))
+	{
+		connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+		return;
+	}
+
+	delete item;
+
+	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+
+}
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
 void HPGCToolbox::resizeEvent(QResizeEvent* event)
