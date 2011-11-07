@@ -207,7 +207,7 @@ void HPGCToolbox::addToolbox()
 	QString newId = QString::number(count + 1);
 	QString newName = tr("New Toolbox");
 	
-	QDomElement newElement;
+	QDomElement newElement = document.createElement("toolbox");
 	newElement.setAttribute("name", newName);
 	newElement.setAttribute("id", newId);	
 	currentElement->appendChild(newElement);
@@ -219,14 +219,22 @@ void HPGCToolbox::addToolbox()
 		return;
 	}
 
-	QTreeWidgetItem* newItem = new QTreeWidgetItem(treeToolbox);
-	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+	// 使用Qt你不得不掌握些奇淫技巧
+	if(!disconnect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int))))
+	{
+		connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+		return;
+	}
+
+	QTreeWidgetItem* newItem = new QTreeWidgetItem(item);	
+	newItem->setIcon(0, QIcon(":/toolbox"));
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
 	newItem->setText(2, "toolbox");
-	item->setIcon(0, QIcon(":/toolbox"));
+	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	item->addChild(newItem);
 
+	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 }
 
 /***********************************************protected******************************************/
