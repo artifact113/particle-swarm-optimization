@@ -4,6 +4,7 @@
 #include <QEvent>
 #include <QDomElement>
 #include <QFile>
+#include <QFileDialog>
 #include <QString>
 #include <QMessageBox>
 #include <QTreeWidget>
@@ -232,6 +233,9 @@ void HPGCToolbox::addToolbox()
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	newItem->setExpanded(true);
 	item->addChild(newItem);
+	treeToolbox->setCurrentItem(newItem, 0);
+	treeToolbox->editItem(newItem);
+	
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 }
@@ -241,14 +245,18 @@ void HPGCToolbox::addToolbox()
 /// 添加工具集
 void HPGCToolbox::addToolset()
 {
-
+	QString filename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
+	if (!filename.isNull())
+	{
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), filename);
+	}
 }
 
 
 /// 添加工具
 void HPGCToolbox::addTool()
 {
-
+	
 }
 
 
