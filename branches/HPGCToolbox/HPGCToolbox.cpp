@@ -253,15 +253,13 @@ void HPGCToolbox::addToolset()
 		QFile file(filename);
 
 		// 验证并复制DLL
-		if (!verifyDLL(file))
+		if (verifyDLL(file))
 		{
-			if (!copyDLL(file))
+			if (copyDLL(file))
 			{
-				return;
+				
 			}			
 		}
-
-		
 
 	}
 }
@@ -442,7 +440,7 @@ QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id, c
 
 
 /// 验证DLL
-bool HPGCToolbox::verifyDLL(const QFile &file)
+bool HPGCToolbox::verifyDLL(QFile &file)
 {
 	QFileInfo fileInfo(file);
 
@@ -459,7 +457,7 @@ bool HPGCToolbox::verifyDLL(const QFile &file)
 
 
 /// 复制DLL至./HPGCToolbox/ToolsetDLL目录下
-bool HPGCToolbox::copyDLL(const QFile &file)
+bool HPGCToolbox::copyDLL(QFile &file)
 {
 	QFileInfo fileInfo(file);
 
@@ -476,10 +474,10 @@ bool HPGCToolbox::copyDLL(const QFile &file)
 	{
 		if (targetfileInfo != fileInfo)
 		{
-			StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Found a same named file in the program folder!\n") + targetfileInfo.absolutePath() + QObject::tr("\nYou can choose YES to overwrite it(NOT Recommendant)."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+			QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Found a same named file in the program folder!\n") + targetfileInfo.absolutePath() + QObject::tr("\nYou can choose YES to overwrite it(NOT Recommendant)."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
 			if (button == QMessageBox::Yes)
 			{
-				QFile targetfile(targetfileInfo);
+				QFile targetfile(targetfileInfo.absoluteFilePath());
 				if (!(targetfile.remove() || file.copy(targetfileInfo.absoluteFilePath())))
 				{
 					QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed rewrite file to the program folder!\n") + targetfileInfo.absolutePath());
