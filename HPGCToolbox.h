@@ -8,6 +8,7 @@
 #include <QEvent>
 #include <QDomElement>
 #include <QTreeWidget>
+#include <QFile>
 
 
 class HPGCToolbox : public QDockWidget, public Ui::HPGCToolbox
@@ -63,10 +64,10 @@ private:
 	QDomElement* elementByID(QDomElement &element, const QString &id, const QString &toolType);
 
 	/// 验证DLL
-	bool verifyDLL(const QFile &file);
+	bool verifyDLL(QFile &file);
 
 	/// 复制文件到./HPGCToolbox/ToolsetDLL目录下
-	bool copyDLL(const QFile &file);
+	bool copyDLL(QFile &file);
 };
 
 
