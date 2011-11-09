@@ -62,6 +62,11 @@ private:
 	/// 返回当前id的节点指针
 	QDomElement* elementByID(QDomElement &element, const QString &id, const QString &toolType);
 
+	/// 验证DLL
+	bool verifyDLL(const QFile &file);
+
+	/// 复制文件到./HPGCToolbox/ToolsetDLL目录下
+	bool copyDLL(const QFile &file);
 };
 
 
