@@ -1,9 +1,11 @@
 ﻿#include "HPGCToolbox.h"
+#include <QObject>
 #include <QWidget>
 #include <QSize>
 #include <QEvent>
 #include <QDomElement>
 #include <QFile>
+#include <QFileInfo>
 #include <QFileDialog>
 #include <QString>
 #include <QMessageBox>
@@ -248,7 +250,19 @@ void HPGCToolbox::addToolset()
 	QString filename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
 	if (!filename.isNull())
 	{
-		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), filename);
+		QFile file(filename);
+
+		// 验证并复制DLL
+		if (!verifyDLL(file))
+		{
+			if (!copyDLL(file))
+			{
+				return;
+			}			
+		}
+
+		
+
 	}
 }
 
@@ -427,3 +441,61 @@ QDomElement* HPGCToolbox::elementByID(QDomElement &element, const QString &id, c
 }
 
 
+/// 验证DLL
+bool HPGCToolbox::verifyDLL(const QFile &file)
+{
+	QFileInfo fileInfo(file);
+
+	// 1.检查文件是否存在
+	if (fileInfo.exists())
+	{
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
+		return false;			
+	}
+
+	// 2.验证DLL
+	return true;	
+}
+
+
+/// 复制DLL至./HPGCToolbox/ToolsetDLL目录下
+bool HPGCToolbox::copyDLL(const QFile &file)
+{
+	QFileInfo fileInfo(file);
+
+	// 1.检查文件是否存在
+	if (fileInfo.exists())
+	{
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
+		return false;			
+	}
+
+	// 2.检查./HPGCToolbox/ToolsetDLL/目录下是否存在同名dll文件
+	QFileInfo targetfileInfo("./HPGCToolbox/ToolsetDLL/" + fileInfo.fileName());
+	if (targetfileInfo.exists())
+	{
+		if (targetfileInfo != fileInfo)
+		{
+			StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Found a same named file in the program folder!\n") + targetfileInfo.absolutePath() + QObject::tr("\nYou can choose YES to overwrite it(NOT Recommendant)."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+			if (button == QMessageBox::Yes)
+			{
+				QFile targetfile(targetfileInfo);
+				if (!(targetfile.remove() || file.copy(targetfileInfo.absoluteFilePath())))
+				{
+					QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed rewrite file to the program folder!\n") + targetfileInfo.absolutePath());
+					return false;
+				}
+			}
+		}
+	}
+	else
+	{
+		if(!file.copy(targetfileInfo.absoluteFilePath()))
+		{
+			QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed copy file to the program folder!\n") + targetfileInfo.absolutePath());
+			return false;
+		}
+	}
+
+	return true;
+}
