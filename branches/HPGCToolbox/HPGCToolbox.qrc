@@ -6,5 +6,7 @@
         <file alias="toolboxfolder">Resources/ToolboxFolder32.png</file>
         <file alias="rename">Resources/Rename16.gif</file>
         <file alias="delete">Resources/Delete16.gif</file>
+        <file alias="property">Resources/Property32.png</file>
+        <file alias="openfolder">Resources/OpenFolder32.png</file>
     </qresource>
 </RCC>

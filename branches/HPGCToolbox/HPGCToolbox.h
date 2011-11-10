@@ -45,6 +45,10 @@ public slots:
 
 	/// 删除工具箱
 	void deleteTool();
+
+	/// 弹出工具集属性窗口
+	void showProperty();
+
 protected:
 	/// 窗口大小改变事件
 	void resizeEvent(QResizeEvent* event);

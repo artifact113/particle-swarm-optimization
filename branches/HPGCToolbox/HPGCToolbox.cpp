@@ -130,13 +130,14 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	QAction* addTool = new QAction(QIcon(":/tool"), tr("AddTool"), 0);
 	QAction* renTool = new QAction(QIcon(":/rename"), tr("Rename"), 0);
 	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
+	QAction* properties = new QAction(QIcon(":/property"), tr("property"), 0);
 
 	connect(addToolbox, SIGNAL(triggered()), this, SLOT(addToolbox()));
 	connect(addToolset, SIGNAL(triggered()), this, SLOT(addToolset()));
 	connect(addTool, SIGNAL(triggered()), this, SLOT(addTool()));
 	connect(renTool, SIGNAL(triggered()), this, SLOT(renameTool()));
 	connect(delTool, SIGNAL(triggered()), this, SLOT(deleteTool()));
-
+	connect(properties, SIGNAL(triggered()), this, SLOT(showProperty()));
 
 	QString toolType = item->text(2);
 	if (toolType == "toolboxfolder")
@@ -162,6 +163,8 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 		popMenu->addAction(renTool);
 		popMenu->addSeparator();
 		popMenu->addAction(delTool);
+		popMenu->addSeparator();
+		popMenu->addAction(properties);
 
 	}
 	else if (toolType == "tool")
@@ -247,20 +250,80 @@ void HPGCToolbox::addToolbox()
 /// 添加工具集
 void HPGCToolbox::addToolset()
 {
-	QString filename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
-	if (!filename.isNull())
+	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
+	if (!myfilename.isNull())
 	{
-		QFile file(filename);
+		QFile myfile(myfilename);
 
 		// 验证并复制DLL
-		if (verifyDLL(file))
+		if (verifyDLL(myfile))
 		{
-			if (copyDLL(file))
+			if (copyDLL(myfile))
 			{
-				
+				QTreeWidgetItem* item = treeToolbox->currentItem();
+				QString id = item->text(1);
+				QString toolType = item->text(2);
+
+				// 打开配置文件
+				QString filename("./HPGCToolbox/config.xml");
+				QDomDocument document = XmlOperator::XmlRead(filename);
+				if (document.isNull())
+				{
+					return;
+				}
+
+				QDomElement rootElement = document.documentElement();
+				if (rootElement.isNull())
+				{
+					return;
+				}
+
+				QDomElement* currentElement = elementByID(rootElement, id, toolType);
+				if (!currentElement)
+				{
+					QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
+					return;
+				}
+
+				int count = rootElement.attribute("count", "-1").toInt();
+				QString newId = QString::number(count + 1);
+				QString newName = tr("New Toolset");
+				QString newFilename = "./HPGCToolbox/ToolsetDLL/" + QFileInfo(myfile).fileName();
+
+				QDomElement newElement = document.createElement("toolset");
+				newElement.setAttribute("name", newName);
+				newElement.setAttribute("id", newId);
+				newElement.setAttribute("filename", newFilename);
+				currentElement->appendChild(newElement);
+				rootElement.setAttribute("count", newId);
+
+				if (!XmlOperator::XmlWrite(document, filename))
+				{
+					QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+					return;
+				}
+
+				// 使用Qt你不得不掌握些奇淫技巧
+				if(!disconnect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int))))
+				{
+					connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+					return;
+				}
+
+				QTreeWidgetItem* newItem = new QTreeWidgetItem(item);	
+				newItem->setIcon(0, QIcon(":/toolset"));
+				newItem->setText(0, newName);
+				newItem->setText(1, newId);
+				newItem->setText(2, "toolset");
+				newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+				newItem->setExpanded(true);
+				item->addChild(newItem);
+				treeToolbox->setCurrentItem(newItem, 0);
+				treeToolbox->editItem(newItem);
+
+				connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 			}			
 		}
-
 	}
 }
 
@@ -327,6 +390,19 @@ void HPGCToolbox::deleteTool()
 	delete item;
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+
+}
+
+
+/// 弹出工具集属性窗口
+void HPGCToolbox::showProperty()
+{
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	QString id = item->text(0);
+	
+	//FromProperty myFrom("");
+	//myFrom.show();
+
 
 }
 /***********************************************protected******************************************/
@@ -445,7 +521,7 @@ bool HPGCToolbox::verifyDLL(QFile &file)
 	QFileInfo fileInfo(file);
 
 	// 1.检查文件是否存在
-	if (fileInfo.exists())
+	if (!fileInfo.exists())
 	{
 		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
 		return false;			
@@ -462,7 +538,7 @@ bool HPGCToolbox::copyDLL(QFile &file)
 	QFileInfo fileInfo(file);
 
 	// 1.检查文件是否存在
-	if (fileInfo.exists())
+	if (!fileInfo.exists())
 	{
 		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
 		return false;			
@@ -478,11 +554,15 @@ bool HPGCToolbox::copyDLL(QFile &file)
 			if (button == QMessageBox::Yes)
 			{
 				QFile targetfile(targetfileInfo.absoluteFilePath());
-				if (!(targetfile.remove() || file.copy(targetfileInfo.absoluteFilePath())))
+				if (!(targetfile.remove() && file.copy(targetfileInfo.absoluteFilePath())))
 				{
 					QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed rewrite file to the program folder!\n") + targetfileInfo.absolutePath());
 					return false;
 				}
+			}
+			else
+			{
+				return false;
 			}
 		}
 	}
