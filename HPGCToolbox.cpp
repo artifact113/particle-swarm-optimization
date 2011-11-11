@@ -252,7 +252,7 @@ void HPGCToolbox::addToolbox()
 void HPGCToolbox::addToolset()
 {
 	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
-	if (!myfilename.isNull())
+	if (!myfilename.isEmpty())
 	{
 		QFile myfile(myfilename);
 
@@ -401,7 +401,7 @@ void HPGCToolbox::showProperty()
 	QTreeWidgetItem* item = treeToolbox->currentItem();
 	QString id = item->text(0);
 	
-	FormProperty myForm("");
+	FormProperty myForm(item);
 	myForm.exec();
 }
 /***********************************************protected******************************************/
