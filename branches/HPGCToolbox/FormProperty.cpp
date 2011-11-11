@@ -5,6 +5,9 @@
 #include <QString>
 #include <QTreeWidgetItem>
 #include <QFile>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QMessageBox>
 
 
 /***********************************************public*********************************************/
@@ -21,7 +24,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
 	connect(txtName, SIGNAL(textChanged(const QString &)), this, SLOT(activateBtnApply()));
 	connect(txtFile, SIGNAL(textChanged(const QString &)), this, SLOT(activateBtnApply()));
 	connect(btnApply, SIGNAL(clicked(bool)), this, SLOT(saveConfig()));
-	connect(btnOpenFile, SIGNAL(clicked(bool)), this, changeFile());
+	connect(btnOpenFile, SIGNAL(clicked(bool)), this, SLOT(changeFile()));
 
 	btnApply->setEnabled(false);
 }
