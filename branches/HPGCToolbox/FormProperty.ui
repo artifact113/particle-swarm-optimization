@@ -198,7 +198,10 @@
     </widget>
    </widget>
   </widget>
-  <widget class="QPushButton" name="btnOK">
+  <widget class="QPushButton" name="btnApply">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -208,10 +211,10 @@
     </rect>
    </property>
    <property name="text">
-    <string>确定</string>
+    <string>应用</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnCancel">
+  <widget class="QPushButton" name="btnClose">
    <property name="geometry">
     <rect>
      <x>320</x>
@@ -221,7 +224,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>取消</string>
+    <string>关闭</string>
    </property>
   </widget>
  </widget>
@@ -230,7 +233,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>btnCancel</sender>
+   <sender>btnClose</sender>
    <signal>clicked()</signal>
    <receiver>FormProperty</receiver>
    <slot>close()</slot>
