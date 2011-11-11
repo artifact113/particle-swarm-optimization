@@ -1,11 +1,11 @@
-﻿#include "FromProperty.h"
+﻿#include "FormProperty.h"
 #include <QWidget>
 #include <QDialog>
 
 
 /***********************************************public*********************************************/
 /// 构造函数
-FromProperty::FromProperty(const QString &title, QWidget *parent)
+FormProperty::FormProperty(const QString &title, QWidget *parent)
 : QDialog(parent)
 {
 	setupUi(this);
@@ -13,7 +13,7 @@ FromProperty::FromProperty(const QString &title, QWidget *parent)
 
 
 /// 析构函数
-FromProperty::~FromProperty()
+FormProperty::~FormProperty()
 {
 
 

@@ -15,6 +15,7 @@
 #include <QAction>
 #include <QCursor>
 #include <QPoint>
+#include "FormProperty.h"
 #include "XmlOperator.h"
 
 
@@ -400,10 +401,8 @@ void HPGCToolbox::showProperty()
 	QTreeWidgetItem* item = treeToolbox->currentItem();
 	QString id = item->text(0);
 	
-	//FromProperty myFrom("");
-	//myFrom.show();
-
-
+	FormProperty myForm("");
+	myForm.exec();
 }
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
