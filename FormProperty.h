@@ -7,6 +7,7 @@
 #include <QTreeWidgetItem>
 #include <QDialog>
 #include <QFile>
+#include <QDomElement>
 
 
 class FormProperty : public QDialog, public Ui::FormProperty
@@ -35,6 +36,15 @@ private:
 
 	/// 验证DLL
 	bool verifyDLL(QFile &file);
+
+	/// 复制DLL至./HPGCToolbox/ToolsetDLL目录下
+	bool copyDLL(QFile &file);
+
+	/// 返回当前id的节点指针
+	QDomElement* elementByID(QDomElement &element, const QString &id, const QString &toolType);
+
+	/// 显示DLL详情
+	void showDetail(QFile &file);
 
 };
 
