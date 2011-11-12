@@ -332,6 +332,71 @@ void HPGCToolbox::addToolset()
 /// 添加工具
 void HPGCToolbox::addTool()
 {
+	QTreeWidgetItem* item = treeToolbox->currentItem();
+	QString id = item->text(1);
+	QString toolType = item->text(2);
+
+	// 打开配置文件
+	QString filename("./HPGCToolbox/config.xml");
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		return;
+	}
+
+	QDomElement rootElement = document.documentElement();
+	if (rootElement.isNull())
+	{
+		return;
+	}
+
+	QDomElement* currentElement = elementByID(rootElement, id, toolType);
+	if (!currentElement)
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
+		return;
+	}
+
+	int count = rootElement.attribute("count", "-1").toInt();
+	QString newId = QString::number(count + 1);
+	QString newName = tr("New Tool");
+	QString newConfig = "./HPGCToolbox/Config/tool_" + newId + ".xml";
+	createToolConfig(newConfig);
+
+	QDomElement newElement = document.createElement("tool");
+	newElement.setAttribute("name", newName);
+	newElement.setAttribute("id", newId);
+	newElement.setAttribute("config", newConfig);
+	currentElement->appendChild(newElement);
+	rootElement.setAttribute("count", newId);
+
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		return;
+	}
+
+	// 使用Qt你不得不掌握些奇淫技巧
+	if(!disconnect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int))))
+	{
+		connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+		return;
+	}
+
+	QTreeWidgetItem* newItem = new QTreeWidgetItem(item);	
+	newItem->setIcon(0, QIcon(":/tool"));
+	newItem->setText(0, newName);
+	newItem->setText(1, newId);
+	newItem->setText(2, "tool");
+	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
+	newItem->setExpanded(true);
+	item->addChild(newItem);
+	treeToolbox->setCurrentItem(newItem, 0);
+	treeToolbox->editItem(newItem);
+
+
+	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
+
 	
 }
 
@@ -573,6 +638,14 @@ bool HPGCToolbox::copyDLL(QFile &file)
 			return false;
 		}
 	}
+
+	return true;
+}
+
+
+/// 新建工具配置文件
+bool HPGCToolbox::createToolConfig(const QString &filename)
+{
 
 	return true;
 }

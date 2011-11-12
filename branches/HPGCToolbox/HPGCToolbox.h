@@ -72,6 +72,9 @@ private:
 
 	/// 复制文件到./HPGCToolbox/ToolsetDLL目录下
 	bool copyDLL(QFile &file);
+
+	/// 新建工具配置文件
+	bool createToolConfig(const QString &filename);
 };
 
 
