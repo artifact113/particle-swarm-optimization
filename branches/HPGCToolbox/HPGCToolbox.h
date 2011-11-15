@@ -49,6 +49,9 @@ public slots:
 	/// 弹出工具集属性窗口
 	void showProperty();
 
+	/// 打开工具箱
+	void openTool();
+
 protected:
 	/// 窗口大小改变事件
 	void resizeEvent(QResizeEvent* event);
