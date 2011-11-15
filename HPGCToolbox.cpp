@@ -28,6 +28,7 @@ HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *pa
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 	connect(treeToolbox, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
+	connect(treeToolbox, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(openTool()));
 }
 
 
@@ -131,7 +132,9 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	QAction* addTool = new QAction(QIcon(":/tool"), tr("AddTool"), 0);
 	QAction* renTool = new QAction(QIcon(":/rename"), tr("Rename"), 0);
 	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
-	QAction* properties = new QAction(QIcon(":/property"), tr("property"), 0);
+	QAction* properties = new QAction(QIcon(":/property"), tr("Property"), 0);
+	QAction* openTool = new QAction(tr("Open"), 0);
+
 
 	connect(addToolbox, SIGNAL(triggered()), this, SLOT(addToolbox()));
 	connect(addToolset, SIGNAL(triggered()), this, SLOT(addToolset()));
@@ -139,6 +142,7 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	connect(renTool, SIGNAL(triggered()), this, SLOT(renameTool()));
 	connect(delTool, SIGNAL(triggered()), this, SLOT(deleteTool()));
 	connect(properties, SIGNAL(triggered()), this, SLOT(showProperty()));
+	connect(openTool, SIGNAL(triggered()), this, SLOT(openTool()));
 
 	QString toolType = item->text(2);
 	if (toolType == "toolboxfolder")
@@ -170,6 +174,8 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	}
 	else if (toolType == "tool")
 	{
+		popMenu->addAction(openTool);
+		popMenu->addSeparator();
 		popMenu->addAction(renTool);		
 		popMenu->addSeparator();
 		popMenu->addAction(delTool);
@@ -469,6 +475,13 @@ void HPGCToolbox::showProperty()
 	FormProperty myForm(item);
 	myForm.exec();
 }
+
+
+/// 打开工具
+void HPGCToolbox::openTool()
+{
+	
+}
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
 void HPGCToolbox::resizeEvent(QResizeEvent* event)
@@ -645,7 +658,8 @@ bool HPGCToolbox::copyDLL(QFile &file)
 
 /// 新建工具配置文件
 bool HPGCToolbox::createToolConfig(const QString &filename)
-{
+{                                    
+
 
 	return true;
 }

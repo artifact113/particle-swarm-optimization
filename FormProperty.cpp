@@ -55,7 +55,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
 	}
 
 	QString myfilename = currentElement->attribute("filename","");
-	txtFile->setText(myfilename);
+	txtFile->setText(QFileInfo(myfilename).absoluteFilePath());
 
 }
 
