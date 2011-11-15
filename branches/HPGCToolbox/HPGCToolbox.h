@@ -57,7 +57,7 @@ protected:
 	void resizeEvent(QResizeEvent* event);
 
 private:
-	QgisInterface* _iface;
+	QgisInterface* _iface;		// QGIS操作接口
 
 
 

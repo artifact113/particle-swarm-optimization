@@ -14,8 +14,8 @@
    <string>高性能智能地理计算工具箱</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/Resources/GCToolbox32.png</normaloff>:/Resources/GCToolbox32.png</iconset>
+   <iconset resource="HPGCToolbox.qrc">
+    <normaloff>:/toolbox</normaloff>:/toolbox</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
