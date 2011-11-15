@@ -25,7 +25,7 @@ HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *pa
 : QDockWidget(title, parent), _iface(iface)
 {
 	setupUi(this);
-
+ 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 	connect(treeToolbox, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
 	connect(treeToolbox, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(openTool()));
@@ -35,7 +35,7 @@ HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *pa
 /// 析构函数
 HPGCToolbox::~HPGCToolbox()
 {
-
+ 
 
 }
 
