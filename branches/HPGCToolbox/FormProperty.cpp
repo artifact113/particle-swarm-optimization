@@ -10,6 +10,7 @@
 #include <QMessageBox>
 #include <QDomElement>
 #include "XmlOperator.h"
+#include "FileOperator.h"
 
 
 /***********************************************public*********************************************/
@@ -19,8 +20,12 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
 {
 	setupUi(this);
 	_currentItem = currentItem;
+
+	// 设置窗口标题
 	QString title = QObject::tr("Properties - ") + _currentItem->text(0);
 	this->setWindowTitle(title);
+
+	// 设定名称
 	txtName->setText(_currentItem->text(0));
 
 	connect(txtName, SIGNAL(textChanged(const QString &)), this, SLOT(activateBtnApply()));
@@ -28,34 +33,50 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
 	connect(btnApply, SIGNAL(clicked(bool)), this, SLOT(saveConfig()));
 	connect(btnOpenFile, SIGNAL(clicked(bool)), this, SLOT(changeFile()));
 
-	btnApply->setEnabled(false);
+	
 
 	QString id = _currentItem->text(1);
 	QString toolType = _currentItem->text(2);
 
-	// 打开配置文件
+	// 配置文件
 	QString filename("./HPGCToolbox/config.xml");
+
+	// 验证配置文件
+	if (!XmlOperator::XmlVerify(filename, ""))
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		return;
+	}
+
+	// 打开配置文件
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
 		return;
 	}
 
+	// 查询变更节点
 	QDomElement rootElement = document.documentElement();
-	if (rootElement.isNull())
+	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, toolType);
+	if (!changedElement)
 	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
 		return;
 	}
 
-	QDomElement* currentElement = elementByID(rootElement, id, toolType);
-	if (!currentElement)
-	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
-		return;
-	}
-
-	QString myfilename = currentElement->attribute("filename","");
+	QString myfilename = changedElement->attribute("filename","");
 	txtFile->setText(QFileInfo(myfilename).absoluteFilePath());
+	btnApply->setEnabled(false);
+
+	// 验证算法包
+	if (!FileOperator::VerifyAlgorithmFile(myfilename))
+	{			
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!You need to respecify one."));
+		changeFile();
+	}
+
+	showDetail(txtFile->text());
 
 }
 
@@ -79,60 +100,80 @@ void FormProperty::activateBtnApply()
 /// 保存配置
 void FormProperty::saveConfig()
 {
-	QString myName = txtName->text();
-	QString myFilename = txtFile->text();
+	QString myname = txtName->text();
+	QString myfilename = txtFile->text();
+	QString id = _currentItem->text(1);
+	QString toolType = _currentItem->text(2);
 
-	if (!myName.isEmpty())
+
+	// 名称不能为空
+	if (myname.isEmpty())
 	{
-		_currentItem->setText(0, myName);
+		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Name cannot be empty!"));
+		return;		
 	}
-	
-	if (!myFilename.isEmpty())
+
+	// 算法包也不能为空
+	if (myfilename.isEmpty())
 	{
-		QFile myfile(myFilename);
-
-		// 验证并复制DLL
-		if (verifyDLL(myfile))
-		{
-			if (copyDLL(myfile))
-			{
-				QString id = _currentItem->text(1);
-				QString toolType = _currentItem->text(2);
-
-				// 打开配置文件
-				QString filename("./HPGCToolbox/config.xml");
-				QDomDocument document = XmlOperator::XmlRead(filename);
-				if (document.isNull())
-				{
-					return;
-				}
-
-				QDomElement rootElement = document.documentElement();
-				if (rootElement.isNull())
-				{
-					return;
-				}
-
-				QDomElement* currentElement = elementByID(rootElement, id, toolType);
-				if (!currentElement)
-				{
-					QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed to find the match record!"));
-					return;
-				}
-
-				QString newFilename = "./HPGCToolbox/ToolsetDLL/" + QFileInfo(myfile).fileName();
-
-				currentElement->setAttribute("filename", newFilename);
-
-				if (!XmlOperator::XmlWrite(document, filename))
-				{
-					QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
-					return;
-				}
-			}			
-		}
+		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("You must specify a algorithm package!"));
+		return;
 	}
-	
+
+	// 验证算法包
+	if (!FileOperator::VerifyAlgorithmFile(myfilename))
+	{			
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!"));
+		return;
+	}
+
+	// 复制算法包
+	QFileInfo myFileInfo(myfilename);
+	QString tofilename = "./HPGCToolbox/Algorithm/" + myFileInfo.fileName();
+
+	if (!FileOperator::CopyFile(myfilename, tofilename))
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed copy file to the program folder!"));
+		return;
+	}
+
+	// 配置文件
+	QString filename("./HPGCToolbox/config.xml");
+
+	// 验证配置文件
+	if (!XmlOperator::XmlVerify(filename, ""))
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		return;
+	}
+
+	// 打开配置文件
+	QDomDocument document = XmlOperator::XmlRead(filename);
+	if (document.isNull())
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		return;
+	}
+
+	// 查询变更节点
+	QDomElement rootElement = document.documentElement();
+	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, toolType);
+	if (!changedElement)
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		return;
+	}
+
+	// 写配置文件
+	changedElement->setAttribute("filename", tofilename);
+
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		return;
+	}
+
+	_currentItem->setText(0, myname); // 会自动更新配置文件的name属性	
 	this->close();
 }
 
@@ -143,12 +184,11 @@ void FormProperty::changeFile()
 	QString newFilename = QFileDialog::getOpenFileName(this, QObject::tr("Respecify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
 	if (!newFilename.isEmpty())
 	{
-		QFile newFile(newFilename);
-		if (verifyDLL(newFile))
+		if (FileOperator::VerifyAlgorithmFile(newFilename))
 		{
 			QFileInfo newFileInfo(newFilename);
 			txtFile->setText(newFileInfo.absoluteFilePath());
-			showDetail(newFile);
+			showDetail(newFilename);
 		}
 		else
 		{
@@ -157,8 +197,7 @@ void FormProperty::changeFile()
 			if (button == QMessageBox::Yes)
 			{
 				changeFile();
-			}		
-			
+			}
 		}
 	}
 	
@@ -170,106 +209,8 @@ void FormProperty::changeFile()
 
 
 /***********************************************private********************************************/
-/// 验证DLL
-bool FormProperty::verifyDLL(QFile &file)
-{
-	QFileInfo fileInfo(file);
-
-	// 1.检查文件是否存在
-	if (!fileInfo.exists())
-	{
-		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
-		return false;			
-	}
-
-	// 2.验证DLL
-	return true;	
-}
-
-
-/// 复制DLL至./HPGCToolbox/ToolsetDLL目录下
-bool FormProperty::copyDLL(QFile &file)
-{
-	QFileInfo fileInfo(file);
-
-	// 1.检查文件是否存在
-	if (!fileInfo.exists())
-	{
-		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("The file doesn't exist!\n") + fileInfo.absoluteFilePath());
-		return false;			
-	}
-
-	// 2.检查./HPGCToolbox/ToolsetDLL/目录下是否存在同名dll文件
-	QFileInfo targetfileInfo("./HPGCToolbox/ToolsetDLL/" + fileInfo.fileName());
-	if (targetfileInfo.exists())
-	{
-		if (targetfileInfo != fileInfo)
-		{
-			QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Found a same named file in the program folder!\n") + targetfileInfo.absolutePath() + QObject::tr("\nYou can choose YES to overwrite it(NOT Recommendant)."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
-			if (button == QMessageBox::Yes)
-			{
-				QFile targetfile(targetfileInfo.absoluteFilePath());
-				if (!(targetfile.remove() && file.copy(targetfileInfo.absoluteFilePath())))
-				{
-					QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed rewrite file to the program folder!\n") + targetfileInfo.absolutePath());
-					return false;
-				}
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-	else
-	{
-		if(!file.copy(targetfileInfo.absoluteFilePath()))
-		{
-			QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed copy file to the program folder!\n") + targetfileInfo.absolutePath());
-			return false;
-		}
-	}
-
-	return true;
-}
-
-
-/// 返回当前id的节点指针
-QDomElement* FormProperty::elementByID(QDomElement &element, const QString &id, const QString &toolType)
-{
-	if (element.isNull())
-	{
-		return NULL;
-	}
-
-	if (element.hasAttribute("id"))
-	{
-		if (element.attribute("id") == id)
-		{
-			return &element;
-		}
-	}
-
-
-	QDomNodeList allchildNodes(element.elementsByTagName(toolType));
-	for (int i=0; i != allchildNodes.count(); ++i)
-	{
-		QDomElement* childElement = new QDomElement(allchildNodes.at(i).toElement());
-		if (childElement->hasAttribute("id"))
-		{
-			if (childElement->attribute("id") == id)
-			{
-				return childElement;
-			}
-		}
-	}
-
-	return NULL;
-}
-
-
 /// 显示DLL详情
-void FormProperty::showDetail(QFile &file)
+void FormProperty::showDetail(const QString &file)
 {
 
 }
