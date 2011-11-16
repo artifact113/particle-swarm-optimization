@@ -627,6 +627,14 @@
 			Name="Tool"
 			>
 			<File
+				RelativePath=".\FileOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FileOperator.h"
+				>
+			</File>
+			<File
 				RelativePath=".\XmlOperator.cpp"
 				>
 			</File>
