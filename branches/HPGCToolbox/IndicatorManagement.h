@@ -29,6 +29,9 @@ public slots:
 	/// 显示右键菜单
 	void showRightMenu(const QPoint &pos);
 
+	/// 添加指标箱
+	void addIndicatorbox();
+
 	/// 添加指标集
 	void addIndicatorset();
 

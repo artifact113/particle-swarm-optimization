@@ -52,7 +52,7 @@ bool HPGCToolbox::loadConfig()
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
-		return;
+		return false;
 	}
 
 	// 打开配置文件
@@ -60,11 +60,11 @@ bool HPGCToolbox::loadConfig()
 	if (document.isNull())
 	{
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
-		return;
+		return false;
 	}
 
-
 	// 解析配置文件
+	QDomElement rootElement = document.documentElement();
 	QTreeWidgetItem* rootItem = new QTreeWidgetItem(elementToItem(rootElement));	
 	treeToolbox->addTopLevelItem(rootItem);
 	rootItem->setExpanded(true);
@@ -278,7 +278,7 @@ void HPGCToolbox::addToolbox()
 /// 添加工具集
 void HPGCToolbox::addToolset()
 {
-	// 制定算法包
+	// 指定算法包
 	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
 
 	if (!myfilename.isEmpty())
@@ -538,10 +538,12 @@ void HPGCToolbox::deleteTool()
 void HPGCToolbox::showProperty()
 {
 	QTreeWidgetItem* currentItem = treeToolbox->currentItem();
-	QString id = currentItem->text(0);
-	
-	FormProperty myForm(currentItem);
-	myForm.exec();
+
+	if (currentItem)
+	{
+		FormProperty myForm(currentItem);
+		myForm.exec();
+	}
 }
 
 
@@ -639,7 +641,13 @@ bool HPGCToolbox::createToolConfig(const QString &filename)
 void HPGCToolbox::showIndicators()
 {
 	IndicatorManagement myForm;
-	myForm.exec();	
+	if (!myForm.loadConfig())
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		return;
+	}
+	
+	myForm.exec();
 }
 
 
