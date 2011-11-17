@@ -1,49 +1,30 @@
-﻿#include "HPGCToolbox.h"
-#include <QObject>
-#include <QWidget>
-#include <QSize>
-#include <QEvent>
-#include <QDomElement>
-#include <QFile>
-#include <QFileInfo>
-#include <QFileDialog>
+﻿#include "IndicatorManagement.h"
 #include <QString>
-#include <QMessageBox>
-#include <QTreeWidget>
-#include <QIcon>
-#include <QMenu>
-#include <QAction>
-#include <QCursor>
-#include <QPoint>
-#include "FormProperty.h"
-#include "IndicatorManagement.h"
-#include "XmlOperator.h"
-#include "FileOperator.h"
+#include <QWidget>
+#include <QTreeWidgetItem>
+#include <QDialog>
+#include <QFile>
+#include <QDomElement>
 
 
 /***********************************************public*********************************************/
 /// 构造函数
-HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *parent)
-: QDockWidget(title, parent), _iface(iface)
+IndicatorManagement::IndicatorManagement(QWidget *parent)
+: QDialog(parent)
 {
 	setupUi(this);
- 
-	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*)));
-	connect(treeToolbox, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
-	connect(treeToolbox, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(openTool()));
 }
 
 
 /// 析构函数
-HPGCToolbox::~HPGCToolbox()
+IndicatorManagement::~IndicatorManagement()
 {
- 
 
 }
 
 
 /// 载入配置文件
-bool HPGCToolbox::loadConfig()
+bool IndicatorManagement::loadConfig()
 {
 	// 配置文件
 	QString filename("./HPGCToolbox/config.xml");
@@ -68,7 +49,7 @@ bool HPGCToolbox::loadConfig()
 	QTreeWidgetItem* rootItem = new QTreeWidgetItem(elementToItem(rootElement));	
 	treeToolbox->addTopLevelItem(rootItem);
 	rootItem->setExpanded(true);
-    parseConfig(rootItem, rootElement);
+	parseConfig(rootItem, rootElement);
 
 	return true; 
 }
@@ -192,9 +173,9 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 		popMenu->addSeparator();
 		popMenu->addAction(renTool);		
 		popMenu->addAction(delTool);
-		
+
 	}
-	
+
 	popMenu->exec(QCursor::pos());
 }
 
@@ -205,7 +186,7 @@ void HPGCToolbox::addToolbox()
 	QTreeWidgetItem* currentItem = treeToolbox->currentItem();
 	QString id = currentItem->text(1);
 	QString toolType = currentItem->text(2);
-	
+
 	// 配置文件
 	QString filename("./HPGCToolbox/config.xml");
 
@@ -237,7 +218,7 @@ void HPGCToolbox::addToolbox()
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
 	QString newName = tr("New Toolbox");
-	
+
 	// 写到配置文件
 	QDomElement newElement = document.createElement("toolbox");
 	newElement.setAttribute("name", newName);
@@ -294,7 +275,7 @@ void HPGCToolbox::addToolset()
 			}
 			return;
 		}
-		
+
 		// 复制算法包
 		QFileInfo myFileInfo(myfilename);
 		QString tofilename = "./HPGCToolbox/Algorithm/" + myFileInfo.fileName();
@@ -482,7 +463,7 @@ void HPGCToolbox::deleteTool()
 	{
 		return;
 	}	
-	
+
 	// 配置文件
 	QString filename("./HPGCToolbox/config.xml");
 
@@ -539,7 +520,7 @@ void HPGCToolbox::showProperty()
 {
 	QTreeWidgetItem* currentItem = treeToolbox->currentItem();
 	QString id = currentItem->text(0);
-	
+
 	FormProperty myForm(currentItem);
 	myForm.exec();
 }
@@ -552,9 +533,9 @@ void HPGCToolbox::openTool()
 	QString tooltype = currentItem->text(2);
 	if (tooltype == "tool")
 	{
-		
+
 	}
-	
+
 }
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
@@ -570,7 +551,7 @@ void HPGCToolbox::resizeEvent(QResizeEvent* event)
 		treeToolbox->move(0, 20);
 		treeToolbox->resize(this->width(), this->height() - 20);
 	}
-	
+
 	QWidget::resizeEvent(event);
 }
 
@@ -630,7 +611,7 @@ bool HPGCToolbox::createToolConfig(const QString &filename)
 {                                     
 
 
-	
+
 	return true;
 }
 
@@ -648,3 +629,4 @@ void HPGCToolbox::showFormulas()
 {
 
 }
+	

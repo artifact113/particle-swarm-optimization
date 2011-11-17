@@ -21,8 +21,7 @@ public:
 
 
 	/// 载入配置文件
-	bool loadConfig();
-	
+	bool loadConfig();	
 
 public slots:
 	/// 更新工具名称
@@ -54,6 +53,9 @@ public slots:
 
 	/// 弹出指标管理窗口
 	void showIndicators();
+
+	/// 弹出公式管理窗口
+	void showFormulas();
 
 protected:
 	/// 窗口大小改变事件
