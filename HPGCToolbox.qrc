@@ -8,5 +8,9 @@
         <file alias="delete">Resources/Delete16.gif</file>
         <file alias="property">Resources/Property32.png</file>
         <file alias="openfolder">Resources/OpenFolder32.png</file>
+        <file alias="formula">Resources/Formula32.png</file>
+        <file alias="formulaset">Resources/Formulaset32.png</file>
+        <file alias="indicator">Resources/Indicator32.png</file>
+        <file alias="indicatorset">Resources/Indicatorset32.png</file>
     </qresource>
 </RCC>

@@ -394,6 +394,46 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\Formula32.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\Formulaset32.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\GCTool32.png"
 				>
 				<FileConfiguration
@@ -463,7 +503,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif;.\Resources\Property32.png;.\Resources\OpenFolder32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif;.\Resources\Property32.png;.\Resources\OpenFolder32.png;.\Resources\Formula32.png;.\Resources\Formulaset32.png;.\Resources\Indicator32.png;.\Resources\Indicatorset32.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -474,8 +514,48 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif;.\Resources\Property32.png;.\Resources\OpenFolder32.png"
+						AdditionalDependencies="$(InputPath);.\Resources\GCTool32.png;.\Resources\GCToolbox32.png;.\Resources\GCToolset32.png;.\Resources\ToolboxFolder32.png;.\Resources\Rename16.gif;.\Resources\Delete16.gif;.\Resources\Property32.png;.\Resources\OpenFolder32.png;.\Resources\Formula32.png;.\Resources\Formulaset32.png;.\Resources\Indicator32.png;.\Resources\Indicatorset32.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\Indicator32.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\Indicatorset32.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
 					/>
 				</FileConfiguration>
 			</File>
