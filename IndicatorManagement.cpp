@@ -68,7 +68,7 @@ bool IndicatorManagement::loadConfig()
 		QDomElement childElement(childNodes.at(i).toElement());
 		QTreeWidgetItem* childItem = new QTreeWidgetItem(elementToItem(childElement));	
 		treeIndicator->addTopLevelItem(childItem);
-		//childItem->setExpanded(true);
+		childItem->setExpanded(true);
 		parseConfig(childItem, childElement);
 	}
 
@@ -87,6 +87,7 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item)
 	if(name.isEmpty())
 	{
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("New name cannot be empty!"));
+		item->setText(0, QObject::tr("New Name"));
 		return;
 	}
 
@@ -306,7 +307,6 @@ void IndicatorManagement::addIndicatorset()
 	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*))))
 	{
 		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
-		QMessageBox::warning(NULL,"","error");
 		return;
 	}
 
@@ -455,7 +455,7 @@ void IndicatorManagement::deleteIndicator()
 	QString indicatorType = currentItem->text(2);
 
 	// 确认删除
-	QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("This will delete ALL sub-tools!\nClick YES to confirm."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+	QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("This will delete ALL sub-indicators!\nClick YES to confirm."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
 	if (button == QMessageBox::Cancel)
 	{
 		return;
