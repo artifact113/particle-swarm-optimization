@@ -19,6 +19,9 @@ public:
 
 	/// 复制文件
 	static bool CopyFile(const QString &from, const QString &to);
+
+	/// 提取指标信息
+	
 };
 
 

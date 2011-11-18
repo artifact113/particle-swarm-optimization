@@ -85,6 +85,7 @@ void HPGCToolbox::updateToolName(QTreeWidgetItem* item)
 	if(name.isEmpty())
 	{
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("New name cannot be empty!"));
+		item->setText(0, QObject::tr("New Name"));
 		return;
 	}
 
