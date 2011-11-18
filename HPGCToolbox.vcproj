@@ -799,6 +799,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\IndicatorSet.h"
+				>
+			</File>
+			<File
 				RelativePath=".\XmlOperator.cpp"
 				>
 			</File>
