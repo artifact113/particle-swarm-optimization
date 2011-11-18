@@ -15,6 +15,8 @@
 #include <QAction>
 #include <QCursor>
 #include <QPoint>
+#include <QSet>
+#include <QList>
 #include "XmlOperator.h"
 #include "FileOperator.h"
 
@@ -90,6 +92,13 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item)
 		item->setText(0, QObject::tr("New Name"));
 		return;
 	}
+
+	// 指标名称唯一性检测
+	if (indicatorType == "indicator" && !isNameUnique(name))
+	{
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Already exists same named indicator!\nSame named indicators may cause problems,we sugguest that every indicator should has a unique name."));
+	}
+	
 
 	// 配置文件
 	QString filename("./HPGCToolbox/indicator.xml");
@@ -389,6 +398,7 @@ void IndicatorManagement::addIndicator()
 		}
 
 
+
 		// 新节点信息
 		int count = rootElement.attribute("count", "-1").toInt();
 		QString newId = QString::number(count + 1);
@@ -577,9 +587,44 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 		item.setIcon(0, QIcon(":/indicator"));
 		item.setText(3, element.attribute("filename", "NULL"));
 		item.setText(4, element.attribute("indicID","-1"));
+
 	}
 
 	return item;
+}
+
+
+/// 指标名称唯一性检测
+bool IndicatorManagement::isNameUnique(const QString &newName)
+{
+	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicator", Qt::MatchFixedString | Qt::MatchRecursive, 2));
+
+	QList<QString> names;
+	QList<QTreeWidgetItem*>::iterator iterIndicator;
+	for (iterIndicator = indicators.begin(); iterIndicator != indicators.end(); ++iterIndicator)
+	{
+		names<<((*iterIndicator)->text(0));
+	}
+
+	int count = 0;
+	QList<QString>::iterator iterName;
+	for (iterName = names.begin(); iterName != names.end(); ++iterName)
+	{
+		if ((*iterName) == newName)
+		{
+			++count;
+		}		
+	}
+
+	if (count == 1)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}	
+
 }
 
 	

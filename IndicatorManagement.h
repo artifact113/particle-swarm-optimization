@@ -3,6 +3,7 @@
 
 #include "ui_IndicatorManagement.h"
 #include <QString>
+#include <QStringList>
 #include <QWidget>
 #include <QTreeWidgetItem>
 #include <QDialog>
@@ -52,13 +53,14 @@ protected:
 	void resizeEvent(QResizeEvent* event);
 
 private:
-
 	/// 解析配置文件
 	void parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentElement);
 
 	/// QDomElement转QTreeWidgetItem
 	QTreeWidgetItem elementToItem(QDomElement &element);
 
+	/// 指标名称唯一性检测
+	bool isNameUnique(const QString &newName);
 };
 
 #endif _INDICATORMANAGEMENT_H_
