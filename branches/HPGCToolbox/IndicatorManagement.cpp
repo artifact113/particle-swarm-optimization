@@ -597,7 +597,9 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 /// 指标名称唯一性检测
 bool IndicatorManagement::isNameUnique(const QString &newName)
 {
+	treeIndicator->setColumnCount(3);
 	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicator", Qt::MatchFixedString | Qt::MatchRecursive, 2));
+	treeIndicator->setColumnCount(1);
 
 	QList<QString> names;
 	QList<QTreeWidgetItem*>::iterator iterIndicator;
