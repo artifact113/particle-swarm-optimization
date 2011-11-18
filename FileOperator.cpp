@@ -2,7 +2,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
-#include <QMessageBox>
+#include <QMessageBox> 
 
 
 /// 验证算法包
