@@ -2,6 +2,7 @@
 #define _INDICATORSET_H_
 
 #include <vector>
+#include <string>
 
 class IndicatorSet
 {
@@ -26,4 +27,34 @@ private:
 };
 
 
+class Indicator
+{
+public:
+	/// 构造函数
+	Indicator();
+
+	/// 析构函数
+	~Indicator();
+
+	/// 指标得分
+	double score();
+
+	/// ID
+	void setID(int id);
+	int getID();
+
+    
+	/// 标签
+	string label();
+
+	/// 描述
+	string description();
+
+	/// 帮助
+	string help();
+
+
+private:
+	int _id;
+};
 #endif // _INDICATORSET_H_
