@@ -791,6 +791,10 @@
 			Name="Tool"
 			>
 			<File
+				RelativePath=".\ExpressionParser.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FileOperator.cpp"
 				>
 			</File>
