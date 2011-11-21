@@ -21,7 +21,7 @@ public:
 
 
 	/// 载入配置文件
-	bool loadConfig();	
+	bool loadConfig();
 
 public slots:
 	/// 更新指标名称
@@ -30,14 +30,14 @@ public slots:
 	/// 显示右键菜单
 	void showRightMenu(const QPoint &pos);
 
+	/// 添加顶部指标箱
+	void addIndicatorTopbox();
+
 	/// 添加指标箱
 	void addIndicatorbox();
 
 	/// 添加指标集
 	void addIndicatorset();
-
-	/// 添加指标
-	void addIndicator();
 
 	/// 改名
 	void renameIndicator();

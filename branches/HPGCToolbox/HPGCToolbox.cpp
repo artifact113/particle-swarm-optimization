@@ -156,7 +156,7 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	if (!item)
 	{
 		popMenu->addAction(indicatorManagement);
-		popMenu->addAction(formulaManagement);
+		//popMenu->addAction(formulaManagement);
 		popMenu->exec(QCursor::pos());
 		return;
 	}
