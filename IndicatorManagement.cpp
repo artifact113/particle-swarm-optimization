@@ -94,10 +94,10 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item)
 	}
 
 	// 指标名称唯一性检测
-	if (indicatorType == "indicator" && !isNameUnique(name))
+	/*if (indicatorType == "indicatorset" && !isNameUnique(name))
 	{
-		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Already exists same named indicator!\nSame named indicators may cause problems,we sugguest that every indicator should has a unique name."));
-	}
+		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Already exists same named indicatorset!\nSame name may cause problems,we sugguest that every indicator should has a unique name."));
+	}*/
 	
 
 	// 配置文件
@@ -142,37 +142,37 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 	QTreeWidgetItem* item = treeIndicator->itemAt(pos);
 
 	QMenu* popMenu = new QMenu(treeIndicator);
-	QAction* addIndicatorbox = new QAction(QIcon(":/indicatorset"), tr("Add Indicatorset"), 0);
+	QAction* addIndicatorTopbox = new QAction(QIcon(":/folder"), tr("Add Indicatorbox"), 0);
+	QAction* addIndicatorbox = new QAction(QIcon(":/folder"), tr("Add Indicatorbox"), 0);
 	QAction* addIndicatorset = new QAction(QIcon(":/indicatorset"), tr("Add Indicatorset"), 0);
-	QAction* addIndicator = new QAction(QIcon(":/indicator"), tr("Add Indicator"), 0);
 	QAction* renIndicator = new QAction(QIcon(":/rename"), tr("Rename"), 0);
 	QAction* delIndicator = new QAction(QIcon(":/delete"), tr("Delete"), 0);
 	QAction* properties = new QAction(QIcon(":/property"), tr("Property"), 0);
 
+	connect(addIndicatorTopbox, SIGNAL(triggered()), this, SLOT(addIndicatorTopbox()));
 	connect(addIndicatorbox, SIGNAL(triggered()), this, SLOT(addIndicatorbox()));
 	connect(addIndicatorset, SIGNAL(triggered()), this, SLOT(addIndicatorset()));
-	connect(addIndicator, SIGNAL(triggered()), this, SLOT(addIndicator()));
 	connect(renIndicator, SIGNAL(triggered()), this, SLOT(renameIndicator()));
 	connect(delIndicator, SIGNAL(triggered()), this, SLOT(deleteIndicator()));
 	connect(properties, SIGNAL(triggered()), this, SLOT(showProperty()));
 
 	if (!item)
 	{
-		popMenu->addAction(addIndicatorbox);
+		popMenu->addAction(addIndicatorTopbox);
 		popMenu->exec(QCursor::pos());
 		return;
 	}
 
 	QString indicatorType = item->text(2);
-	if (indicatorType == "indicatorset")
+	if (indicatorType == "indicatorbox")
 	{
+		popMenu->addAction(addIndicatorbox);
 		popMenu->addAction(addIndicatorset);
-		popMenu->addAction(addIndicator);
 		popMenu->addSeparator();
 		popMenu->addAction(renIndicator);
 		popMenu->addAction(delIndicator);
 	}
-	else if (indicatorType == "indicator")
+	else if (indicatorType == "indicatorset")
 	{
 		popMenu->addAction(properties);
 		popMenu->addSeparator();
@@ -184,11 +184,11 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 }
 
 
-/// 添加指标箱
-void IndicatorManagement::addIndicatorbox()
+/// 添加顶部指标箱
+void IndicatorManagement::addIndicatorTopbox()
 {
 	QString id = "0";
-	QString indicatorType = "indicatorbox";
+	QString indicatorType = "indicatorboxfolder";
 
 	// 配置文件
 	QString filename("./HPGCToolbox/indicator.xml");
@@ -220,10 +220,10 @@ void IndicatorManagement::addIndicatorbox()
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName = tr("New Indicatorset");
+	QString newName = tr("New Indicatorbox");
 
 	// 写到配置文件
-	QDomElement newElement = document.createElement("indicatorset");
+	QDomElement newElement = document.createElement("indicatorbox");
 	newElement.setAttribute("name", newName);
 	newElement.setAttribute("id", newId);	
 	changedElement->appendChild(newElement);
@@ -244,10 +244,10 @@ void IndicatorManagement::addIndicatorbox()
 
 	// 添加到treeIndicator中显示
 	QTreeWidgetItem* newItem = new QTreeWidgetItem();
-	newItem->setIcon(0, QIcon(":/indicatorset"));
+	newItem->setIcon(0, QIcon(":/folder"));
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
-	newItem->setText(2, "indicatorset");
+	newItem->setText(2, "indicatorbox");
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	newItem->setExpanded(true);
 	treeIndicator->addTopLevelItem(newItem);
@@ -256,12 +256,11 @@ void IndicatorManagement::addIndicatorbox()
 
 	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
 
-
 }
 
 
-/// 添加指标集
-void IndicatorManagement::addIndicatorset()
+/// 添加指标箱
+void IndicatorManagement::addIndicatorbox()
 {
 	QTreeWidgetItem* currentItem = treeIndicator->currentItem();
 	QString id = currentItem->text(1);
@@ -297,10 +296,10 @@ void IndicatorManagement::addIndicatorset()
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName = tr("New Indicatorset");
+	QString newName = tr("New Indicatorbox");
 
 	// 写到配置文件
-	QDomElement newElement = document.createElement("indicatorset");
+	QDomElement newElement = document.createElement("indicatorbox");
 	newElement.setAttribute("name", newName);
 	newElement.setAttribute("id", newId);	
 	changedElement->appendChild(newElement);
@@ -321,10 +320,10 @@ void IndicatorManagement::addIndicatorset()
 
 	// 添加到treeIndicator中显示
 	QTreeWidgetItem* newItem = new QTreeWidgetItem(currentItem);	
-	newItem->setIcon(0, QIcon(":/indicatorset"));
+	newItem->setIcon(0, QIcon(":/folder"));
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
-	newItem->setText(2, "indicatorset");
+	newItem->setText(2, "indicatorbox");
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	newItem->setExpanded(true);
 	currentItem->addChild(newItem);
@@ -336,11 +335,11 @@ void IndicatorManagement::addIndicatorset()
 
 
 
-/// 添加指标
-void IndicatorManagement::addIndicator()
+/// 添加指标集
+void IndicatorManagement::addIndicatorset()
 {
 	// 指定指标算法包
-	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify indicator package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
+	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify indicatorset package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
 
 	if (!myfilename.isEmpty())
 	{
@@ -351,7 +350,7 @@ void IndicatorManagement::addIndicator()
 			button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect indicator package!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
 			if (button == QMessageBox::Yes)
 			{
-				addIndicator();
+				addIndicatorset();
 			}
 			return;
 		}
@@ -398,20 +397,17 @@ void IndicatorManagement::addIndicator()
 		}
 
 
-
 		// 新节点信息
 		int count = rootElement.attribute("count", "-1").toInt();
 		QString newId = QString::number(count + 1);
-		QString newName = tr("New Indicator");
+		QString newName = tr("New Indicatorset");
 		QString newFilename = tofilename;
-		QString newIndicID = "0";
 
 		// 写入配置文件
-		QDomElement newElement = document.createElement("indicator");
+		QDomElement newElement = document.createElement("indicatorset");
 		newElement.setAttribute("name", newName);
 		newElement.setAttribute("id", newId);
 		newElement.setAttribute("filename", newFilename);
-		newElement.setAttribute("indicID", newIndicID);
 		changedElement->appendChild(newElement);
 		rootElement.setAttribute("count", newId);
 
@@ -429,12 +425,11 @@ void IndicatorManagement::addIndicator()
 		}
 
 		QTreeWidgetItem* newItem = new QTreeWidgetItem(currentItem);	
-		newItem->setIcon(0, QIcon(":/indicator"));
+		newItem->setIcon(0, QIcon(":/indicatorset"));
 		newItem->setText(0, newName);
 		newItem->setText(1, newId);
-		newItem->setText(2, "indicator");
+		newItem->setText(2, "indicatorset");
 		newItem->setText(3, newFilename);
-		newItem->setText(4, newIndicID);
 		newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 		newItem->setExpanded(true);
 		currentItem->addChild(newItem);
@@ -530,7 +525,7 @@ void IndicatorManagement::showProperty()
 	if (currentItem)
 	{
 		QString indicatorType = currentItem->text(2);
-		if (indicatorType == "indicator")
+		if (indicatorType == "indicatorset")
 		{
 			//FormProperty myForm(currentItem);
 			//myForm.exec();
@@ -578,16 +573,14 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 	item.setText(1, element.attribute("id"));
 	item.setText(2, element.tagName());
 
-	if (indicatorType == "indicatorset")
+	if (indicatorType == "indicatorbox")
+	{
+		item.setIcon(0, QIcon(":/folder"));
+	}
+	else if (indicatorType == "indicatorset")
 	{
 		item.setIcon(0, QIcon(":/indicatorset"));
-	}
-	else if (indicatorType == "indicator")
-	{
-		item.setIcon(0, QIcon(":/indicator"));
 		item.setText(3, element.attribute("filename", "NULL"));
-		item.setText(4, element.attribute("indicID","-1"));
-
 	}
 
 	return item;
@@ -598,7 +591,7 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 bool IndicatorManagement::isNameUnique(const QString &newName)
 {
 	treeIndicator->setColumnCount(3);
-	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicator", Qt::MatchFixedString | Qt::MatchCaseSensitive | Qt::MatchRecursive, 2));
+	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicatorset", Qt::MatchFixedString | Qt::MatchCaseSensitive | Qt::MatchRecursive, 2));
 	treeIndicator->setColumnCount(1);
 
 	QList<QString> names;
