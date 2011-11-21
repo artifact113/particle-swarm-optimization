@@ -823,7 +823,7 @@
 				>
 			</File>
 			<File
-				RelativePath=".\IndicatorSet.h"
+				RelativePath=".\IndicatorPlugin.h"
 				>
 			</File>
 			<File
