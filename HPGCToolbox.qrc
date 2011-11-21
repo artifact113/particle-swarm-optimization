@@ -12,5 +12,6 @@
         <file alias="formulaset">Resources/Formulaset32.png</file>
         <file alias="indicator">Resources/Indicator32.png</file>
         <file alias="indicatorset">Resources/Indicatorset32.png</file>
+        <file alias="folder">Resources/Folder32.png</file>
     </qresource>
 </RCC>
