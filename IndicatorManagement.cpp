@@ -243,9 +243,9 @@ void IndicatorManagement::addIndicatorTopbox()
 	}
 
 	// 使用Qt你不得不掌握些奇淫技巧
-	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*))))
+	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int))))
 	{
-		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 		return;
 	}
 
@@ -263,7 +263,7 @@ void IndicatorManagement::addIndicatorTopbox()
 
 	treeIndicator->topLevelItem(0)->setText(3, newId);
 
-	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 
 }
 
@@ -321,9 +321,9 @@ void IndicatorManagement::addIndicatorbox()
 	}
 
 	// 使用Qt你不得不掌握些奇淫技巧
-	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*))))
+	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int))))
 	{
-		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 		return;
 	}
 
@@ -341,7 +341,7 @@ void IndicatorManagement::addIndicatorbox()
 
 	treeIndicator->topLevelItem(0)->setText(3, newId);
 
-	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 }
 
 
@@ -429,9 +429,9 @@ void IndicatorManagement::addIndicatorset()
 		}
 
 		// 使用Qt你不得不掌握些奇淫技巧
-		if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*))))
+		if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int))))
 		{
-			connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+			connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 			return;
 		}
 
@@ -449,7 +449,7 @@ void IndicatorManagement::addIndicatorset()
 
 		treeIndicator->topLevelItem(0)->setText(3, newId);
 
-		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 	}
 }
 
@@ -517,15 +517,15 @@ void IndicatorManagement::deleteIndicator()
 	}
 
 	// 使用Qt你不得不掌握些奇淫技巧
-	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*))))
+	if(!disconnect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int))))
 	{
-		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 		return;
 	}
 
 	delete currentItem;
 
-	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 
 }
 
