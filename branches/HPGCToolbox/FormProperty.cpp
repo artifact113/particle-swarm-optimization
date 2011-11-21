@@ -15,31 +15,39 @@
 
 /***********************************************public*********************************************/
 /// 构造函数
-FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
-: QDialog(parent)
+FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type, QWidget *parent)
+:mType(type), QDialog(parent)
 {
 	setupUi(this);
-	_currentItem = currentItem;
+
+	mCurrentItem = currentItem;
 
 	// 设置窗口标题
-	QString title = QObject::tr("Properties - ") + _currentItem->text(0);
+	QString title = QObject::tr("Properties - ") + mCurrentItem->text(0);
 	this->setWindowTitle(title);
 
 	// 设定名称
-	txtName->setText(_currentItem->text(0));
+	txtName->setText(mCurrentItem->text(0));
 
 	connect(txtName, SIGNAL(textChanged(const QString &)), this, SLOT(activateBtnApply()));
 	connect(txtFile, SIGNAL(textChanged(const QString &)), this, SLOT(activateBtnApply()));
 	connect(btnApply, SIGNAL(clicked(bool)), this, SLOT(saveConfig()));
 	connect(btnOpenFile, SIGNAL(clicked(bool)), this, SLOT(changeFile()));
-
 	
 
-	QString id = _currentItem->text(1);
-	QString toolType = _currentItem->text(2);
+	QString id = mCurrentItem->text(1);
+	QString toolType = mCurrentItem->text(2);
 
 	// 配置文件
-	QString filename("./HPGCToolbox/config.xml");
+	QString filename;
+	if (mType == PLUGINTYPE::ALGORITHM)
+	{
+		filename = "./HPGCToolbox/config.xml";
+	}
+	else if (mType == PLUGINTYPE::INDICATOR)
+	{
+		filename = "./HPGCToolbox/indicator.xml";
+	}
 
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
@@ -70,14 +78,13 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, QWidget *parent)
 	btnApply->setEnabled(false);
 
 	// 验证算法包
-	if (!FileOperator::VerifyAlgorithmFile(myfilename))
+	if (!FileOperator::VerifyFile(myfilename, mType))
 	{			
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!You need to respecify one."));
 		changeFile();
 	}
 
 	showDetail(txtFile->text());
-
 }
 
 
@@ -102,8 +109,8 @@ void FormProperty::saveConfig()
 {
 	QString myname = txtName->text();
 	QString myfilename = txtFile->text();
-	QString id = _currentItem->text(1);
-	QString toolType = _currentItem->text(2);
+	QString id = mCurrentItem->text(1);
+	QString toolType = mCurrentItem->text(2);
 
 
 	// 名称不能为空
@@ -121,7 +128,7 @@ void FormProperty::saveConfig()
 	}
 
 	// 验证算法包
-	if (!FileOperator::VerifyAlgorithmFile(myfilename))
+	if (!FileOperator::VerifyFile(myfilename, mType))
 	{			
 		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!"));
 		return;
@@ -138,7 +145,17 @@ void FormProperty::saveConfig()
 	}
 
 	// 配置文件
-	QString filename("./HPGCToolbox/config.xml");
+	QString filename;
+	if (mType == PLUGINTYPE::ALGORITHM)
+	{
+		filename = "./HPGCToolbox/config.xml";
+	}
+	else if (mType == PLUGINTYPE::INDICATOR)
+	{
+		filename = "./HPGCToolbox/indicator.xml";
+	}
+	
+	
 
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
@@ -173,7 +190,8 @@ void FormProperty::saveConfig()
 		return;
 	}
 
-	_currentItem->setText(0, myname); // 会自动更新配置文件的name属性	
+	mCurrentItem->setText(0, myname); // 会自动更新配置文件的name属性	
+	mCurrentItem->setText(3, tofilename);
 	this->close();
 }
 

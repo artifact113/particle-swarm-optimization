@@ -8,6 +8,7 @@
 #include <QDialog>
 #include <QFile>
 #include <QDomElement>
+#include "HPGCToolboxMacro.h"
 
 
 class FormProperty : public QDialog, public Ui::FormProperty
@@ -15,7 +16,8 @@ class FormProperty : public QDialog, public Ui::FormProperty
 	Q_OBJECT
      
 public:
-	explicit FormProperty(QTreeWidgetItem* currentItem,QWidget *parent = 0);
+
+	explicit FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type, QWidget *parent = 0);
 	~FormProperty();
 
 public slots:
@@ -32,7 +34,9 @@ protected:
 
 
 private:
-	QTreeWidgetItem* _currentItem;
+	QTreeWidgetItem* mCurrentItem;
+
+	PLUGINTYPE mType;
 
 	/// 显示DLL详情
 	void showDetail(const QString &file);

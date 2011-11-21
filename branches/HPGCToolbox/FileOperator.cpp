@@ -5,6 +5,19 @@
 #include <QMessageBox> 
 
 
+/// 验证文件
+bool FileOperator::VerifyFile(const QString &filename, const PLUGINTYPE &type)
+{
+	QFile myfile(filename);
+
+	if (!myfile.exists())
+	{
+		return false;
+	}
+
+	return true;
+}
+
 /// 验证算法包
 bool FileOperator::VerifyAlgorithmFile(const QString &filename)
 {
@@ -15,7 +28,7 @@ bool FileOperator::VerifyAlgorithmFile(const QString &filename)
 		return false;
 	}
 
-
+	
 
 
 	return true;
