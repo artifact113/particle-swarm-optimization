@@ -15,6 +15,9 @@ bool FileOperator::VerifyAlgorithmFile(const QString &filename)
 		return false;
 	}
 
+
+
+
 	return true;
 }
 
