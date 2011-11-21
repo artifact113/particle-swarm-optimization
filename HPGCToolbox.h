@@ -21,11 +21,11 @@ public:
 
 
 	/// 载入配置文件
-	bool loadConfig();	
+	bool loadConfig();
 
 public slots:
 	/// 更新工具名称
-	void updateToolName(QTreeWidgetItem* item);
+	void updateToolName(QTreeWidgetItem* item, int colum);
 
 	/// 显示右键菜单
 	void showRightMenu(const QPoint &pos);

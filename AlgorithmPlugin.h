@@ -1,20 +1,20 @@
-﻿#ifndef _INDICATORPLUGIN_H_
-#define _INDICATORPLUGIN_H_
+﻿#ifndef _ALGORITHMPLUGIN_H_
+#define _ALGORITHMPLUGIN_H_
 
 #include <vector>
 #include <QString>
 #include "HPGCToolboxMacro.h"
 
 
-class IndicatorPlugin
+class AlgorithmPlugin
 {
 public:
 	/// 构造函数
-	IndicatorPlugin(QString const &name = "",
-		      QString const &version = "",
-			  QString const &description = "",
-		      QString const &help = ""
-			  PLUGINTYPE const & mytype = INDICATOR)
+	AlgorithmPlugin(QString const &name = "",
+		QString const &version = "",
+		QString const &description = "",
+		QString const &help = ""
+		PLUGINTYPE const & mytype = INDICATOR)
 		: mName(name),
 		mDescription(description),
 		mVersion(version),
@@ -25,9 +25,9 @@ public:
 	}
 
 	/// 析构函数
-	virtual ~IndicatorPlugin()
+	virtual ~AlgorithmPlugin()
 	{
-	
+
 	}
 
 	/// 名称
@@ -79,14 +79,14 @@ public:
 	{
 		return mType;
 	}
-	
+
 	PLUGINTYPE & type()
 	{
 		return mType;
 	}
 
-	/// 指标得分
-	virtual double score(vector<double> &solution) = 0;
+	/// 算法入口
+	virtual double pluginMain() = 0;
 
 private:
 	QString mName;
@@ -96,8 +96,5 @@ private:
 	QString mDescription;
 
 	QString mHelp;
-
-	PLUGINTYPE mType;
-
 };
-#endif // _INDICATORPLUGIN_H_
+#endif // _ALGORITHMPLUGIN_H_

@@ -25,7 +25,7 @@ public:
 
 public slots:
 	/// 更新指标名称
-	void updateIndicatorName(QTreeWidgetItem* item);
+	void updateIndicatorName(QTreeWidgetItem* item, int column);
 
 	/// 显示右键菜单
 	void showRightMenu(const QPoint &pos);

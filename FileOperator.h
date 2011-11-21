@@ -4,10 +4,14 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
+#include "HPGCToolboxMacro.h"
 
 class FileOperator
 {
 public:
+	/// 验证文件
+	static bool VerifyFile(const QString &filename, const PLUGINTYPE &type);
+
 	/// 验证算法包
 	static bool VerifyAlgorithmFile(const QString &filename);
 
@@ -19,8 +23,6 @@ public:
 
 	/// 复制文件
 	static bool CopyFile(const QString &from, const QString &to);
-
-	/// 提取指标信息
 	
 };
 

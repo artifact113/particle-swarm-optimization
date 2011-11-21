@@ -19,6 +19,8 @@
 #include <QList>
 #include "XmlOperator.h"
 #include "FileOperator.h"
+#include "IndicatorManagement.h"
+#include "FormProperty.h"
 
 
 /***********************************************public*********************************************/
@@ -28,7 +30,7 @@ IndicatorManagement::IndicatorManagement(QWidget *parent)
 {
 	setupUi(this);
 
-	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
+	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 	connect(treeIndicator, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
 	connect(treeIndicator, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(showProperty()));
 }
@@ -80,8 +82,13 @@ bool IndicatorManagement::loadConfig()
 
 /***********************************************public slots***************************************/
 /// 更新指标名称
-void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item)
+void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 {
+	if (column != 0)
+	{
+		return;
+	}	
+
 	QString name = item->text(0);
 	QString id = item->text(1);
 	QString indicatorType = item->text(2);
@@ -254,6 +261,8 @@ void IndicatorManagement::addIndicatorTopbox()
 	treeIndicator->setCurrentItem(newItem, 0);
 	treeIndicator->editItem(newItem);
 
+	treeIndicator->topLevelItem(0)->setText(3, newId);
+
 	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
 
 }
@@ -329,6 +338,8 @@ void IndicatorManagement::addIndicatorbox()
 	currentItem->addChild(newItem);
 	treeIndicator->setCurrentItem(newItem, 0);
 	treeIndicator->editItem(newItem);
+
+	treeIndicator->topLevelItem(0)->setText(3, newId);
 
 	connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
 }
@@ -436,6 +447,8 @@ void IndicatorManagement::addIndicatorset()
 		treeIndicator->setCurrentItem(newItem, 0);
 		treeIndicator->editItem(newItem);
 
+		treeIndicator->topLevelItem(0)->setText(3, newId);
+
 		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*)));
 	}
 }
@@ -527,8 +540,8 @@ void IndicatorManagement::showProperty()
 		QString indicatorType = currentItem->text(2);
 		if (indicatorType == "indicatorset")
 		{
-			//FormProperty myForm(currentItem);
-			//myForm.exec();
+			FormProperty myForm(currentItem, PLUGINTYPE::INDICATOR);
+			myForm.exec();
 		}
 	}
 }

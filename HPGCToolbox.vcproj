@@ -811,6 +811,10 @@
 			Name="Tool"
 			>
 			<File
+				RelativePath=".\AlgorithmPlugin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ExpressionParser.h"
 				>
 			</File>
@@ -820,6 +824,10 @@
 			</File>
 			<File
 				RelativePath=".\FileOperator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\HPGCToolboxMacro.h"
 				>
 			</File>
 			<File

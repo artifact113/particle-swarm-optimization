@@ -28,7 +28,7 @@ HPGCToolbox::HPGCToolbox(QgisInterface *iface, const QString &title, QWidget *pa
 {
 	setupUi(this);
  
-	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*)));
+	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*, int)));
 	connect(treeToolbox, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showRightMenu(const QPoint &)));
 	connect(treeToolbox, SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)), this, SLOT(openTool()));
 }
@@ -76,8 +76,13 @@ bool HPGCToolbox::loadConfig()
 
 /***********************************************public slots***************************************/
 /// 更新工具名称
-void HPGCToolbox::updateToolName(QTreeWidgetItem* item)
+void HPGCToolbox::updateToolName(QTreeWidgetItem* item, int colum)
 {
+	if (colum != 0)
+	{
+		return;
+	}	
+
 	QString name = item->text(0);
 	QString id = item->text(1);
 	QString toolType = item->text(2);
@@ -271,6 +276,8 @@ void HPGCToolbox::addToolbox()
 	treeToolbox->setCurrentItem(newItem, 0);
 	treeToolbox->editItem(newItem);
 
+	treeToolbox->topLevelItem(0)->setText(3, newId);
+
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*)));
 }
 
@@ -369,11 +376,14 @@ void HPGCToolbox::addToolset()
 		newItem->setText(0, newName);
 		newItem->setText(1, newId);
 		newItem->setText(2, "toolset");
+		newItem->setText(3, newFilename);
 		newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 		newItem->setExpanded(true);
 		currentItem->addChild(newItem);
 		treeToolbox->setCurrentItem(newItem, 0);
 		treeToolbox->editItem(newItem);
+
+		treeToolbox->topLevelItem(0)->setText(3, newId);
 
 		connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*)));
 	}
@@ -447,12 +457,14 @@ void HPGCToolbox::addTool()
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
 	newItem->setText(2, "tool");
+	newItem->setText(3, newConfig);
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	newItem->setExpanded(true);
 	currentItem->addChild(newItem);
 	treeToolbox->setCurrentItem(newItem, 0);
 	treeToolbox->editItem(newItem);
 
+	treeToolbox->topLevelItem(0)->setText(3, newId);
 
 	connect(treeToolbox, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateToolName(QTreeWidgetItem*)));
 
@@ -542,7 +554,7 @@ void HPGCToolbox::showProperty()
 
 	if (currentItem)
 	{
-		FormProperty myForm(currentItem);
+		FormProperty myForm(currentItem, PLUGINTYPE::ALGORITHM);
 		myForm.exec();
 	}
 }
@@ -602,28 +614,31 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 {
 	QString toolType(element.tagName());
 	QTreeWidgetItem item;
-
-	if (toolType == "toolboxfolder")
-	{
-		item.setIcon(0, QIcon(":/toolboxfolder"));		
-	}
-	else if (toolType == "toolbox")
-	{
-		item.setIcon(0, QIcon(":/toolbox"));		
-	}
-	else if (toolType == "toolset")
-	{
-		item.setIcon(0, QIcon(":/toolset"));
-	}
-	else if (toolType == "tool")
-	{
-		item.setIcon(0, QIcon(":/tool"));
-	}
-
 	item.setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	item.setText(0, element.attribute("name"));
 	item.setText(1, element.attribute("id"));
 	item.setText(2, element.tagName());
+
+	if (toolType == "toolboxfolder")
+	{
+		item.setIcon(0, QIcon(":/toolboxfolder"));
+		item.setText(3, element.attribute("count"));
+	}
+	else if (toolType == "toolbox")
+	{
+		item.setIcon(0, QIcon(":/toolbox"));
+	}
+	else if (toolType == "toolset")
+	{
+		item.setIcon(0, QIcon(":/toolset"));
+		item.setText(3, element.attribute("filename"));
+	}
+	else if (toolType == "tool")
+	{
+		item.setIcon(0, QIcon(":/tool"));
+		item.setText(3, element.attribute("config"));
+	}
+	
 	return item;
 }
 
