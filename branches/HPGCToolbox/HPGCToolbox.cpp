@@ -17,6 +17,7 @@
 #include <QPoint>
 #include "FormProperty.h"
 #include "IndicatorManagement.h"
+#include "FormulaManagement.h"
 #include "XmlOperator.h"
 #include "FileOperator.h"
 
@@ -161,7 +162,7 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	if (!item)
 	{
 		popMenu->addAction(indicatorManagement);
-		//popMenu->addAction(formulaManagement);
+		popMenu->addAction(formulaManagement);
 		popMenu->exec(QCursor::pos());
 		return;
 	}
@@ -670,5 +671,12 @@ void HPGCToolbox::showIndicators()
 /// 弹出公式管理窗口
 void HPGCToolbox::showFormulas()
 {
+	FormulaManagement myForm;
+	if (!myForm.loadConfig())
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		return;
+	}
 
+	myForm.exec();
 }
