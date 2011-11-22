@@ -540,7 +540,7 @@ void IndicatorManagement::showProperty()
 		QString indicatorType = currentItem->text(2);
 		if (indicatorType == "indicatorset")
 		{
-			FormProperty myForm(currentItem, PLUGINTYPE::INDICATOR);
+			FormProperty myForm(currentItem, INDICATOR);
 			myForm.exec();
 		}
 	}

@@ -554,7 +554,7 @@ void HPGCToolbox::showProperty()
 
 	if (currentItem)
 	{
-		FormProperty myForm(currentItem, PLUGINTYPE::ALGORITHM);
+		FormProperty myForm(currentItem, ALGORITHM);
 		myForm.exec();
 	}
 }

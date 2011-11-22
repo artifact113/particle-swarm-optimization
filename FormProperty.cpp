@@ -25,6 +25,15 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	// 设置窗口标题
 	QString title = QObject::tr("Properties - ") + mCurrentItem->text(0);
 	this->setWindowTitle(title);
+	if (mType == ALGORITHM)
+	{
+		this->setWindowIcon(QIcon(":/toolset"));
+	}
+	else if(mType == INDICATOR)
+	{
+		this->setWindowIcon(QIcon(":/indicatorset"));
+	}
+	
 
 	// 设定名称
 	txtName->setText(mCurrentItem->text(0));
@@ -40,11 +49,11 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 
 	// 配置文件
 	QString filename;
-	if (mType == PLUGINTYPE::ALGORITHM)
+	if (mType == ALGORITHM)
 	{
 		filename = "./HPGCToolbox/config.xml";
 	}
-	else if (mType == PLUGINTYPE::INDICATOR)
+	else if (mType == INDICATOR)
 	{
 		filename = "./HPGCToolbox/indicator.xml";
 	}
@@ -80,8 +89,11 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	// 验证算法包
 	if (!FileOperator::VerifyFile(myfilename, mType))
 	{			
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!You need to respecify one."));
-		changeFile();
+		QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
+		if (button == QMessageBox::Yes)
+		{
+			changeFile();
+		}		
 	}
 
 	showDetail(txtFile->text());
@@ -146,11 +158,11 @@ void FormProperty::saveConfig()
 
 	// 配置文件
 	QString filename;
-	if (mType == PLUGINTYPE::ALGORITHM)
+	if (mType == ALGORITHM)
 	{
 		filename = "./HPGCToolbox/config.xml";
 	}
-	else if (mType == PLUGINTYPE::INDICATOR)
+	else if (mType == INDICATOR)
 	{
 		filename = "./HPGCToolbox/indicator.xml";
 	}
@@ -211,7 +223,7 @@ void FormProperty::changeFile()
 		else
 		{
 			QMessageBox::StandardButton button;
-			button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect dll file!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
+			button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm file!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
 			if (button == QMessageBox::Yes)
 			{
 				changeFile();
