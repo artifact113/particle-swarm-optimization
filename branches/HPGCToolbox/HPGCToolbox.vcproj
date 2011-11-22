@@ -911,6 +911,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\FormulaPlugin.h"
+				>
+			</File>
+			<File
 				RelativePath=".\HPGCToolboxMacro.h"
 				>
 			</File>
