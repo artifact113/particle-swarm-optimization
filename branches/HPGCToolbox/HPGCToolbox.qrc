@@ -13,5 +13,18 @@
         <file alias="indicator">Resources/Indicator32.png</file>
         <file alias="indicatorset">Resources/Indicatorset32.png</file>
         <file alias="folder">Resources/Folder32.png</file>
+        <file alias="addblack">Resources/AddBlack16.png</file>
+        <file alias="addblue">Resources/AddBlue16.png</file>
+        <file alias="calculator">Resources/Calculator16.png</file>
+        <file alias="deleteblack">Resources/DeleteBlack16.png</file>
+        <file alias="deleteblue">Resources/DeleteBlue16.png</file>
+        <file alias="downblack">Resources/DownBlack16.png</file>
+        <file alias="upblack">Resources/UpBlack16.png</file>
+        <file alias="eye">Resources/Eye.png</file>
+        <file alias="function">Resources/Function16.png</file>
+        <file alias="label">Resources/Label16.png</file>
+        <file alias="operator">Resources/Operator16.png</file>
+        <file alias="value">Resources/Value16.png</file>
+        <file alias="barcode">Resources/Barcode16.png</file>
     </qresource>
 </RCC>

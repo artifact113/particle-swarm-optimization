@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>指标管理</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="HPGCToolbox.qrc">
+    <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
+  </property>
   <widget class="QTreeWidget" name="treeIndicator">
    <property name="geometry">
     <rect>
@@ -50,6 +54,8 @@
    </column>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="HPGCToolbox.qrc"/>
+ </resources>
  <connections/>
 </ui>
