@@ -33,7 +33,10 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	{
 		this->setWindowIcon(QIcon(":/indicatorset"));
 	}
-	
+	else if(mType == FORMULA)
+	{
+		this->setWindowIcon(QIcon(":/indicatorset"));
+	}
 
 	// 设定名称
 	txtName->setText(mCurrentItem->text(0));
@@ -148,7 +151,21 @@ void FormProperty::saveConfig()
 
 	// 复制算法包
 	QFileInfo myFileInfo(myfilename);
-	QString tofilename = "./HPGCToolbox/Algorithm/" + myFileInfo.fileName();
+	QString tofilename;
+
+	if (mType == ALGORITHM)
+	{
+		tofilename = "./HPGCToolbox/Algorithm/" + myFileInfo.fileName();
+	}
+	else if (mType == INDICATOR)
+	{
+		tofilename = "./HPGCToolbox/Indicator/" + myFileInfo.fileName();
+	}
+	else if (mType == FORMULA)
+	{
+		tofilename = "./HPGCToolbox/Formula/" + myFileInfo.fileName();
+	}
+	
 
 	if (!FileOperator::CopyFile(myfilename, tofilename))
 	{
@@ -165,6 +182,10 @@ void FormProperty::saveConfig()
 	else if (mType == INDICATOR)
 	{
 		filename = "./HPGCToolbox/indicator.xml";
+	}
+	else if (mType == FORMULA)
+	{
+		filename = "./HPGCToolbox/formula.xml";
 	}
 	
 	
