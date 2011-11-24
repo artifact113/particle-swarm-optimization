@@ -14,7 +14,7 @@ public:
 		QString const &version = "",
 		QString const &description = "",
 		QString const &help = ""
-		PLUGINTYPE const & mytype = INDICATOR)
+		PLUGINTYPE const & mytype = ALGORITHM)
 		: mName(name),
 		mDescription(description),
 		mVersion(version),
