@@ -13,7 +13,7 @@
 #include <QIcon>
 #include <QMenu>
 #include <QAction>
-#include <QCursor>
+#include <QCursor>  
 #include <QPoint>
 #include <QSet>
 #include <QList>
@@ -23,7 +23,7 @@
 #include "FormProperty.h"
 
 
-/***********************************************public*********************************************/
+/***********************************************public************************************ *********/
 /// 构造函数
 FormulaManagement::FormulaManagement(QWidget *parent)
 : QDialog(parent)
