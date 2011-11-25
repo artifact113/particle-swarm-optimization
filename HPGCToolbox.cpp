@@ -15,9 +15,11 @@
 #include <QAction>
 #include <QCursor>
 #include <QPoint>
+#include <QLibrary>
 #include "FormProperty.h"
 #include "IndicatorManagement.h"
 #include "FormulaManagement.h"
+#include "AlgorithmPlugin.h"
 #include "XmlOperator.h"
 #include "FileOperator.h"
 
@@ -568,6 +570,15 @@ void HPGCToolbox::openTool()
 	QString tooltype = currentItem->text(2);
 	if (tooltype == "tool")
 	{
+		QString filename = 	currentItem->parent()->text(3); 
+		QLibrary myLibrary(filename);
+		typedef AlgorithmPlugin* (*myClassFactory)();
+		myClassFactory p = (myClassFactory)myLibrary.resolve("classFactory");		
+		if (p)
+		{
+			AlgorithmPlugin* myPlugin = (*p)();
+			myPlugin->pluginMain();			
+		}
 		
 	}
 	

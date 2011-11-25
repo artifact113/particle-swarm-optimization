@@ -2,23 +2,25 @@
 #define _ALGORITHMPLUGIN_H_
 
 #include <vector>
+#include <QObject>
 #include <QString>
 #include "HPGCToolboxMacro.h"
 
-
-class AlgorithmPlugin
+class AlgorithmPlugin : public QObject
 {
+	Q_OBJECT
+
 public:
 	/// 构造函数
 	AlgorithmPlugin(QString const &name = "",
 		QString const &version = "",
 		QString const &description = "",
-		QString const &help = ""
+		QString const &help = "",
 		PLUGINTYPE const & mytype = ALGORITHM)
 		: mName(name),
 		mDescription(description),
 		mVersion(version),
-		mHelp(help)
+		mHelp(help),
 		mType(mytype)
 	{
 
@@ -86,7 +88,7 @@ public:
 	}
 
 	/// 算法入口
-	virtual double pluginMain() = 0;
+	virtual void pluginMain() = 0;
 
 private:
 	QString mName;
@@ -96,5 +98,8 @@ private:
 	QString mDescription;
 
 	QString mHelp;
+
+	PLUGINTYPE mType;
 };
+
 #endif // _ALGORITHMPLUGIN_H_
