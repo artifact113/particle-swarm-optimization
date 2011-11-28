@@ -2,23 +2,15 @@
 #define _ALGORITHMPLUGIN_H_
 
 #include <string>
-#include "HPGCToolboxMacro.h"
+#include "HPGCToolboxGlobal.h"
 
+using namespace std;
 
 class AlgorithmPlugin
 {
 public:
 	/// 构造函数
-	AlgorithmPlugin(const string &name = "",
-		const string &version = "",
-		const string &description = "",
-		const string &help = "",
-		const PLUGINTYPE &mytype = ALGORITHM)
-		: mName(name),
-		mDescription(description),
-		mVersion(version),
-		mHelp(help),
-		mType(mytype)
+	AlgorithmPlugin()
 	{
 
 	}
@@ -30,73 +22,37 @@ public:
 	}
 
 	/// 名称
-	string const & name() const
+	virtual string name()
 	{
-		return mName;
-	}
-
-	string & name()
-	{
-		return mName;
+		return "";
 	}
 
 	/// 版本
-	string const & version() const
+	virtual string version()
 	{
-		return mVersion;
-	}
-
-	string & version()
-	{
-		return mVersion;
-	}
+		return "";
+	}	    
 
 	/// 描述
-	string const & description() const
+	virtual string description()
 	{
-		return mDescription;
-	}
-
-	string & description()
-	{
-		return mDescription;
+		return "";
 	}
 
 	/// 帮助
-	string const & help() const
+	virtual string help()
 	{
-		return mHelp;
-	}
-
-	string & help()
-	{
-		return mHelp;
+		return "";
 	}
 
 	/// 类型
-	PLUGINTYPE const & type() const
+	PLUGINTYPE type()
 	{
-		return mType;
-	}
-
-	PLUGINTYPE & type()
-	{
-		return mType;
+		return ALGORITHM;
 	}
 
 	/// 算法入口
 	virtual void pluginMain() = 0;
-
-private:
-	string mName;
-
-	string mVersion;
-
-	string mDescription;
-
-	string mHelp;
-
-	PLUGINTYPE mType;
 };
 
 #endif // _ALGORITHMPLUGIN_H_

@@ -1,5 +1,5 @@
-﻿#ifndef _HPGCTOOLBOXMACRO_H_
-#define _HPGCTOOLBOXMACRO_H_
+﻿#ifndef _HPGCTOOLBOXGLOBAL_H_
+#define _HPGCTOOLBOXGLOBAL_H_
 
 enum PLUGINTYPE
 {
@@ -9,4 +9,4 @@ enum PLUGINTYPE
 };
 
 
-#endif // _HPGCTOOLBOXMACRO_H_
+#endif // _HPGCTOOLBOXGLOBAL_H_

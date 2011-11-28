@@ -1,8 +1,7 @@
 ﻿#include "Plugin.h"
-#include <QString>
 #include "AlgorithmPlugin.h"
-#include "HPGCToolboxMacro.h"
 #include "FormObject.h"
+
 
 
 Plugin::Plugin()
@@ -15,7 +14,6 @@ Plugin::~Plugin()
 {
 
 }
-
 
 void Plugin::pluginMain()
 {
