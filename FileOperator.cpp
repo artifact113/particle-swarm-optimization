@@ -2,20 +2,31 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
-#include <QMessageBox> 
+#include <QMessageBox>
+#include <QLibrary>
+#include "HPGCToolboxGlobal.h"
+#include "AlgorithmPlugin.h"
+#include "IndicatorPlugin.h"
+#include "FormulaPlugin.h"
 
 
 /// 验证文件
 bool FileOperator::VerifyFile(const QString &filename, const PLUGINTYPE &type)
 {
-	QFile myfile(filename);
-
-	if (!myfile.exists())
+	if (type == ALGORITHM)
 	{
-		return false;
+		return VerifyAlgorithmFile(filename);
+	}
+	else if (type == INDICATOR)
+	{
+		return VerifyIndicatorFile(filename);
+	}
+	else if (type == FORMULA)
+	{
+		return VerifyFormulaFile(filename);
 	}
 
-	return true;
+	return false;
 }
 
 /// 验证算法包
@@ -28,10 +39,24 @@ bool FileOperator::VerifyAlgorithmFile(const QString &filename)
 		return false;
 	}
 
-	
+	QLibrary myLibrary(filename);
+	typedef AlgorithmPlugin* (*TypeClassFactory)();
+	typedef void* (*TypeUnload)(AlgorithmPlugin*);
+	TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+	TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");
 
+	if (pClassFactory && pUnload)
+	{
+		AlgorithmPlugin* myPlugin = (*pClassFactory)();
+		PLUGINTYPE myType = myPlugin->type();
+		(*pUnload)(myPlugin);
+		if (myType == ALGORITHM)
+		{
+			return true;
+		}
+	}
 
-	return true;
+	return false;
 }
 
 
@@ -45,7 +70,24 @@ bool FileOperator::VerifyIndicatorFile(const QString &filename)
 		return false;
 	}
 
-	return true;
+	QLibrary myLibrary(filename);
+	typedef IndicatorPlugin* (*TypeClassFactory)();
+	typedef void* (*TypeUnload)(IndicatorPlugin*);
+	TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+	TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");
+
+	if (pClassFactory && pUnload)
+	{
+		IndicatorPlugin* myPlugin = (*pClassFactory)();
+		PLUGINTYPE myType = myPlugin->type();
+		(*pUnload)(myPlugin);
+		if (myType == INDICATOR)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
@@ -59,7 +101,24 @@ bool FileOperator::VerifyFormulaFile(const QString &filename)
 		return false;
 	}
 
-	return true;
+	QLibrary myLibrary(filename);
+	typedef FormulaPlugin* (*TypeClassFactory)();
+	typedef void* (*TypeUnload)(FormulaPlugin*);
+	TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+	TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");
+
+	if (pClassFactory && pUnload)
+	{
+		FormulaPlugin* myPlugin = (*pClassFactory)();
+		PLUGINTYPE myType = myPlugin->type();
+		(*pUnload)(myPlugin);
+		if (myType == FORMULA)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 
