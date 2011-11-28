@@ -1,27 +1,16 @@
 ﻿#ifndef _ALGORITHMPLUGIN_H_
 #define _ALGORITHMPLUGIN_H_
 
-#include <vector>
-#include <QObject>
-#include <QString>
-#include "HPGCToolboxMacro.h"
+#include <string>
+#include "HPGCToolboxGlobal.h"
 
-class AlgorithmPlugin : public QObject
+using namespace std;
+
+class AlgorithmPlugin
 {
-	Q_OBJECT
-
 public:
 	/// 构造函数
-	AlgorithmPlugin(QString const &name = "",
-		QString const &version = "",
-		QString const &description = "",
-		QString const &help = "",
-		PLUGINTYPE const & mytype = ALGORITHM)
-		: mName(name),
-		mDescription(description),
-		mVersion(version),
-		mHelp(help),
-		mType(mytype)
+	AlgorithmPlugin()
 	{
 
 	}
@@ -33,73 +22,37 @@ public:
 	}
 
 	/// 名称
-	QString const & name() const
+	virtual string name()
 	{
-		return mName;
-	}
-
-	QString & name()
-	{
-		return mName;
+		return "";
 	}
 
 	/// 版本
-	QString const & version() const
+	virtual string version()
 	{
-		return mVersion;
-	}
-
-	QString & version()
-	{
-		return mVersion;
-	}
+		return "";
+	}	    
 
 	/// 描述
-	QString const & description() const
+	virtual string description()
 	{
-		return mDescription;
-	}
-
-	QString & description()
-	{
-		return mDescription;
+		return "";
 	}
 
 	/// 帮助
-	QString const & help() const
+	virtual string help()
 	{
-		return mHelp;
-	}
-
-	QString & help()
-	{
-		return mHelp;
+		return "";
 	}
 
 	/// 类型
-	PLUGINTYPE const & type() const
+	virtual PLUGINTYPE type()
 	{
-		return mType;
-	}
-
-	PLUGINTYPE & type()
-	{
-		return mType;
+		return ALGORITHM;
 	}
 
 	/// 算法入口
 	virtual void pluginMain() = 0;
-
-private:
-	QString mName;
-
-	QString mVersion;
-
-	QString mDescription;
-
-	QString mHelp;
-
-	PLUGINTYPE mType;
 };
 
 #endif // _ALGORITHMPLUGIN_H_

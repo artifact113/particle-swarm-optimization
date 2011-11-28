@@ -1,103 +1,58 @@
 ﻿#ifndef _INDICATORPLUGIN_H_
 #define _INDICATORPLUGIN_H_
 
-#include <vector>
-#include <QString>
-#include "HPGCToolboxMacro.h"
+#include <string>
+#include "HPGCToolboxGlobal.h"
 
+using namespace std;
 
-class IndicatorPlugin
+class AlgorithmPlugin
 {
 public:
 	/// 构造函数
-	IndicatorPlugin(QString const &name = "",
-		      QString const &version = "",
-			  QString const &description = "",
-		      QString const &help = ""
-			  PLUGINTYPE const & mytype = INDICATOR)
-		: mName(name),
-		mDescription(description),
-		mVersion(version),
-		mHelp(help)
-		mType(mytype)
+	AlgorithmPlugin()
 	{
 
 	}
 
 	/// 析构函数
-	virtual ~IndicatorPlugin()
+	virtual ~AlgorithmPlugin()
 	{
-	
+
 	}
 
 	/// 名称
-	QString const & name() const
+	virtual string name()
 	{
-		return mName;
-	}
-
-	QString & name()
-	{
-		return mName;
+		return "";
 	}
 
 	/// 版本
-	QString const & version() const
+	virtual string version()
 	{
-		return mVersion;
-	}
-
-	QString & version()
-	{
-		return mVersion;
-	}
+		return "";
+	}	    
 
 	/// 描述
-	QString const & description() const
+	virtual string description()
 	{
-		return mDescription;
-	}
-
-	QString & description()
-	{
-		return mDescription;
+		return "";
 	}
 
 	/// 帮助
-	QString const & help() const
+	virtual string help()
 	{
-		return mHelp;
-	}
-
-	QString & help()
-	{
-		return mHelp;
+		return "";
 	}
 
 	/// 类型
-	PLUGINTYPE const & type() const
+	PLUGINTYPE type()
 	{
-		return mType;
-	}
-	
-	PLUGINTYPE & type()
-	{
-		return mType;
+		return INDICATOR;
 	}
 
-	/// 指标得分
-	virtual double score(vector<double> &solution) = 0;
-
-private:
-	QString mName;
-
-	QString mVersion;
-
-	QString mDescription;
-
-	QString mHelp;
-
-	PLUGINTYPE mType;
-
+	/// 算法入口
+	virtual double pluginMain() = 0;
 };
+
 #endif // _INDICATORPLUGIN_H_

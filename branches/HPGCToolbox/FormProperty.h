@@ -8,7 +8,7 @@
 #include <QDialog>
 #include <QFile>
 #include <QDomElement>
-#include "HPGCToolboxMacro.h"
+#include "HPGCToolboxGlobal.h"
 
 
 class FormProperty : public QDialog, public Ui::FormProperty

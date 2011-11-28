@@ -2,8 +2,10 @@
 #define _FORMULAPLUGIN_H_
 
 #include <vector>
-#include <QString>
-#include "HPGCToolboxMacro.h"
+#include <string>
+#include "HPGCToolboxGlobal.h"
+
+using namespace std;
 
 
 class FormulaPlugin
@@ -22,18 +24,7 @@ public:
 	};
 
 	/// 构造函数
-	FormulaPlugin(QString const &name = "",
-		QString const &version = "",
-		QString const &description = "",
-		QString const &help = "",
-		FORMULATYPE const & formulaType = VARS,
-		PLUGINTYPE const & mytype = FORMULA)
-		: mName(name),
-		mDescription(description),
-		mVersion(version),
-		mHelp(help)
-		mType(mytype)
-		mFormulaType()
+	FormulaPlugin()
 	{
 
 	}
@@ -45,86 +36,42 @@ public:
 	}
 
 	/// 名称
-	QString const & name() const
+	virtual string name()
 	{
-		return mName;
-	}
-
-	QString & name()
-	{
-		return mName;
+		return "";
 	}
 
 	/// 版本
-	QString const & version() const
+	virtual string version()
 	{
-		return mVersion;
-	}
-
-	QString & version()
-	{
-		return mVersion;
-	}
+		return "";
+	}	    
 
 	/// 描述
-	QString const & description() const
+	virtual string description()
 	{
-		return mDescription;
-	}
-
-	QString & description()
-	{
-		return mDescription;
+		return "";
 	}
 
 	/// 帮助
-	QString const & help() const
+	virtual string help()
 	{
-		return mHelp;
-	}
-
-	QString & help()
-	{
-		return mHelp;
+		return "";
 	}
 
 	/// 公式类型
-	FORMULATYPE const & formulaType() const
+	virtual FORMULATYPE formulaType()
 	{
-		return mFormulaType;
-	}
-
-	FORMULATYPE & formulaType()
-	{
-		return mFormulaType;
+		return VARS;
 	}
 
 	/// 类型
-	PLUGINTYPE const & type() const
+	PLUGINTYPE type()
 	{
-		return mType;
+		return INDICATOR;
 	}
-
-	PLUGINTYPE & type()
-	{
-		return mType;
-	}
-
 
 	/// 算法入口
 	virtual double pluginMain(vector<double> params) = 0;
-
-private:
-	QString mName;
-
-	QString mVersion;
-
-	QString mDescription;
-
-	QString mHelp;
-
-	FORMULATYPE mFormulaType;
-
-	PLUGINTYPE mType;	
 };
 #endif // _FORMULAPLUGIN_H_

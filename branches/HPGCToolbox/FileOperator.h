@@ -4,7 +4,7 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QString>
-#include "HPGCToolboxMacro.h"
+#include "HPGCToolboxGlobal.h"
 
 class FileOperator
 {
