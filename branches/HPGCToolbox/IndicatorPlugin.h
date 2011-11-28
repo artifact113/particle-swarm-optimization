@@ -6,17 +6,17 @@
 
 using namespace std;
 
-class AlgorithmPlugin
+class IndicatorPlugin
 {
 public:
 	/// 构造函数
-	AlgorithmPlugin()
+	IndicatorPlugin()
 	{
 
 	}
 
 	/// 析构函数
-	virtual ~AlgorithmPlugin()
+	virtual ~IndicatorPlugin()
 	{
 
 	}

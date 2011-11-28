@@ -577,7 +577,7 @@ void HPGCToolbox::openTool()
 		if (p)
 		{
 			AlgorithmPlugin* myPlugin = (*p)();
-			myPlugin->pluginMain();			
+			myPlugin->pluginMain();
 		}
 		
 	}
