@@ -46,7 +46,7 @@ public:
 	}
 
 	/// 类型
-	virtual PLUGINTYPE type()
+	PLUGINTYPE type()
 	{
 		return ALGORITHM;
 	}

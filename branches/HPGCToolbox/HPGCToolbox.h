@@ -2,13 +2,13 @@
 #define _HPGCTOOLBOX_H_
 
 #include "ui_HPGCToolbox.h"
-#include "qgisplugin.h"
 #include <QDockWidget>
 #include <QSize>
 #include <QEvent>
 #include <QDomElement>
 #include <QTreeWidget>
 #include <QFile>
+#include "qgisinterface.h"
 
 
 class HPGCToolbox : public QDockWidget, public Ui::HPGCToolbox
@@ -72,7 +72,7 @@ private:
 	QTreeWidgetItem elementToItem(QDomElement &element);
 
 	/// 新建工具配置文件
-	bool createToolConfig(const QString &filename);
+	bool createToolConfig(const QString &filename, const QString &name, const QString &id);
 };
 
 

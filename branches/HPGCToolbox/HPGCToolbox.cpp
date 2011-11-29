@@ -4,6 +4,7 @@
 #include <QSize>
 #include <QEvent>
 #include <QDomElement>
+#include <QDomDocument>
 #include <QFile>
 #include <QFileInfo>
 #include <QFileDialog>
@@ -256,7 +257,7 @@ void HPGCToolbox::addToolbox()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed update to config file!"));
 		return;
 	}
 
@@ -432,7 +433,9 @@ void HPGCToolbox::addTool()
 	QString newId = QString::number(count + 1);
 	QString newName = tr("New Tool");
 	QString newConfig = "./HPGCToolbox/ToolConfig/tool_" + newId + ".xml";
-	createToolConfig(newConfig);
+	
+	// 新建工具配置文件
+	createToolConfig(newConfig, newName, newId);
 
 	// 写入配置文件
 	QDomElement newElement = document.createElement("tool");
@@ -532,7 +535,7 @@ void HPGCToolbox::deleteTool()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
 		return;
 	}
 
@@ -571,18 +574,23 @@ void HPGCToolbox::openTool()
 	if (tooltype == "tool")
 	{
 		QString filename = 	currentItem->parent()->text(3); 
+
 		QLibrary myLibrary(filename);
-		typedef AlgorithmPlugin* (*myClassFactory)();
-		myClassFactory p = (myClassFactory)myLibrary.resolve("classFactory");		
-		if (p)
+		typedef AlgorithmPlugin* (*TypeClassFactory)();
+		typedef void* (*TypeUnload)(AlgorithmPlugin*);
+		TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+		TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");		
+		if (pClassFactory && pUnload)
 		{
-			AlgorithmPlugin* myPlugin = (*p)();
+			AlgorithmPlugin* myPlugin = (*pClassFactory)();
 			myPlugin->pluginMain();
-		}
-		
+			//(*pUnload)(myPlugin);
+		}		
 	}
 	
 }
+
+
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
 void HPGCToolbox::resizeEvent(QResizeEvent* event)
@@ -656,11 +664,24 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 
 
 /// 新建工具配置文件
-bool HPGCToolbox::createToolConfig(const QString &filename)
-{                                     
+bool HPGCToolbox::createToolConfig(const QString &filename, const QString &name, const QString &id)
+{
+	QDomDocument document;
+	QDomProcessingInstruction instruction = document.createProcessingInstruction("xml", "version='1.0' encoding='utf-8'");
+	document.appendChild(instruction);
+
+	QDomElement rootElement = document.createElement("tool");	
+	rootElement.setAttribute("name", name);
+	rootElement.setAttribute("id", id);
+	document.appendChild(rootElement);
 
 
-	
+	if (!XmlOperator::XmlWrite(document, filename))
+	{
+		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		return false;
+	}
+
 	return true;
 }
 
