@@ -1,10 +1,9 @@
 ﻿#include "Plugin.h"
-#include <QAction>			//QT库的头文件
+#include <QAction>
 #include <QIcon>
 #include <QDockWidget>
-#include "qgisinterface.h"	///QGIS的头文件
+#include "qgisinterface.h"
 #include "HPGCToolbox.h"
-
 
 
 //关于插件的信息
@@ -14,6 +13,7 @@ static const QString sPluginVersion = QObject::tr( "Version 1.0" );
 static const QgisPlugin::PLUGINTYPE sPluginType = QgisPlugin::UI;
 
 
+/// 构造函数；
 Plugin::Plugin(QgisInterface* iface)
 {
 	_iface = iface;
@@ -24,6 +24,7 @@ Plugin::Plugin(QgisInterface* iface)
 }
 
 
+// 析构函数；
 Plugin::~Plugin()
 {
 	delete _toolbox;
@@ -31,6 +32,7 @@ Plugin::~Plugin()
 }
 
 
+/// 将插件连接到图形用户界面;
 void Plugin::initGui()
 {
 	if(_iface)
@@ -42,6 +44,7 @@ void Plugin::initGui()
 }
 
 
+/// 将插件从图形用户界面上卸载;
 void Plugin::unload()
 {
 	_iface->removeToolBarIcon(_action);										/// 将插件从plugins工具条上卸载
@@ -49,6 +52,7 @@ void Plugin::unload()
 }
 
 
+/// 入口函数，对应插件点击事件；
 void Plugin::pluginMain()
 {
 	if(_loadSuceess)  // 加载成功，弹出界面
@@ -81,6 +85,9 @@ void Plugin::pluginMain()
 
 
 /************************************由应用程序调用的函数，无视之**********************************/
+
+
+
 /// 该函数由应用程序调用，返回插件的实例
 QGISEXTERN QgisPlugin* classFactory(QgisInterface* iface)
 {
