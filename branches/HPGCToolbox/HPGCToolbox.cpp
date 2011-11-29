@@ -584,8 +584,8 @@ void HPGCToolbox::openTool()
 		{
 			AlgorithmPlugin* myPlugin = (*pClassFactory)();
 			myPlugin->pluginMain();
-			//(*pUnload)(myPlugin);
-		}		
+			(*pUnload)(myPlugin);
+		}
 	}
 	
 }

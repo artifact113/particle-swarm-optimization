@@ -39,7 +39,7 @@ private:
 	PLUGINTYPE mType;
 
 	/// 显示DLL详情
-	void showDetail(const QString &file);
+	void showDetail(const QString &file, const PLUGINTYPE &type);
 
 };
 

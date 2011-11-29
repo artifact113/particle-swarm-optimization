@@ -9,20 +9,25 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDomElement>
+#include <QLibrary>
+#include <QString>
 #include "XmlOperator.h"
 #include "FileOperator.h"
+#include "AlgorithmPlugin.h"
+#include "IndicatorPlugin.h"
+#include "FormulaPlugin.h"
+
 
 
 /***********************************************public*********************************************/
 /// 构造函数
 FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type, QWidget *parent)
-:mType(type), QDialog(parent)
+:mCurrentItem(currentItem), mType(type), QDialog(parent)
 {
 	setupUi(this);
 
-	mCurrentItem = currentItem;
 
-	// 设置窗口标题
+	// 设置窗口图标和标题
 	QString title = QObject::tr("Properties - ") + mCurrentItem->text(0);
 	this->setWindowTitle(title);
 	if (mType == ALGORITHM)
@@ -35,7 +40,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	}
 	else if(mType == FORMULA)
 	{
-		this->setWindowIcon(QIcon(":/indicatorset"));
+		this->setWindowIcon(QIcon(":/formula"));
 	}
 
 	// 设定名称
@@ -60,6 +65,11 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	{
 		filename = "./HPGCToolbox/indicator.xml";
 	}
+	else if (mType ==  FORMULA)
+	{
+		filename = "./HPGCToolbox/formula.xml";
+	}
+	
 
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
@@ -99,7 +109,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 		}		
 	}
 
-	showDetail(txtFile->text());
+	showDetail(txtFile->text(),mType);
 }
 
 
@@ -239,7 +249,7 @@ void FormProperty::changeFile()
 		{
 			QFileInfo newFileInfo(newFilename);
 			txtFile->setText(newFileInfo.absoluteFilePath());
-			showDetail(newFilename);
+			showDetail(newFilename, mType);
 		}
 		else
 		{
@@ -261,7 +271,72 @@ void FormProperty::changeFile()
 
 /***********************************************private********************************************/
 /// 显示DLL详情
-void FormProperty::showDetail(const QString &file)
+void FormProperty::showDetail(const QString &file, const PLUGINTYPE &type)
 {
+	QLibrary myLibrary(file);
+
+	if (mType == ALGORITHM)
+	{
+		typedef AlgorithmPlugin* (*TypeClassFactory)();
+		typedef void* (*TypeUnload)(AlgorithmPlugin*);
+		TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+		TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");		
+		if (pClassFactory && pUnload)
+		{
+			AlgorithmPlugin* myPlugin = (*pClassFactory)();
+			QString myLabel(QString::fromLocal8Bit(myPlugin->name().c_str()));
+			QString myDescription(QString::fromLocal8Bit(myPlugin->description().c_str()));
+			QString myHelp(QString::fromLocal8Bit(myPlugin->help().c_str()));
+
+			txtLabel->setText(myLabel);
+			textDescription->setText(myDescription);
+			textHelp->setText(myHelp);
+
+			(*pUnload)(myPlugin);
+		}
+	} 
+	else if(mType == INDICATOR)
+	{
+		typedef IndicatorPlugin* (*TypeClassFactory)();
+		typedef void* (*TypeUnload)(IndicatorPlugin*);
+		TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+		TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");		
+		if (pClassFactory && pUnload)
+		{
+			IndicatorPlugin* myPlugin = (*pClassFactory)();
+			QString myLabel(QString::fromLocal8Bit(myPlugin->name().c_str()));
+			QString myDescription(QString::fromLocal8Bit(myPlugin->description().c_str()));
+			QString myHelp(QString::fromLocal8Bit(myPlugin->help().c_str()));
+
+			txtLabel->setText(myLabel);
+			textDescription->setText(myDescription);
+			textHelp->setText(myHelp);
+
+			(*pUnload)(myPlugin);
+		}
+
+	}
+	else if (mType == FORMULA)
+	{
+		typedef FormulaPlugin* (*TypeClassFactory)();
+		typedef void* (*TypeUnload)(FormulaPlugin*);
+		TypeClassFactory pClassFactory = (TypeClassFactory)myLibrary.resolve("classFactory");
+		TypeUnload pUnload = (TypeUnload)myLibrary.resolve("unload");		
+		if (pClassFactory && pUnload)
+		{
+			FormulaPlugin* myPlugin = (*pClassFactory)();
+			QString myLabel(QString::fromLocal8Bit(myPlugin->name().c_str()));
+			QString myDescription(QString::fromLocal8Bit(myPlugin->description().c_str()));
+			QString myHelp(QString::fromLocal8Bit(myPlugin->help().c_str()));
+
+			txtLabel->setText(myLabel);
+			textDescription->setText(myDescription);
+			textHelp->setText(myHelp);
+
+			(*pUnload)(myPlugin);
+		}
+
+	}
+	
 
 }
