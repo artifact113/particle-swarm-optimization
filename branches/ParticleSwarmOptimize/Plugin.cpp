@@ -26,7 +26,7 @@ void Plugin::pluginMain()
 /// 该函数由应用程序调用，返回插件的实例
 extern "C" PARTICLESWARMOPTIMIZE_EXPORT AlgorithmPlugin* classFactory()
 {
-	AlgorithmPlugin* p  = new Plugin();
+	Plugin* p  = new Plugin();
 
 	return (AlgorithmPlugin*)p;
 }
