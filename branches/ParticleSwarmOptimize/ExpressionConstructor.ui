@@ -14,7 +14,7 @@
    <string>指标重组器</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="ParticleSwarmOptimize.qrc">
+   <iconset resource="HPGCToolbox.qrc">
     <normaloff>:/calculator</normaloff>:/calculator</iconset>
   </property>
   <widget class="QTextEdit" name="txtExpression">
@@ -535,7 +535,7 @@ p, li { white-space: pre-wrap; }
      <set>AlignLeft|AlignVCenter</set>
     </property>
     <property name="icon">
-     <iconset resource="ParticleSwarmOptimize.qrc">
+     <iconset resource="HPGCToolbox.qrc">
       <normaloff>:/formula</normaloff>:/formula</iconset>
     </property>
    </column>
@@ -729,7 +729,7 @@ p, li { white-space: pre-wrap; }
      <set>AlignLeft|AlignVCenter</set>
     </property>
     <property name="icon">
-     <iconset resource="ParticleSwarmOptimize.qrc">
+     <iconset resource="HPGCToolbox.qrc">
       <normaloff>:/indicator</normaloff>:/indicator</iconset>
     </property>
    </column>
@@ -775,7 +775,7 @@ p, li { white-space: pre-wrap; }
   </widget>
  </widget>
  <resources>
-  <include location="ParticleSwarmOptimize.qrc"/>
+  <include location="HPGCToolbox.qrc"/>
  </resources>
  <connections>
   <connection>

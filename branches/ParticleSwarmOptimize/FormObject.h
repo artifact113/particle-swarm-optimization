@@ -15,7 +15,8 @@ public:
 
 
 public slots:
-
+	/// 打开数据源
+	void openDataSource();
 
 protected:
 
