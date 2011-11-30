@@ -10,6 +10,18 @@
     <height>340</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>410</width>
+    <height>340</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>410</width>
+    <height>340</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>指标重组器</string>
   </property>
@@ -539,134 +551,217 @@ p, li { white-space: pre-wrap; }
       <normaloff>:/formula</normaloff>:/formula</iconset>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>别名</string>
+    </property>
+   </column>
    <item>
     <property name="text">
      <string>sin(A)</string>
+    </property>
+    <property name="text">
+     <string>sin()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>cos(A)</string>
     </property>
+    <property name="text">
+     <string>cos()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>asin(A)</string>
+    </property>
+    <property name="text">
+     <string>asin()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>acos(A)</string>
     </property>
+    <property name="text">
+     <string>acos()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>atan(A)</string>
+    </property>
+    <property name="text">
+     <string>atan()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>tan(A)</string>
     </property>
+    <property name="text">
+     <string>tan()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>sinh(A)</string>
+    </property>
+    <property name="text">
+     <string>sinh()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>cosh(A)</string>
     </property>
+    <property name="text">
+     <string>cosh()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>tanh(A)</string>
+    </property>
+    <property name="text">
+     <string>tanh()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>asinh(A)</string>
     </property>
+    <property name="text">
+     <string>asinh()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>acosh(A)</string>
+    </property>
+    <property name="text">
+     <string>acosh()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>atanh(A)</string>
     </property>
+    <property name="text">
+     <string>atanh()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>log2(A)</string>
+    </property>
+    <property name="text">
+     <string>log2()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>log10(A)</string>
     </property>
+    <property name="text">
+     <string>log10()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>log(A)</string>
+    </property>
+    <property name="text">
+     <string>log()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>ln(A)</string>
     </property>
+    <property name="text">
+     <string>ln()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>exp(A)</string>
+    </property>
+    <property name="text">
+     <string>exp()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>sqrt(A)</string>
     </property>
+    <property name="text">
+     <string>sqrt()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>sign(A)</string>
+    </property>
+    <property name="text">
+     <string>sign()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>rint(A)</string>
     </property>
+    <property name="text">
+     <string>rint()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>abs(A)</string>
+    </property>
+    <property name="text">
+     <string>abs()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>if(A&gt;B,A,B)</string>
     </property>
+    <property name="text">
+     <string>if()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>min(A,B,C...)</string>
+    </property>
+    <property name="text">
+     <string>min()</string>
     </property>
    </item>
    <item>
     <property name="text">
      <string>max(A,B,C...)</string>
     </property>
+    <property name="text">
+     <string>max()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>sum(A,B,C...)</string>
     </property>
+    <property name="text">
+     <string>sum()</string>
+    </property>
    </item>
    <item>
     <property name="text">
      <string>avg(A,B,C...)</string>
+    </property>
+    <property name="text">
+     <string>avg()</string>
     </property>
    </item>
   </widget>
@@ -733,6 +828,78 @@ p, li { white-space: pre-wrap; }
       <normaloff>:/indicator</normaloff>:/indicator</iconset>
     </property>
    </column>
+   <item>
+    <property name="text">
+     <string>耕地面积</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>园地面积</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>林地面积</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>牧草地面积</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>其他农用地面积</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>总经济效益</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>总变更费用</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>总空间紧凑度</string>
+    </property>
+    <property name="icon">
+     <iconset resource="HPGCToolbox.qrc">
+      <normaloff>:/indicator</normaloff>:/indicator</iconset>
+    </property>
+   </item>
   </widget>
   <widget class="Line" name="line">
    <property name="geometry">

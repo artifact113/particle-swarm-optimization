@@ -2,6 +2,8 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QString>
+#include <QMessageBox>
+
 
 
 /***********************************************public*********************************************/
@@ -12,6 +14,8 @@ FormObject::FormObject(QWidget *parent)
 	setupUi(this);
 	
 	connect(btnOpenDataSource, SIGNAL(clicked()), this, SLOT(openDataSource()));
+
+	connect(btnAlgorithmParamSet, SIGNAL(clicked()), this, SLOT(setAlgorithmParam()));
 
 }
 
@@ -26,10 +30,22 @@ FormObject::~FormObject()
 /// 打开数据源
 void FormObject::openDataSource()
 {
-	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify datasource"), "/", QObject::tr("Shape file(*.shp)"));
+	mFilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify datasource"), "/", QObject::tr("Shape file(*.shp)"));
 
-	if (!myfilename.isEmpty())
+	if (!mFilename.isEmpty())
 	{
-		this->txtDataSource->setText(myfilename);
+		this->txtDataSource->setText(mFilename);
 	}
 }
+
+
+/// 打开算法参数设置界面
+void FormObject::setAlgorithmParam()
+{
+
+}
+
+
+
+
+
