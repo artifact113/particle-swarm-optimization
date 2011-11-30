@@ -231,6 +231,11 @@
      <property name="editable">
       <bool>false</bool>
      </property>
+     <item>
+      <property name="text">
+       <string>加权求和法</string>
+      </property>
+     </item>
     </widget>
     <widget class="QPushButton" name="btnOpenMutiObjectsFunction">
      <property name="geometry">
@@ -446,6 +451,11 @@
        <height>22</height>
       </rect>
      </property>
+     <item>
+      <property name="text">
+       <string>罚函数处理法</string>
+      </property>
+     </item>
     </widget>
    </widget>
   </widget>
@@ -544,6 +554,54 @@
        <height>195</height>
       </rect>
      </property>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>50</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>待统计字段</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>70</y>
+        <width>231</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>耕地</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>园地</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>林地</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>牧草地</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>其他农用地</string>
+       </property>
+      </item>
+     </widget>
     </widget>
    </widget>
    <widget class="QTreeWidget" name="treeIndicator">
@@ -558,6 +616,9 @@
     <property name="selectionBehavior">
      <enum>QAbstractItemView::SelectItems</enum>
     </property>
+    <property name="autoExpandDelay">
+     <number>-1</number>
+    </property>
     <attribute name="headerVisible">
      <bool>false</bool>
     </attribute>
@@ -566,6 +627,123 @@
       <string>indicator</string>
      </property>
     </column>
+    <item>
+     <property name="text">
+      <string>土地利用结构优化指标集</string>
+     </property>
+     <property name="icon">
+      <iconset resource="HPGCToolbox.qrc">
+       <normaloff>:/folder</normaloff>:/folder</iconset>
+     </property>
+     <item>
+      <property name="text">
+       <string>地类统计</string>
+      </property>
+      <property name="icon">
+       <iconset resource="HPGCToolbox.qrc">
+        <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
+      </property>
+      <item>
+       <property name="text">
+        <string>耕地</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>园地</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>林地</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>牧草地</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>其他农用地</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>经济效益</string>
+      </property>
+      <property name="icon">
+       <iconset resource="HPGCToolbox.qrc">
+        <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
+      </property>
+      <item>
+       <property name="text">
+        <string>总经济效益</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>变更费用</string>
+      </property>
+      <property name="icon">
+       <iconset resource="HPGCToolbox.qrc">
+        <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
+      </property>
+      <item>
+       <property name="text">
+        <string>总变更费用</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+     </item>
+     <item>
+      <property name="text">
+       <string>空间紧凑度</string>
+      </property>
+      <property name="icon">
+       <iconset resource="HPGCToolbox.qrc">
+        <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
+      </property>
+      <item>
+       <property name="text">
+        <string>总空间紧凑度</string>
+       </property>
+       <property name="icon">
+        <iconset resource="HPGCToolbox.qrc">
+         <normaloff>:/indicator</normaloff>:/indicator</iconset>
+       </property>
+      </item>
+     </item>
+    </item>
    </widget>
    <widget class="QPushButton" name="btnAddIndicatorset">
     <property name="geometry">

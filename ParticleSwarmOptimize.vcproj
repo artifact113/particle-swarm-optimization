@@ -124,6 +124,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="gdal_i.lib"
 				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtXmld4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
