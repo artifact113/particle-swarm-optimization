@@ -620,7 +620,7 @@ void HPGCToolbox::parseConfig(QTreeWidgetItem* parentItem, QDomElement &parentEl
 		QDomElement element(nodes.at(i).toElement());
 		QTreeWidgetItem* item = new QTreeWidgetItem(elementToItem(element));			
 		parentItem->addChild(item);
-		item->setExpanded(true);
+		//item->setExpanded(true);
 		if (element.hasChildNodes())
 		{
 			parseConfig(item, element);
