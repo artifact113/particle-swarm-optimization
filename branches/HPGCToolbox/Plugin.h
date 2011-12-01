@@ -19,7 +19,7 @@ public:
 	/// 构造函数；
 	Plugin(QgisInterface* iface);
 
-	/// 析构函数；
+	/// 析构函数；  
 	virtual ~Plugin();
 
 	/// 将插件连接到图形用户界面;
