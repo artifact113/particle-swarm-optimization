@@ -85,7 +85,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\HPGCToolbox\HPGCToolbox\Algorithm"
+			OutputDirectory=".\HPGCToolbox\Algorithm"
 			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)"
 			ConfigurationType="2"
 			>
