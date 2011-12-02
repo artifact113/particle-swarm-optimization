@@ -13,7 +13,7 @@ FormObject::FormObject(QWidget *parent)
 {
 	setupUi(this);
 	
-	connect(btnOpenDataSource, SIGNAL(clicked()), this, SLOT(openDataSource()));
+	connect(btnEncode, SIGNAL(clicked()), this, SLOT(openDataSource()));
 
 	connect(btnAlgorithmParamSet, SIGNAL(clicked()), this, SLOT(setAlgorithmParam()));
 
