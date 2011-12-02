@@ -1718,6 +1718,9 @@
      <height>20</height>
     </rect>
    </property>
+   <property name="currentIndex">
+    <number>-1</number>
+   </property>
   </widget>
  </widget>
  <resources>

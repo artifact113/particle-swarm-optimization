@@ -124,6 +124,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="gdal_i.lib"
 				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtXmld4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).dll"
 				AdditionalLibraryDirectories="$(QTDIR)\lib"
@@ -1027,6 +1028,18 @@
 					</FileConfiguration>
 				</File>
 			</Filter>
+		</Filter>
+		<Filter
+			Name="Tool"
+			>
+			<File
+				RelativePath=".\ShapefileOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ShapefileOperator.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
