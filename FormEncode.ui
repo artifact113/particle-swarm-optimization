@@ -285,7 +285,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>结果字段</string>
+    <string>写入字段</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="txtResultFiledName">
