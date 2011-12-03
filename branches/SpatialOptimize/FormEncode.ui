@@ -92,7 +92,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>指定字段</string>
+    <string>编码字段</string>
    </property>
   </widget>
   <widget class="QComboBox" name="cmbEncodeType">
