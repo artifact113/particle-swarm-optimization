@@ -1,6 +1,7 @@
 ﻿#include "Plugin.h"
 #include "AlgorithmPlugin.h"
 #include "FormObject.h"
+#include <QDomElement>
 
 
 
@@ -37,5 +38,4 @@ extern "C" SPATIALOPTIMIZE_EXPORT void unload(AlgorithmPlugin* thePlugin)
 {
 	delete thePlugin;
 }
-
 /*************************************************************************************************/
