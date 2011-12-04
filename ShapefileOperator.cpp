@@ -207,6 +207,7 @@ vector<string> ShapefileReader::GetFieldNames(string filePath)
 		results.push_back(strFieldName);
 	}
 
+	OGRDataSource::DestroyDataSource( poDS );	
 	return results;
 }
 
