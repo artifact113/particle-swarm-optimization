@@ -29,7 +29,7 @@
    <iconset resource="HPGCToolbox.qrc">
     <normaloff>:/barcode</normaloff>:/barcode</iconset>
   </property>
-  <widget class="QLineEdit" name="txtDataSource">
+  <widget class="QLineEdit" name="m_pLEPath">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -42,7 +42,7 @@
     <bool>true</bool>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnOpenDataSource">
+  <widget class="QPushButton" name="m_pButnOpen">
    <property name="geometry">
     <rect>
      <x>417</x>
@@ -59,7 +59,7 @@
      <normaloff>:/openfolder</normaloff>:/openfolder</iconset>
    </property>
   </widget>
-  <widget class="QLabel" name="label1">
+  <widget class="QLabel" name="m_pLPath">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -72,7 +72,7 @@
     <string>数据源</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cmbFieldName">
+  <widget class="QComboBox" name="m_pCBoxFieldName">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -82,7 +82,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QLabel" name="m_pLEncodeField">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -95,7 +95,7 @@
     <string>编码字段</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="cmbEncodeType">
+  <widget class="QComboBox" name="m_pCBoxEncodeType">
    <property name="geometry">
     <rect>
      <x>60</x>
@@ -105,7 +105,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_2">
+  <widget class="QLabel" name="m_pLEncodeType">
    <property name="geometry">
     <rect>
      <x>11</x>
@@ -118,7 +118,7 @@
     <string>编码方式</string>
    </property>
   </widget>
-  <widget class="QTableWidget" name="tableEncode">
+  <widget class="QTableWidget" name="m_pTableWidget">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -162,7 +162,7 @@
     </property>
    </column>
   </widget>
-  <widget class="QPushButton" name="btnConfirm">
+  <widget class="QPushButton" name="m_pButnConfirm">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -175,7 +175,7 @@
     <string>执行</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnCancel">
+  <widget class="QPushButton" name="m_pButnCancel">
    <property name="geometry">
     <rect>
      <x>350</x>
@@ -201,7 +201,7 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnAdd">
+  <widget class="QPushButton" name="m_pButnAdd">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -221,7 +221,7 @@
      <normaloff>:/addblue</normaloff>:/addblue</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnDelete">
+  <widget class="QPushButton" name="m_pButnDelete">
    <property name="enabled">
     <bool>false</bool>
    </property>
@@ -241,7 +241,7 @@
      <normaloff>:/deleteblue</normaloff>:/deleteblue</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnSave">
+  <widget class="QPushButton" name="m_pButnSave">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -258,7 +258,7 @@
      <normaloff>:/save</normaloff>:/save</iconset>
    </property>
   </widget>
-  <widget class="QPushButton" name="btnLoad">
+  <widget class="QPushButton" name="m_pButnLoad">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -275,7 +275,7 @@
      <normaloff>:/loadconfig</normaloff>:/loadconfig</iconset>
    </property>
   </widget>
-  <widget class="QLabel" name="label_3">
+  <widget class="QLabel" name="m_pLOutputField">
    <property name="geometry">
     <rect>
      <x>240</x>
@@ -288,7 +288,7 @@
     <string>写入字段</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="txtResultFiledName">
+  <widget class="QLineEdit" name="m_pLEOutputFieldName">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -304,7 +304,7 @@
  </resources>
  <connections>
   <connection>
-   <sender>btnCancel</sender>
+   <sender>m_pButnCancel</sender>
    <signal>clicked()</signal>
    <receiver>FormEncode</receiver>
    <slot>close()</slot>
