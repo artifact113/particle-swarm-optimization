@@ -1,6 +1,6 @@
 ﻿#include "Plugin.h"
 #include "IndicatorPlugin.h"
-
+#include "AreaStatisticUI.h"
 
 /// 构造函数
 Plugin::Plugin()
@@ -16,8 +16,15 @@ Plugin::~Plugin()
 }
 
 
+/// 显示参数设置界面
+void Plugin::showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter)
+{
+	AreaStatisticUI myUI(dataSource, fieldName, parameter);
+}
+
+
 /// 算法入口
-double Plugin::pluginMain()
+double Plugin::pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &params, const vector<QString> &values)
 {
 	return 0;
 }

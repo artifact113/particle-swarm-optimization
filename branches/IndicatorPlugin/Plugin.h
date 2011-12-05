@@ -11,8 +11,11 @@
 
 
 #include "IndicatorPlugin.h"
-#include <string>
+#include <vector>
+#include <QString>
+#include <QDomElement>
 using namespace std;
+
 
 class Plugin : public IndicatorPlugin
 {
@@ -26,31 +29,35 @@ public:
 
 
 	/// 名称
-	string name()
+	QString name()
 	{
 		return "";
 	}
 
 	/// 版本
-	string version()
+	QString version()
 	{
-		return "1.0.0";
+		return "";
 	}	    
 
 	/// 描述
-	string description()
+	QString description()
 	{
 		return "";
 	}
 
 	/// 帮助
-	string help()
+	QString help()
 	{
 		return "";
 	}
 
+	/// 显示参数设置界面
+	void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter);
+
 	/// 算法入口
-	double pluginMain();
+	double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
+
 };
 
 #endif // _PLUGIN_H_
