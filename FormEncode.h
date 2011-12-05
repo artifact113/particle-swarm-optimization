@@ -18,9 +18,15 @@ public:
 public slots:
 	void ClickOnButnOpen();
 
+	void ActivateCBoxField( int nIndex );
+	void ActivateCBoxEncodeType( int nIndex );
+
 private:
 	void getFields( const QString& strPath );
-	void connectSignalsAndSlots();
+	void initialiseDlg();
+	void getUValues( );                               //根据当前界面状态获取唯一值，本身不打开文件
+	bool isReadyToGetUValues();
+	void setTableWidgetPropertyAfterGetUValues();
 
 private:
 	Ui::FormEncode ui;
