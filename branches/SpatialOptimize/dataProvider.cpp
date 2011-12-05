@@ -2,7 +2,7 @@
 
 #include <QByteArray>
 
-const unsigned int nMaxPathSize = 256;
+const unsigned int MaxPathSize = 256;
 
 ShapefileProvider::ShapefileProvider() : m_pDataSource( NULL ) , m_pLayer( NULL ) , m_Path( "" ) , m_hasOpened( false )
 {
@@ -18,7 +18,7 @@ bool ShapefileProvider::openFile( const QString& strPath )
 {
 	closeFile();
 	
-	QByteArray aryTemp( nMaxPathSize , '0');
+	QByteArray aryTemp( MaxPathSize , '0');
 	aryTemp = strPath.toUtf8();
 
 	const char *szPath = aryTemp.data();
