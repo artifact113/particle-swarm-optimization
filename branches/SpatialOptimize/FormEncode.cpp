@@ -206,3 +206,136 @@ void FormEncode::getUValues()
 	setTableWidgetPropertyAfterGetUValues();
 }
 	
+void FormEncode::initialiseSet()
+{
+	m_rangeSet.clear();
+
+	if( !isReadyToGetRange() )
+	{
+		return;
+	}
+
+	QString strFieldName = ui.m_pCBoxFieldName->currentText();
+	QString strLayerName = 	( QTextCodec::codecForName("UTF-8") )->toUnicode( m_shapefile.getLayer()->GetName() );
+
+	QString strSelect = QString("SELECT  MIN( \"%1\" ) , MAX( \"%1\" )  FROM  %2 ").arg( strFieldName ).arg( strLayerName );
+
+	QByteArray aryTemp( MaxSelectClauseSize , '0');
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( strSelect );
+
+	OGRLayer  *pSelectLayer = m_shapefile.getDataSource()->ExecuteSQL( aryTemp.data()  , NULL , NULL );
+	if( pSelectLayer == NULL )
+	{
+		QMessageBox::information(0, tr("警告"), tr("无法获取字段的取值范围"), QMessageBox::Ok);
+		return ;
+	}
+
+	if( pSelectLayer->GetFeatureCount() == 0 )
+	{
+		m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
+		QMessageBox::information(0, tr("警告"), tr("获取字段的取值范围失败"), QMessageBox::Ok);
+		return ;
+	}
+	
+	OGRFeature *pFeature = pSelectLayer->GetFeature( 0 );
+
+	if( pFeature->GetFieldAsDouble( 0 ) == pFeature->GetFieldAsDouble( 1 ) )
+	{
+		m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
+		OGRFeature::DestroyFeature( pFeature ); 
+		QMessageBox::information(0, tr("警告"), tr("该字段只取一个值，无法进行区间编码"), QMessageBox::Ok);
+		return ;
+	}
+
+	m_rangeSet.insert( pFeature->GetFieldAsDouble( 0 ) );
+	m_rangeSet.insert( pFeature->GetFieldAsDouble( 1 ) );
+	
+	m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
+	OGRFeature::DestroyFeature( pFeature ); 
+}
+
+bool FormEncode::isReadyToGetRange()
+{
+	if( ui.m_pCBoxFieldName->currentText().isEmpty() )
+	{
+		QMessageBox::information(0, tr("警告"), tr("未指定字段"), QMessageBox::Ok);
+		return false;
+	}
+
+	if( ui.m_pCBoxEncodeType->currentText() != tr( "区间编码" ) )
+	{
+		QMessageBox::information(0, tr("警告"), tr("当前不是区间编码"), QMessageBox::Ok);
+		return false;
+	}
+
+	if( !m_shapefile.opened() )
+	{
+		QMessageBox::information(0, tr("警告"), tr("文件未打开"), QMessageBox::Ok);
+		return false;
+	}
+
+	QString strFieldName = ui.m_pCBoxFieldName->currentText();
+	
+	QByteArray aryTemp( MaxSelectClauseSize , '0');
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( strFieldName );
+
+	int nFieldIndex = m_shapefile.getLayer()->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+	OGRFieldDefn *pFieldDefn = m_shapefile.getLayer()->GetLayerDefn()->GetFieldDefn( nFieldIndex );
+
+	if( pFieldDefn->GetType() != OFTInteger && pFieldDefn->GetType() != OFTReal )
+	{
+		QMessageBox::information(0, tr("警告"), tr("指定字段不是数值型的"), QMessageBox::Ok);
+		return false;
+	}
+	
+	return true;
+}                              
+
+void FormEncode::showRangesFromSet()
+{
+	ui.m_pTableWidget->clear();
+	
+	if( m_rangeSet.size() < 2 )
+	{
+		return;
+	}
+
+	int nRowCount =m_rangeSet.size() - 1;
+
+	ui.m_pTableWidget->setRowCount( nRowCount );
+	ui.m_pTableWidget->setColumnCount( 2 );
+	
+	set<double>::iterator it = m_rangeSet.begin() ;
+	for ( int i = 0  ; i != nRowCount ; ++i )
+	{
+		QString strItemTxt = tr( "( " );
+		strItemTxt.append( QString::number( *it )  );
+		strItemTxt.append( tr( " , " ) );
+		it++;
+		strItemTxt.append( QString::number( *it )  );
+		strItemTxt.append( tr( " )" ) );
+		
+		ui.m_pTableWidget->setItem(  i , 0 , new QTableWidgetItem( strItemTxt ) );
+		ui.m_pTableWidget->setItem(  i , 1 , new QTableWidgetItem( "" ) );
+	}
+}
+
+void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
+{
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	if( nRowCount == 0 || ui.m_pTableWidget->columnCount() !=2 )
+	{
+		return;
+	}
+
+	QList<QString> strList;
+	strList.append( tr( "唯一值" ) );
+	strList.append( tr( "编码值" ) );
+	ui.m_pTableWidget->setHorizontalHeaderLabels( strList );
+	
+	ui.m_pTableWidget->resizeColumnsToContents();
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		ui.m_pTableWidget->item( i , 0 )->setFlags( Qt::NoItemFlags );
+	}
+}
