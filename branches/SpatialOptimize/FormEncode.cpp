@@ -210,7 +210,7 @@ void FormEncode::initialiseSet()
 {
 	m_rangeSet.clear();
 
-	if( !isReadyToGetRange() )
+	if( !isReadyToGetRanges() )
 	{
 		return;
 	}
@@ -254,7 +254,7 @@ void FormEncode::initialiseSet()
 	OGRFeature::DestroyFeature( pFeature ); 
 }
 
-bool FormEncode::isReadyToGetRange()
+bool FormEncode::isReadyToGetRanges()
 {
 	if( ui.m_pCBoxFieldName->currentText().isEmpty() )
 	{
