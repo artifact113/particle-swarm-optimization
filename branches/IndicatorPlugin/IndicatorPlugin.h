@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <QString>
+#include <QWidget>
 #include <QDomElement>
 #include "HPGCToolboxGlobal.h"
 using namespace std;
@@ -53,7 +54,7 @@ public:
 	}
 
 	/// 显示参数设置界面
-	virtual void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter) = 0;
+	virtual void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter, QWidget* parent) = 0;
 
 	/// 算法入口
 	virtual double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values) = 0;
