@@ -233,7 +233,42 @@ vector<QString> ShapefileReader::GetUniqueValues(const QString &fileName, const 
 {
 	vector<QString> results;
 
+	// 注册驱动器
+	OGRRegisterAll();
 
+	// 获取数据源
+	OGRDataSource* poDS;
+	poDS = OGRSFDriverRegistrar::Open(fileName.toUtf8().constData(), true);
+	if(!poDS)
+	{
+		return results;
+	}
+
+	// 获取图层
+	OGRLayer* poLayer;
+	poLayer = poDS->GetLayer(0);
+	if(!poLayer)
+	{
+		OGRDataSource::DestroyDataSource(poDS);
+		return results;
+	}
+
+	QString layerName(QString::fromUtf8(poLayer->GetName()));
+
+	QString strSQL = "SELECT DISTINCT " + fieldName + " FROM " + layerName;
+
+	OGRLayer* myLayer = poDS->ExecuteSQL(strSQL.toUtf8().constData(), NULL, NULL);
+
+	myLayer->ResetReading();
+	OGRFeature* myFeature;
+	while(myFeature = myLayer->GetNextFeature())
+	{
+		results.push_back(QString::fromUtf8(myFeature->GetFieldAsString(0)));
+		OGRFeature::DestroyFeature(myFeature);
+	}
+	poDS->ReleaseResultSet(myLayer);
+
+	OGRDataSource::DestroyDataSource(poDS);
 	return results;
 }
 
