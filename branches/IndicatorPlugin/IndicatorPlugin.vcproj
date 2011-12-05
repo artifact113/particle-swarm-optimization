@@ -308,6 +308,10 @@
 				</File>
 			</Filter>
 		</Filter>
+		<Filter
+			Name="Tool"
+			>
+		</Filter>
 	</Files>
 	<Globals>
 		<Global

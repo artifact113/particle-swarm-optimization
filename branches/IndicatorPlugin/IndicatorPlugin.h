@@ -60,7 +60,7 @@ public:
 	virtual bool verifyParameter(const QDomElement &parameter) = 0;
 
 	/// 算法入口
-	virtual double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values) = 0;
+	virtual double calculateValue(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values) = 0;
 
 };
 
