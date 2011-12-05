@@ -55,6 +55,9 @@ public:
 	/// 显示参数设置界面
 	void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter, QWidget* parent);
 
+	/// 验证参数合法性
+	bool verifyParameter(const QDomElement &parameter);
+
 	/// 算法入口
 	double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
 
