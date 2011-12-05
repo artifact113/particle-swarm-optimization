@@ -1,6 +1,7 @@
 ﻿#include "Plugin.h"
 #include "IndicatorPlugin.h"
 #include "AreaStatisticUI.h"
+#include "AreaStatistic.h"
 
 /// 构造函数
 Plugin::Plugin()
@@ -25,16 +26,16 @@ void Plugin::showUI(const QString &dataSource, const QString &fieldName, QDomEle
 
 
 /// 验证参数合法性
-bool verifyParameter(const QDomElement &parameter)
+bool Plugin::verifyParameter(const QDomElement &parameter)
 {
 	return true;
 }
 
 
 /// 算法入口
-double Plugin::pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &params, const vector<QString> &values)
+double Plugin::calculateValue(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values)
 {
-	return 0;
+	return AreaStatistic::sumArea(dataSource, fieldName, parameter, values);
 }
 
 

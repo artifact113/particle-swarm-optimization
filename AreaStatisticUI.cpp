@@ -32,4 +32,5 @@ void AreaStatisticUI::initData()
 void AreaStatisticUI::changeFieldValue(const QString &fieldValue)
 {
 
+
 }

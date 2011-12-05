@@ -59,7 +59,7 @@ public:
 	bool verifyParameter(const QDomElement &parameter);
 
 	/// 算法入口
-	double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
+	double calculateValue(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
 
 };
 

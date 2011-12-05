@@ -4,7 +4,7 @@
 
 
 /// 统计选定字段值的面积
-double AreaStatistic::sumArea(const QString &filename, const QString &value, vector<QString> &results)
+double AreaStatistic::sumArea(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values)
 {
 	double totalArea = 0;
 

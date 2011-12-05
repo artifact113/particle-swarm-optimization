@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <QString>
-
+#include <QDomElement>
 using namespace std;
 
 
@@ -11,7 +11,7 @@ class AreaStatistic
 {
 public:
 	/// 统计选定字段值的面积
-	static double sumArea(const QString &filename, const QString &value, vector<QString> &results);
+	static double sumArea(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
 
 };
 
