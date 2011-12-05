@@ -20,6 +20,8 @@ public:
 
 public slots:
 	void ClickOnButnOpen();
+	void ClickOnButnAdd();
+	void ClickOnButnDelete();
 
 	void ActivateCBoxField( int nIndex );
 	void ActivateCBoxEncodeType( int nIndex );
