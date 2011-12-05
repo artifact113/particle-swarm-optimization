@@ -3,6 +3,7 @@
 #include <QTextCodec>
 #include <QMessageBox>
 #include <QProgressBar>
+#include <QInputDialog>
 
 
 const unsigned int MaxSelectClauseSize = 256;
@@ -42,6 +43,9 @@ void FormEncode::initialiseDlg()
 
 	connect( ui.m_pCBoxFieldName , SIGNAL( activated( int ) ), this, SLOT( ActivateCBoxField( int ) ) );
 	connect( ui.m_pCBoxEncodeType , SIGNAL( activated( int ) ), this, SLOT( ActivateCBoxEncodeType( int ) ) );
+
+	connect( ui.m_pButnAdd , SIGNAL( clicked() ), this, SLOT( ClickOnButnAdd() ) );
+	connect( ui.m_pButnDelete , SIGNAL( clicked() ), this, SLOT( ClickOnButnDelete() ) );
 }
 
 void FormEncode::getFields( const QString& strPath )
@@ -86,6 +90,71 @@ void FormEncode::ClickOnButnOpen()
 	getFields( strPath );
 }
 
+void FormEncode::ClickOnButnAdd()
+{
+	if( m_rangeSet.size() < 2 )
+	{
+		QMessageBox::information(0, tr("警告"), tr("区间编码出错"), QMessageBox::Ok);
+		return ;
+	}
+
+	set<double>::iterator itFirst = m_rangeSet.begin() ;
+	set<double>::reverse_iterator itLast = m_rangeSet.rbegin() ;
+     
+	bool OK;
+	double dbVlaue = QInputDialog::getDouble( this , tr("获取分割点") , tr("分割点取值：") ,  *itFirst + 1 , *itFirst + 1 , *itLast , 4 , &OK);
+
+	if( OK && dbVlaue > (  *itFirst + 1 ) && dbVlaue < *itLast )
+	{
+		m_rangeSet.insert( dbVlaue );
+		showRangesFromSet();
+		setTableWidgetPropertyAfterGetGetRanges();
+	}
+}
+
+void FormEncode::ClickOnButnDelete()
+{
+	if( m_rangeSet.size() < 2 )
+	{
+		QMessageBox::information(0, tr("警告"), tr("区间编码出错"), QMessageBox::Ok);
+		return ;
+	}
+
+	if( m_rangeSet.size() == 2 )
+	{
+		return;
+	}
+
+	if( ui.m_pTableWidget->selectedItems().count() == 0 )
+	{
+		return ;
+	}
+
+	int nRowIndex = ui.m_pTableWidget->selectedItems().at( 0 )->row();
+
+	if( nRowIndex == ui.m_pTableWidget->rowCount() - 1 )
+	{
+		set<double>::reverse_iterator rit = m_rangeSet.rbegin() ;
+		++rit;
+		m_rangeSet.erase( *rit );
+	}
+	else
+	{
+		set<double>::iterator it = m_rangeSet.begin();
+		int i = 0 ;
+		while( i != nRowIndex )
+		{
+			++i;
+			++it;
+		}
+		++it;
+		m_rangeSet.erase( *it );
+	}
+	
+	showRangesFromSet();
+	setTableWidgetPropertyAfterGetGetRanges();
+}
+
 void FormEncode::ActivateCBoxField( int nIndex )
 {
 	ui.m_pTableWidget->clear();
@@ -112,6 +181,9 @@ void FormEncode::ActivateCBoxEncodeType( int nIndex )
 		ui.m_pTableWidget->clear();
 		ui.m_pButnAdd->setEnabled( true );
 		ui.m_pButnDelete->setEnabled( true );
+		initialiseSet();
+		showRangesFromSet();
+		setTableWidgetPropertyAfterGetGetRanges();
 	}
 }
 
@@ -238,16 +310,8 @@ void FormEncode::initialiseSet()
 	}
 	
 	OGRFeature *pFeature = pSelectLayer->GetFeature( 0 );
-
-	if( pFeature->GetFieldAsDouble( 0 ) == pFeature->GetFieldAsDouble( 1 ) )
-	{
-		m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
-		OGRFeature::DestroyFeature( pFeature ); 
-		QMessageBox::information(0, tr("警告"), tr("该字段只取一个值，无法进行区间编码"), QMessageBox::Ok);
-		return ;
-	}
-
-	m_rangeSet.insert( pFeature->GetFieldAsDouble( 0 ) );
+	
+	m_rangeSet.insert( pFeature->GetFieldAsDouble( 0 ) - 1 );
 	m_rangeSet.insert( pFeature->GetFieldAsDouble( 1 ) );
 	
 	m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
@@ -313,7 +377,7 @@ void FormEncode::showRangesFromSet()
 		strItemTxt.append( tr( " , " ) );
 		it++;
 		strItemTxt.append( QString::number( *it )  );
-		strItemTxt.append( tr( " )" ) );
+		strItemTxt.append( tr( " ] " ) );
 		
 		ui.m_pTableWidget->setItem(  i , 0 , new QTableWidgetItem( strItemTxt ) );
 		ui.m_pTableWidget->setItem(  i , 1 , new QTableWidgetItem( "" ) );
@@ -328,8 +392,23 @@ void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
 		return;
 	}
 
+	if( m_rangeSet.size() < 2 )
+	{
+		return;
+	}
+	
+	set<double>::iterator itFirst = m_rangeSet.begin() ;
+	set<double>::reverse_iterator itLast = m_rangeSet.rbegin() ;
+
 	QList<QString> strList;
-	strList.append( tr( "唯一值" ) );
+
+	QString str = tr( "区间( 字段的取值范围[" );
+	str.append( QString::number( *itFirst + 1 ) );
+	str.append( tr( "," ) );
+	str.append( QString::number( *itLast )  );
+	str.append( tr( "] )" ) );
+	
+	strList.append( str );
 	strList.append( tr( "编码值" ) );
 	ui.m_pTableWidget->setHorizontalHeaderLabels( strList );
 	
