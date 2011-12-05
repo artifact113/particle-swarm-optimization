@@ -17,9 +17,9 @@ Plugin::~Plugin()
 
 
 /// 显示参数设置界面
-void Plugin::showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter)
+void Plugin::showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter, QWidget* parent)
 {
-	AreaStatisticUI myUI(dataSource, fieldName, parameter);
+	AreaStatisticUI myUI(dataSource, fieldName, parameter, parent);	
 }
 
 

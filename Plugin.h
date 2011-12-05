@@ -53,7 +53,7 @@ public:
 	}
 
 	/// 显示参数设置界面
-	void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter);
+	void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter, QWidget* parent);
 
 	/// 算法入口
 	double pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values);
