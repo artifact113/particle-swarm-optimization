@@ -23,6 +23,16 @@ AreaStatisticUI::~AreaStatisticUI()
 /// 数据初始化
 void AreaStatisticUI::initData()
 {
+	if (mParameter->hasChildNodes())
+	{
+		QDomElement myElement = mParameter->childNodes().at(0).toElement();
+		int currentIndex = this->cmbFieldValue->findText(myElement.attribute("value"));
+		this->cmbFieldValue->setCurrentIndex(currentIndex);
+	}
+	else
+	{
+
+	}
 
 
 }
@@ -31,6 +41,10 @@ void AreaStatisticUI::initData()
 /// 改变字段值
 void AreaStatisticUI::changeFieldValue(const QString &fieldValue)
 {
-
+	if (!fieldValue.isEmpty())
+	{
+		QDomElement myElement = mParameter->childNodes().at(0).toElement();
+		myElement.setAttribute("value", fieldValue);
+	}
 
 }
