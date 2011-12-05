@@ -678,7 +678,7 @@
       <normaloff>:/indicatorset</normaloff>:/indicatorset</iconset>
     </property>
    </widget>
-   <widget class="QPushButton" name="btnAddIndicator">
+   <widget class="QPushButton" name="btnClearIndicator">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -692,7 +692,7 @@
     </property>
     <property name="icon">
      <iconset resource="HPGCToolbox.qrc">
-      <normaloff>:/addblue</normaloff>:/addblue</iconset>
+      <normaloff>:/clear</normaloff>:/clear</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="btnDeleteIndicator">
@@ -709,7 +709,7 @@
     </property>
     <property name="icon">
      <iconset resource="HPGCToolbox.qrc">
-      <normaloff>:/deleteblue</normaloff>:/deleteblue</iconset>
+      <normaloff>:/delete</normaloff>:/delete</iconset>
     </property>
    </widget>
   </widget>
