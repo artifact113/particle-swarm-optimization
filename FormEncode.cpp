@@ -46,6 +46,7 @@ void FormEncode::initialiseDlg()
 
 	connect( ui.m_pButnAdd , SIGNAL( clicked() ), this, SLOT( ClickOnButnAdd() ) );
 	connect( ui.m_pButnDelete , SIGNAL( clicked() ), this, SLOT( ClickOnButnDelete() ) );
+	connect( ui.m_pButnConfirm , SIGNAL( clicked() ), this, SLOT( ClickOnButnConfirm() ) );
 }
 
 void FormEncode::getFields( const QString& strPath )
@@ -153,6 +154,10 @@ void FormEncode::ClickOnButnDelete()
 	
 	showRangesFromSet();
 	setTableWidgetPropertyAfterGetGetRanges();
+}
+
+void FormEncode::ClickOnButnConfirm()
+{
 }
 
 void FormEncode::ActivateCBoxField( int nIndex )
@@ -417,4 +422,12 @@ void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
 	{
 		ui.m_pTableWidget->item( i , 0 )->setFlags( Qt::NoItemFlags );
 	}
+}
+
+bool FormEncode::checkOutputFieldName()
+{
+	//QString strOutputField = ui.m_pLEOutputFieldName->text();
+	//if( strOutputField )
+	//{}
+	return false;
 }
