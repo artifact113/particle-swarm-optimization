@@ -5,6 +5,9 @@
 #include "dataProvider.h"
 #include <QDialog>
 #include <QString>
+#include <set>
+
+using namespace std;
 
 class FormEncode : public QDialog  
 {
@@ -27,10 +30,15 @@ private:
 	void getUValues( );                               //根据当前界面状态获取唯一值，本身不打开文件
 	bool isReadyToGetUValues();
 	void setTableWidgetPropertyAfterGetUValues();
+	void initialiseSet();
+	bool isReadyToGetRanges();
+	void showRangesFromSet(); 
+	void setTableWidgetPropertyAfterGetGetRanges();
 
 private:
 	Ui::FormEncode ui;
 	ShapefileProvider m_shapefile;
+	set<double> m_rangeSet;
 
 };
 
