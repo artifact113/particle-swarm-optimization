@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>面积统计</string>
   </property>
-  <widget class="QComboBox" name="cmbFieldName">
+  <widget class="QComboBox" name="cmbFieldValue">
    <property name="geometry">
     <rect>
      <x>30</x>
@@ -43,12 +43,12 @@
     <rect>
      <x>30</x>
      <y>60</y>
-     <width>71</width>
+     <width>91</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>待统计字段：</string>
+    <string>选择统计字段值：</string>
    </property>
   </widget>
  </widget>

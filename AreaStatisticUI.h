@@ -5,22 +5,30 @@
 #include "ui_AreaStatisticUI.h"
 #include <QObject>
 #include <QWidget>
-#include <QMap>
+#include <QDomElement>
 
 
-class AreaStatisticUI : public Ui::AreaStatisticUI
+class AreaStatisticUI : public QWidget, public Ui::AreaStatisticUI
 {
 	Q_OBJECT
 
 public:
-	explicit AreaStatisticUI(QWidget* parent = 0);
+	explicit AreaStatisticUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter,QWidget* parent = 0);
 	~AreaStatisticUI();
 
+	/// 数据初始化
+	void initData();
+
+public slots:
+	/// 改变字段值
+	void changeFieldValue(const QString &fieldValue);
 
 protected:
+
 private:
-	QMap<QString, QString> mapEncode;
+	const QString mDataSource;		// 数据源
+	const QString mFiledName;		// 数据字段
+	QDomElement* mParameter;		// 算法参数 
+
 };
-
-
 #endif // _AREASTATISTICUI_H_
