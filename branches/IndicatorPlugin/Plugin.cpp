@@ -24,6 +24,13 @@ void Plugin::showUI(const QString &dataSource, const QString &fieldName, QDomEle
 }
 
 
+/// 验证参数合法性
+bool verifyParameter(const QDomElement &parameter)
+{
+	return true;
+}
+
+
 /// 算法入口
 double Plugin::pluginMain(const QString &dataSource, const QString &fieldName, const QDomElement &params, const vector<QString> &values)
 {
