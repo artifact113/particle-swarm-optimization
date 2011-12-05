@@ -22,6 +22,7 @@ public slots:
 	void ClickOnButnOpen();
 	void ClickOnButnAdd();
 	void ClickOnButnDelete();
+	void ClickOnButnConfirm();
 
 	void ActivateCBoxField( int nIndex );
 	void ActivateCBoxEncodeType( int nIndex );
@@ -36,6 +37,7 @@ private:
 	bool isReadyToGetRanges();
 	void showRangesFromSet(); 
 	void setTableWidgetPropertyAfterGetGetRanges();
+	bool checkOutputFieldName();
 
 private:
 	Ui::FormEncode ui;
