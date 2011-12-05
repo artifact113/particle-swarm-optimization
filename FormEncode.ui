@@ -146,10 +146,10 @@
     <number>10</number>
    </attribute>
    <attribute name="verticalHeaderDefaultSectionSize">
-    <number>10</number>
+    <number>20</number>
    </attribute>
    <attribute name="verticalHeaderMinimumSectionSize">
-    <number>10</number>
+    <number>20</number>
    </attribute>
   </widget>
   <widget class="QPushButton" name="m_pButnConfirm">
