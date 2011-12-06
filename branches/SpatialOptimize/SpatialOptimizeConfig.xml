@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<spatialoptimize name="土地利用结构优化" filename=".\HPGCToolbox\Algorithm\SpatialOptimize.dll">
+<spatialoptimize name="土地利用结构优化" filename=".\HPGCToolbox\Algorithm\SpatialOptimize.exe">
   <datasource>
     <txtDataSource text="E:\PSO测试数据\DLTB.shp"></txtDataSource>
     <cmbFieldName text="DLMC"></cmbFieldName>
     <cmbResultFieldName text="RESULT"></cmbResultFieldName>  
   </datasource>
   <indicatorset>
-    <INDICATOR name="耕地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+    <indicator name="耕地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
       <cmbFieldValue text="耕地"></cmbFieldValue>
-    </INDICATOR>
-    <INDICATOR name="园地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+    </indicator>
+    <indicator name="园地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
       <cmbFieldValue text="园地"></cmbFieldValue>
-    </INDICATOR>
-    <INDICATOR name="林地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+    </indicator>
+    <indicator name="林地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
       <cmbFieldValue text="林地"></cmbFieldValue>
-    </INDICATOR>
+    </indicator>
   </indicatorset>
   <problem>
     <objectset>
