@@ -8,7 +8,7 @@ ShapefileProvider::ShapefileProvider() : m_pDataSource( NULL ) , m_pLayer( NULL 
 {
 	OGRRegisterAll();
 }
-
+ 
 ShapefileProvider::~ShapefileProvider()
 {
 	OGRDataSource::DestroyDataSource( m_pDataSource );
