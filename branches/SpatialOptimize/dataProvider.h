@@ -4,7 +4,7 @@
 #include "ogrsf_frmts.h"
 
 #include <QString>
-#include <QtCore/qglobal.h>
+#include <QtCore/qglobal.h> 
 
 class  ShapefileProvider
 {
