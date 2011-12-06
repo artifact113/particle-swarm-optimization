@@ -870,6 +870,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\SpatialOptimizeConfig.xml"
+				>
+			</File>
+			<File
 				RelativePath=".\Resources\ToolboxFolder32.png"
 				>
 				<FileConfiguration

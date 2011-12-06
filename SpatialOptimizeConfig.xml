@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<spatialoptimize name="土地利用结构优化" filename=".\HPGCToolbox\Algorithm\SpatialOptimize.dll">
+  <datasource>
+    <txtDataSource text="E:\PSO测试数据\DLTB.shp"></txtDataSource>
+    <cmbFieldName text="DLMC"></cmbFieldName>
+    <cmbResultFieldName text="RESULT"></cmbResultFieldName>  
+  </datasource>
+  <indicatorset>
+    <INDICATOR name="耕地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+      <cmbFieldValue text="耕地"></cmbFieldValue>
+    </INDICATOR>
+    <INDICATOR name="园地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+      <cmbFieldValue text="园地"></cmbFieldValue>
+    </INDICATOR>
+    <INDICATOR name="林地面积" filename=".\HPGCToolbox\Indicator\AreaStatistic.dll">
+      <cmbFieldValue text="林地"></cmbFieldValue>
+    </INDICATOR>
+  </indicatorset>
+  <problem>
+    <objectset>
+      <object name="社会效益" expression="耕地面积+sin(林地面积)" watch="true"></object>
+      <object name="经济效益" expression="园地面积+sin(林地面积)" watch="true"></object>
+      <object name="生态效益" expression="林地面积+sin(林地面积)" watch="true"></object>
+      <mutiobjectfunction name="加权平均" filename=".\HPGCToolbox\Formula\WeightAverage.dll">
+        <dspinWeight1 value="0.33"></dspinWeight1>
+        <dspinWeight2 value="0.33"></dspinWeight2>
+        <dspinWeight3 value="0.34"></dspinWeight3>
+      </mutiobjectfunction>
+    </objectset>
+    <limitset>
+      <limit name="耕地面积约束" expression="耕地面积" comparison=">" value="1000" watch="true"></limit>
+      <limit name="园地面积约束" expression="园地面积" comparison=">" value="1000" watch="true"></limit>
+      <limit name="林地面积约束" expression="林地面积" comparison=">" value="1000" watch="true"></limit>
+      <mutilimitfunction name="罚函数" filename=".\HPGCToolbox\Formula\PunishFunction.dll">
+        <dspinWeight1 text="0.33"></dspinWeight1>
+        <dspinWeight2 text="0.33"></dspinWeight2>
+        <dspinWeight3 text="0.34"></dspinWeight3>
+      </mutilimitfunction>
+    </limitset>
+  </problem>
+  <algorithm name="微粒群算法" filename=".\HPGCToolbox\Algorithm\PSO.dll">
+    <range></range>
+    <count value="20"></count>
+    <c1 value="2.0"></c1>
+    <c2 value="2.0"></c2>
+  </algorithm>
+</spatialoptimize>
