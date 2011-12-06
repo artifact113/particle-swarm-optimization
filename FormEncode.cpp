@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QProgressBar>
 #include <QInputDialog>
+#include <QMap>
 
 
 const unsigned int MaxSelectClauseSize = 256;
@@ -158,6 +159,19 @@ void FormEncode::ClickOnButnDelete()
 
 void FormEncode::ClickOnButnConfirm()
 {
+	if( !checkOutputFieldName() )
+	{
+		return;
+	}
+
+	if( ui.m_pCBoxEncodeType->currentText() == tr( "唯一值编码" ) )
+	{
+		writeUValueEncode();
+	}
+	else if( ui.m_pCBoxEncodeType->currentText() == tr( "区间编码" )  )
+	{
+		writeRangeEncode();
+	}
 }
 
 void FormEncode::ActivateCBoxField( int nIndex )
@@ -426,8 +440,101 @@ void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
 
 bool FormEncode::checkOutputFieldName()
 {
-	//QString strOutputField = ui.m_pLEOutputFieldName->text();
-	//if( strOutputField )
-	//{}
-	return false;
+	QString strOutputField = ui.m_pLEOutputFieldName->text();
+	if( strOutputField.isEmpty() )
+	{
+		QMessageBox::information(0, tr("警告"), tr("输出字段名不能为空"), QMessageBox::Ok);
+		return false;
+	}
+
+	QString strFieldName = ui.m_pCBoxFieldName->currentText();
+	QString strEncodeType = ui.m_pCBoxEncodeType->currentText();
+	if( strFieldName.isEmpty() || strEncodeType.isEmpty() || ui.m_pTableWidget->rowCount() == 0  )
+	{
+		QMessageBox::information(0, tr("警告"), tr("当前未编码"), QMessageBox::Ok);
+		return false;
+	}
+
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		if( ui.m_pTableWidget->item( i , 1 )->text().isEmpty() )
+		{
+			QMessageBox::information(0, tr("警告"), tr("编码值不能为空值"), QMessageBox::Ok);
+			return false;
+		}
+	}
+
+	if( !m_shapefile.opened() )
+	{
+		QMessageBox::information(0, tr("警告"), tr("文件未打开"), QMessageBox::Ok);
+		return false;
+	}
+	
+	QByteArray aryTemp( MaxSelectClauseSize , '0');
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( strOutputField );
+
+	int nFieldIndex = m_shapefile.getLayer()->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+
+	if( nFieldIndex != -1 )
+	{
+		QMessageBox::information(0, tr("警告"), tr("结果字段名与文件中已有字段名冲突"), QMessageBox::Ok);
+		return false;
+	}
+
+	return true;
 }
+
+void FormEncode::writeUValueEncode()
+{
+	OGRLayer* pLayer = m_shapefile.getLayer();
+
+	QByteArray aryTemp( MaxSelectClauseSize , '0');
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pLEOutputFieldName->text() );
+	OGRFieldDefn FieldDefn(  aryTemp.data() , OFTString );
+	
+	if( pLayer->CreateField( &FieldDefn ) != OGRERR_NONE)
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("创建字段不成功！") ), QMessageBox::Ok);
+		return;
+	}
+	
+	QMap< QString ,QString > map;
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		map.insert( ui.m_pTableWidget->item( i , 0 )->text() , ui.m_pTableWidget->item( i , 1 )->text() );
+	}
+
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pCBoxFieldName->currentText() );
+	int nOldFieldIndex = pLayer->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+	
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pLEOutputFieldName->text() );
+	int nNewFieldIndex = pLayer->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+
+	int nFeatureCount = pLayer->GetFeatureCount();
+	
+	QProgressBar progressBar(this);
+	progressBar.setRange( 0 , nFeatureCount );
+	progressBar.setGeometry( ui.line->pos().x() + 10  , ui.line->pos().y() + 10  ,ui.m_pTableWidget->size().width() / 2 , 20 );
+	progressBar.show();
+
+	for (int i=0; i != nFeatureCount; ++i)
+	{
+		OGRFeature* pFeature = pLayer->GetFeature( i );
+		
+		QString strKey = pFeature->GetFieldAsString( nOldFieldIndex );
+		aryTemp = QTextCodec::codecForLocale()->fromUnicode( map.value( strKey  ) );
+		
+		pFeature->SetField( nNewFieldIndex , aryTemp.data()  );
+		pLayer->SetFeature( pFeature ); 
+		OGRFeature::DestroyFeature(pFeature);
+
+		progressBar.setValue( i );
+	}
+}
+
+void FormEncode::writeRangeEncode()
+{
+
+} 
