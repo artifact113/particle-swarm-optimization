@@ -10,11 +10,12 @@
 
 /***********************************************public*********************************************/
 /// 构造函数
-FormObject::FormObject(QWidget *parent)
-:QDialog(parent)
+FormObject::FormObject(const QString &config, const QString &toolName, QWidget* parent)
+:QDialog(parent), mConfig(config)
 {
 	setupUi(this);
-	
+	this->setWindowTitle(toolName);
+
 	connect(btnOpenDataSource, SIGNAL(clicked()), this, SLOT(openDataSource()));
 
 	connect(btnEncode, SIGNAL(clicked()), this, SLOT(showEncode()));
@@ -28,6 +29,13 @@ FormObject::FormObject(QWidget *parent)
 
 /// 析构函数
 FormObject::~FormObject()
+{
+
+}
+
+
+/// 初始化配置
+void FormObject::initData()
 {
 
 }

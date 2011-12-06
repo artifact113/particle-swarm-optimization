@@ -4,22 +4,31 @@
 #include <QDomElement>
 
 
-
+/// 构造函数
 Plugin::Plugin()
 {
 
 }
 
 
+/// 析构函数
 Plugin::~Plugin()
 {
 
 }
 
-void Plugin::pluginMain()
+
+/// 显示参数设置界面
+void showUI(const QString &config, const QString &toolName, QWidget* parent)
 {
-	FormObject myForm;
+	FormObject myForm(config, toolName, parent);
 	myForm.exec();
+}
+
+/// 算法入口
+int Plugin::pluginMain()
+{
+	return 0;
 }
 
 

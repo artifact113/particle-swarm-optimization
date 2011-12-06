@@ -13,10 +13,13 @@ class FormObject : public QDialog, public Ui::FormObject
 	Q_OBJECT
 
 public:
-	explicit FormObject(QWidget *parent = 0);
+	explicit FormObject(const QString &config, const QString &toolName, QWidget* parent = 0);
 	~FormObject();
 
-	
+
+	/// 初始化配置
+	void initData();
+
 public slots:
 	/// 打开数据源
 	void openDataSource();
@@ -34,11 +37,11 @@ protected:
 
 
 private:
+	QString mConfig;
+	QDomDocument mConfigDocument;
 	QString mDataSource;
 	QString mFiledName;
 	QSet<QString> msetUniqueValue;
-
-
 };
 
 

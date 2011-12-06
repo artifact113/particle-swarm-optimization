@@ -28,31 +28,34 @@ public:
 
 
 	/// 名称
-	string name()
+	QString name()
 	{
 		return "";
 	}
 
 	/// 版本
-	string version()
+	QString version()
 	{
 		return "";
 	}	    
 
 	/// 描述
-	string description()
+	QString description()
 	{
 		return "";
 	}
 
 	/// 帮助
-	string help()
+	QString help()
 	{
 		return "";
 	}
 
-	/// 入口函数，插件所要实现的功能
-	void pluginMain();
+	/// 显示参数设置界面
+	void showUI(const QString &config, const QString &toolName, QWidget* parent);
+
+	/// 算法入口
+	int pluginMain(const QString &config);
 };
 
 #endif // _PLUGIN_H_

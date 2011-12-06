@@ -1,7 +1,7 @@
 ﻿#ifndef _ALGORITHMPLUGIN_H_
 #define _ALGORITHMPLUGIN_H_
 
-#include <string>
+#include <QString>
 #include "HPGCToolboxGlobal.h"
 
 using namespace std;
@@ -22,25 +22,25 @@ public:
 	}
 
 	/// 名称
-	virtual string name()
+	virtual QString name()
 	{
 		return "";
 	}
 
 	/// 版本
-	virtual string version()
+	virtual QString version()
 	{
 		return "";
 	}	    
 
 	/// 描述
-	virtual string description()
+	virtual QString description()
 	{
 		return "";
 	}
 
 	/// 帮助
-	virtual string help()
+	virtual QString help()
 	{
 		return "";
 	}
@@ -48,11 +48,15 @@ public:
 	/// 类型
 	PLUGINTYPE type()
 	{
-		return ALGORITHM;
+		return INDICATOR;
 	}
 
+	/// 显示参数设置界面
+	virtual void showUI(const QString &config, const QString &toolName, QWidget* parent) = 0;
+
 	/// 算法入口
-	virtual void pluginMain() = 0;
+	virtual int pluginMain(const QString &config) = 0;
+
 };
 
 #endif // _ALGORITHMPLUGIN_H_

@@ -1036,6 +1036,22 @@
 		<Filter
 			Name="Tool"
 			>
+			<File
+				RelativePath=".\ShapefileOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ShapefileOperator.h"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlOperator.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\XmlOperator.h"
+				>
+			</File>
 		</Filter>
 	</Files>
 	<Globals>
