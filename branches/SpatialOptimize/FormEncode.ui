@@ -275,7 +275,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>写入字段</string>
+    <string>输出字段</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="m_pLEOutputFieldName">
