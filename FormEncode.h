@@ -30,7 +30,7 @@ public slots:
 private:
 	void getFields( const QString& strPath );
 	void initialiseDlg();
-	void getUValues( );                               //根据当前界面状态获取唯一值，本身不打开文件
+	void getUValues( );                                  //根据当前界面状态获取唯一值，本身不打开文件
 	bool isReadyToGetUValues();
 	void setTableWidgetPropertyAfterGetUValues();
 	void initialiseSet();
@@ -38,6 +38,9 @@ private:
 	void showRangesFromSet(); 
 	void setTableWidgetPropertyAfterGetGetRanges();
 	bool checkOutputFieldName();
+	void writeUValueEncode();                            //只在ClickOnButnConfirm()中调用
+	void writeRangeEncode();                             //只在ClickOnButnConfirm()中调用
+
 
 private:
 	Ui::FormEncode ui;
