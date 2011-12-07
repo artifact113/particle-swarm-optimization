@@ -284,9 +284,9 @@ void FormProperty::showDetail(const QString &file, const PLUGINTYPE &type)
 		if (pClassFactory && pUnload)
 		{
 			AlgorithmPlugin* myPlugin = (*pClassFactory)();
-			QString myLabel(QString::fromLocal8Bit(myPlugin->name().c_str()));
-			QString myDescription(QString::fromLocal8Bit(myPlugin->description().c_str()));
-			QString myHelp(QString::fromLocal8Bit(myPlugin->help().c_str()));
+			QString myLabel(myPlugin->name());
+			QString myDescription(myPlugin->description());
+			QString myHelp(myPlugin->help());
 
 			txtLabel->setText(myLabel);
 			textDescription->setText(myDescription);
@@ -304,9 +304,9 @@ void FormProperty::showDetail(const QString &file, const PLUGINTYPE &type)
 		if (pClassFactory && pUnload)
 		{
 			IndicatorPlugin* myPlugin = (*pClassFactory)();
-			QString myLabel(QString::fromLocal8Bit(myPlugin->name().c_str()));
-			QString myDescription(QString::fromLocal8Bit(myPlugin->description().c_str()));
-			QString myHelp(QString::fromLocal8Bit(myPlugin->help().c_str()));
+			QString myLabel(myPlugin->name());
+			QString myDescription(myPlugin->description());
+			QString myHelp(myPlugin->help());
 
 			txtLabel->setText(myLabel);
 			textDescription->setText(myDescription);
