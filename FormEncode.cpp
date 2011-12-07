@@ -5,6 +5,7 @@
 #include <QProgressBar>
 #include <QInputDialog>
 #include <QMap>
+#include <QTextStream>
 
 
 const unsigned int MaxSelectClauseSize = 256;
@@ -17,9 +18,9 @@ FormEncode::FormEncode( QWidget *parent ) : QDialog( parent )
 FormEncode::FormEncode( const QString& strFilePath , QWidget *parent ) : QDialog( parent )
 {
 	initialiseDlg();
-	
-	getFields( strFilePath );
+		
 	ui.m_pButnOpen->setEnabled( false );
+	getFields( strFilePath );
 }
 
 
@@ -48,6 +49,8 @@ void FormEncode::initialiseDlg()
 	connect( ui.m_pButnAdd , SIGNAL( clicked() ), this, SLOT( ClickOnButnAdd() ) );
 	connect( ui.m_pButnDelete , SIGNAL( clicked() ), this, SLOT( ClickOnButnDelete() ) );
 	connect( ui.m_pButnConfirm , SIGNAL( clicked() ), this, SLOT( ClickOnButnConfirm() ) );
+	connect( ui.m_pButnLoad , SIGNAL( clicked() ), this, SLOT( ClickOnButnLoad() ) );
+	connect( ui.m_pButnSave , SIGNAL( clicked() ), this, SLOT( ClickOnButnSave() ) );
 }
 
 void FormEncode::getFields( const QString& strPath )
@@ -94,67 +97,49 @@ void FormEncode::ClickOnButnOpen()
 
 void FormEncode::ClickOnButnAdd()
 {
-	if( m_rangeSet.size() < 2 )
+	if( m_pointList.size() < 2 || ui.m_pTableWidget->rowCount() == 0 || m_pointList.size() - 1 != ui.m_pTableWidget->rowCount() )
 	{
 		QMessageBox::information(0, tr("警告"), tr("区间编码出错"), QMessageBox::Ok);
 		return ;
 	}
-
-	set<double>::iterator itFirst = m_rangeSet.begin() ;
-	set<double>::reverse_iterator itLast = m_rangeSet.rbegin() ;
      
 	bool OK;
-	double dbVlaue = QInputDialog::getDouble( this , tr("获取分割点") , tr("分割点取值：") ,  *itFirst + 1 , *itFirst + 1 , *itLast , 4 , &OK);
+	double dbLower =   m_pointList.at( m_pointList.size() - 2 );
+	double dbUpper =    m_pointList.at( m_pointList.size() - 1 ) ;
+	double dbVlaue = QInputDialog::getDouble( this , tr("获取分割点") , tr("分割点取值：") ,dbLower , dbLower , dbUpper  , 4 , &OK);
 
-	if( OK && dbVlaue > (  *itFirst + 1 ) && dbVlaue < *itLast )
+	if( OK && dbVlaue > dbLower && dbVlaue < dbUpper )
 	{
-		m_rangeSet.insert( dbVlaue );
-		showRangesFromSet();
-		setTableWidgetPropertyAfterGetGetRanges();
+		m_pointList.insert( m_pointList.size() -1 , dbVlaue );
+		ui.m_pTableWidget->item( ui.m_pTableWidget->rowCount() - 1 , 0 )->setText( generateRange( dbLower , dbVlaue ) );
+		ui.m_pTableWidget->setRowCount( ui.m_pTableWidget->rowCount() + 1 );
+		ui.m_pTableWidget->setItem( ui.m_pTableWidget->rowCount() - 1  , 0 , new QTableWidgetItem( generateRange( dbVlaue , dbUpper ) ) );
+		ui.m_pTableWidget->setItem( ui.m_pTableWidget->rowCount() - 1  , 1 , new QTableWidgetItem( tr( "" ) ) );
+		setTableWidgetPropertyAfterGetRanges();
 	}
 }
 
 void FormEncode::ClickOnButnDelete()
 {
-	if( m_rangeSet.size() < 2 )
+	if( m_pointList.size() < 2 || ui.m_pTableWidget->rowCount() == 0 || m_pointList.size() - 1 != ui.m_pTableWidget->rowCount() )
 	{
 		QMessageBox::information(0, tr("警告"), tr("区间编码出错"), QMessageBox::Ok);
 		return ;
 	}
 
-	if( m_rangeSet.size() == 2 )
+	if( m_pointList.size() == 2  )
 	{
 		return;
 	}
 
-	if( ui.m_pTableWidget->selectedItems().count() == 0 )
-	{
-		return ;
-	}
+	m_pointList.removeAt( m_pointList.size() - 2 );
+	int nListSize = m_pointList.size();
 
-	int nRowIndex = ui.m_pTableWidget->selectedItems().at( 0 )->row();
+	ui.m_pTableWidget->removeRow( ui.m_pTableWidget->rowCount() - 1 );
 
-	if( nRowIndex == ui.m_pTableWidget->rowCount() - 1 )
-	{
-		set<double>::reverse_iterator rit = m_rangeSet.rbegin() ;
-		++rit;
-		m_rangeSet.erase( *rit );
-	}
-	else
-	{
-		set<double>::iterator it = m_rangeSet.begin();
-		int i = 0 ;
-		while( i != nRowIndex )
-		{
-			++i;
-			++it;
-		}
-		++it;
-		m_rangeSet.erase( *it );
-	}
-	
-	showRangesFromSet();
-	setTableWidgetPropertyAfterGetGetRanges();
+	ui.m_pTableWidget->item( ui.m_pTableWidget->rowCount() - 1 , 0 )->setText( generateRange(  m_pointList.at( nListSize - 2 ) , m_pointList.at( nListSize - 1 ) ) );
+	ui.m_pTableWidget->item( ui.m_pTableWidget->rowCount() - 1 , 1 )->setText( tr( "" ) );
+	setTableWidgetPropertyAfterGetRanges();
 }
 
 void FormEncode::ClickOnButnConfirm()
@@ -171,6 +156,36 @@ void FormEncode::ClickOnButnConfirm()
 	else if( ui.m_pCBoxEncodeType->currentText() == tr( "区间编码" )  )
 	{
 		writeRangeEncode();
+	}
+}
+
+void FormEncode::ClickOnButnSave()
+{
+	if( ui.m_pCBoxEncodeType->currentText() == tr( "唯一值编码" ) )
+	{
+		saveUValueEncode();
+	}
+	else if( ui.m_pCBoxEncodeType->currentText() == tr( "区间编码" ) )
+	{
+		saveRangeEncode();
+	}
+
+}
+
+void FormEncode::ClickOnButnLoad()
+{
+	if( ui.m_pCBoxEncodeType->currentText() == tr( "唯一值编码" )  )
+	{
+		loadUValueEncode();
+	}
+	else if( ui.m_pCBoxEncodeType->currentText() == tr( "区间编码" )  )
+	{
+		loadRangeEncode();
+	}
+	else 
+	{
+		QMessageBox::information(0, tr("警告"), tr("还未开始编码"), QMessageBox::Ok);
+		return;
 	}
 }
 
@@ -200,9 +215,8 @@ void FormEncode::ActivateCBoxEncodeType( int nIndex )
 		ui.m_pTableWidget->clear();
 		ui.m_pButnAdd->setEnabled( true );
 		ui.m_pButnDelete->setEnabled( true );
-		initialiseSet();
-		showRangesFromSet();
-		setTableWidgetPropertyAfterGetGetRanges();
+		initialiseList();
+		setTableWidgetPropertyAfterGetRanges();
 	}
 }
 
@@ -297,9 +311,10 @@ void FormEncode::getUValues()
 	setTableWidgetPropertyAfterGetUValues();
 }
 	
-void FormEncode::initialiseSet()
+void FormEncode::initialiseList()
 {
-	m_rangeSet.clear();
+	m_pointList.clear();
+	ui.m_pTableWidget->clear();
 
 	if( !isReadyToGetRanges() )
 	{
@@ -330,11 +345,16 @@ void FormEncode::initialiseSet()
 	
 	OGRFeature *pFeature = pSelectLayer->GetFeature( 0 );
 	
-	m_rangeSet.insert( pFeature->GetFieldAsDouble( 0 ) - 1 );
-	m_rangeSet.insert( pFeature->GetFieldAsDouble( 1 ) );
+	m_pointList.append( pFeature->GetFieldAsDouble( 0 ) - 1 );
+	m_pointList.append( pFeature->GetFieldAsDouble( 1 ) );
 	
 	m_shapefile.getDataSource()->ReleaseResultSet( pSelectLayer );
-	OGRFeature::DestroyFeature( pFeature ); 
+	OGRFeature::DestroyFeature( pFeature );
+
+	ui.m_pTableWidget->setRowCount( 1 );
+	ui.m_pTableWidget->setColumnCount( 2 );
+	ui.m_pTableWidget->setItem( 0 , 0 , new QTableWidgetItem( generateRange( m_pointList.at( 0 ) , m_pointList.at( 1 ) )  ) );
+	ui.m_pTableWidget->setItem( 0 , 1 , new QTableWidgetItem( tr( "" )  ) );
 }
 
 bool FormEncode::isReadyToGetRanges()
@@ -367,43 +387,15 @@ bool FormEncode::isReadyToGetRanges()
 
 	if( pFieldDefn->GetType() != OFTInteger && pFieldDefn->GetType() != OFTReal )
 	{
-		QMessageBox::information(0, tr("警告"), tr("指定字段不是数值型的"), QMessageBox::Ok);
+		QMessageBox::information(0, tr("警告"), tr("指定的字段不是数值型"), QMessageBox::Ok);
 		return false;
 	}
 	
 	return true;
 }                              
 
-void FormEncode::showRangesFromSet()
-{
-	ui.m_pTableWidget->clear();
-	
-	if( m_rangeSet.size() < 2 )
-	{
-		return;
-	}
 
-	int nRowCount =m_rangeSet.size() - 1;
-
-	ui.m_pTableWidget->setRowCount( nRowCount );
-	ui.m_pTableWidget->setColumnCount( 2 );
-	
-	set<double>::iterator it = m_rangeSet.begin() ;
-	for ( int i = 0  ; i != nRowCount ; ++i )
-	{
-		QString strItemTxt = tr( "( " );
-		strItemTxt.append( QString::number( *it )  );
-		strItemTxt.append( tr( " , " ) );
-		it++;
-		strItemTxt.append( QString::number( *it )  );
-		strItemTxt.append( tr( " ] " ) );
-		
-		ui.m_pTableWidget->setItem(  i , 0 , new QTableWidgetItem( strItemTxt ) );
-		ui.m_pTableWidget->setItem(  i , 1 , new QTableWidgetItem( "" ) );
-	}
-}
-
-void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
+void FormEncode::setTableWidgetPropertyAfterGetRanges()
 {
 	int nRowCount = ui.m_pTableWidget->rowCount();
 	if( nRowCount == 0 || ui.m_pTableWidget->columnCount() !=2 )
@@ -411,20 +403,17 @@ void FormEncode::setTableWidgetPropertyAfterGetGetRanges()
 		return;
 	}
 
-	if( m_rangeSet.size() < 2 )
+	if( m_pointList.size() < 2 || ui.m_pTableWidget->rowCount() == 0 || m_pointList.size() - 1 != ui.m_pTableWidget->rowCount() )
 	{
 		return;
 	}
 	
-	set<double>::iterator itFirst = m_rangeSet.begin() ;
-	set<double>::reverse_iterator itLast = m_rangeSet.rbegin() ;
-
 	QList<QString> strList;
 
 	QString str = tr( "区间( 字段的取值范围[" );
-	str.append( QString::number( *itFirst + 1 ) );
+	str.append( QString::number( m_pointList.at( 0 ) + 1  , 'f' ,4 )  );
 	str.append( tr( "," ) );
-	str.append( QString::number( *itLast )  );
+	str.append( QString::number( m_pointList.at( m_pointList.size() - 1 ) , 'f' , 4  )  );
 	str.append( tr( "] )" ) );
 	
 	strList.append( str );
@@ -532,9 +521,396 @@ void FormEncode::writeUValueEncode()
 
 		progressBar.setValue( i );
 	}
+	QMessageBox::information(0, tr("成功"), QString( tr("已写入编码数据") ), QMessageBox::Ok);
 }
 
 void FormEncode::writeRangeEncode()
 {
+	if( ( m_pointList.size() < 2 ) || ( m_pointList.size() - 1 != ui.m_pTableWidget->rowCount() )  )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("区间编码出错") ), QMessageBox::Ok);
+		return;
+	}
 
+	OGRLayer* pLayer = m_shapefile.getLayer();
+
+	QByteArray aryTemp( MaxSelectClauseSize , '0');
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pLEOutputFieldName->text() );
+	OGRFieldDefn FieldDefn(  aryTemp.data() , OFTString );
+	
+	if( pLayer->CreateField( &FieldDefn ) != OGRERR_NONE)
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("创建字段不成功！") ), QMessageBox::Ok);
+		return;
+	}
+
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pCBoxFieldName->currentText() );
+	int nOldFieldIndex = pLayer->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+	if( ( pLayer->GetLayerDefn()->GetFieldDefn( nOldFieldIndex )->GetType() != OFTInteger ) && ( pLayer->GetLayerDefn()->GetFieldDefn( nOldFieldIndex )->GetType() != OFTReal )   )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("原字段非数值类型！") ), QMessageBox::Ok);
+		return;
+	}
+	
+	aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pLEOutputFieldName->text() );
+	int nNewFieldIndex = pLayer->GetLayerDefn()->GetFieldIndex( aryTemp.data() );
+
+	int nFeatureCount = pLayer->GetFeatureCount();
+	
+	QProgressBar progressBar(this);
+	progressBar.setRange( 0 , nFeatureCount );
+	progressBar.setGeometry( ui.line->pos().x() + 10  , ui.line->pos().y() + 10  ,ui.m_pTableWidget->size().width() / 2 , 20 );
+	progressBar.show();
+
+	for (int i=0; i != nFeatureCount; ++i)
+	{
+		OGRFeature* pFeature = pLayer->GetFeature( i );
+		
+		double dbValue = pFeature->GetFieldAsDouble( nOldFieldIndex );
+		
+		int nRowIndex = 0;
+		while( dbValue > m_pointList.at( nRowIndex ) )
+		{
+			++nRowIndex;
+		}
+		--nRowIndex;
+		
+		aryTemp = QTextCodec::codecForLocale()->fromUnicode( ui.m_pTableWidget->item( nRowIndex , 1 )->text() );
+		pFeature->SetField( nNewFieldIndex , aryTemp.data()  );
+		pLayer->SetFeature( pFeature ); 
+		OGRFeature::DestroyFeature(pFeature);
+
+		progressBar.setValue( i );
+	}
+	QMessageBox::information(0, tr("成功"), QString( tr("已写入编码数据") ), QMessageBox::Ok);
+}
+
+void FormEncode::saveUValueEncode()
+{
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	if( ui.m_pCBoxEncodeType->currentText() != tr( "唯一值编码" )  || nRowCount == 0 || ui.m_pTableWidget->columnCount() != 2 )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("保存失败") ), QMessageBox::Ok);
+		return ;
+	}
+
+	for( int i = 0 ; i != nRowCount  ; ++i )
+	{
+		if( ui.m_pTableWidget->item( i , 1 )->text().isEmpty() )
+		{
+			QMessageBox::information(0, tr("警告"), QString( tr("编码值不能为空") ), QMessageBox::Ok);
+			return ;
+		}
+	}
+	
+	QString strFileName = QFileDialog::getSaveFileName(this, tr("Save As File") , "E:" , tr("Xml (*.xml)"));
+	if( strFileName.isEmpty() )
+	{
+		return;
+	}
+	
+	QFile file( strFileName );
+	
+	if( !file.open( QIODevice::WriteOnly ) )
+	{
+		QMessageBox::information(0, tr("失败"), tr("保存编码方案失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	QDomDocument dom;
+	generateUValueEncodeDom( dom );
+
+	QTextStream Stream( &file );
+
+	dom.save( Stream , 8 );
+	
+	file.flush();
+	file.close();
+			
+	QMessageBox::information(0, tr("成功"), tr("保存编码方案成功!"), QMessageBox::Ok);
+}
+
+void FormEncode::saveRangeEncode()
+{
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	if( ( m_pointList.size() < 2 ) || ( m_pointList.size() - 1 != nRowCount ) ||  nRowCount == 0 )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("区间编码出错") ), QMessageBox::Ok);
+		return;
+	}
+
+	for( int i = 0 ; i != nRowCount  ; ++i )
+	{
+		if( ui.m_pTableWidget->item( i , 1 )->text().isEmpty() )
+		{
+			QMessageBox::information(0, tr("警告"), QString( tr("编码值不能为空") ), QMessageBox::Ok);
+			return ;
+		}
+	}
+	
+	QString strFileName = QFileDialog::getSaveFileName(this, tr("Save As File") , "E:" , tr("Xml (*.xml)"));
+	if( strFileName.isEmpty() )
+	{
+		return;
+	}
+	
+	QFile file( strFileName );
+	
+	if( !file.open( QIODevice::WriteOnly ) )
+	{
+		QMessageBox::information(0, tr("失败"), tr("保存编码方案失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	QDomDocument dom;
+	generateRangeEncodeDom( dom );
+
+	QTextStream Stream( &file );
+
+	dom.save( Stream , 8 );
+	
+	file.flush();
+	file.close();
+			
+	QMessageBox::information(0, tr("成功"), tr("保存编码方案成功!"), QMessageBox::Ok);
+}
+
+void FormEncode::generateUValueEncodeDom( QDomDocument& dom )
+{
+	dom.clear();
+	QDomProcessingInstruction DomProcessingInstruction = dom.createProcessingInstruction( "xml" , "version=\"1.0\" " );
+	dom.appendChild( DomProcessingInstruction );
+	
+	QDomElement root = dom.createElement( "UniqueValueEncode" );
+	dom.appendChild( root );
+
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		QDomElement eleItem = dom.createElement( "Item" );
+		root.appendChild( eleItem );
+		eleItem.setAttribute( tr( "uvalue" ) , ui.m_pTableWidget->item( i , 0 )->text() );
+		eleItem.setAttribute( tr( "code" ) , ui.m_pTableWidget->item( i , 1 )->text() );
+	}
+}
+
+void FormEncode::generateRangeEncodeDom( QDomDocument& dom )
+{
+	dom.clear();
+	QDomProcessingInstruction DomProcessingInstruction = dom.createProcessingInstruction( "xml" , "version=\"1.0\" " );
+	dom.appendChild( DomProcessingInstruction );
+	
+	QDomElement root = dom.createElement( "RangeEncode" );
+	dom.appendChild( root );
+
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	for( int i = 0  ; i != nRowCount ; ++i  )
+	{
+		QDomElement eleItem = dom.createElement( "Range" );
+		root.appendChild( eleItem );
+		eleItem.setAttribute( tr( "lower" ) , QString::number( m_pointList.at( i ) )  ) ;
+		eleItem.setAttribute( tr( "upper" ) , QString::number( m_pointList.at( i + 1 )  ) );
+		eleItem.setAttribute( tr( "code" ) , ui.m_pTableWidget->item( i , 1 )->text() );
+	}
+}  
+
+
+void FormEncode::loadUValueEncode()
+{
+	if( ui.m_pCBoxEncodeType->currentText() != tr( "唯一值编码" ) )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("当前不是唯一值编码") ), QMessageBox::Ok);
+		return;
+	}
+
+	if( ui.m_pTableWidget->rowCount() == 0 || ui.m_pTableWidget->columnCount() != 2 )
+	{
+		return;
+	}
+
+	QString strPath = QFileDialog::getOpenFileName( this,tr("Open XML"), "E:", tr("Xml (*.xml)"));
+	
+	if( strPath.isEmpty() )
+	{
+		return;
+	}
+	
+	QFile xmlFile( strPath );
+
+	if( !xmlFile.open( QIODevice::ReadOnly ))
+	{
+		QMessageBox::information(0, tr("失败"), tr("打开文件失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	QDomDocument dom;
+	
+	if( !dom.setContent( &xmlFile , false ) )
+	{
+		xmlFile.close();
+		QMessageBox::information(0, tr("失败"), tr("加载编码文件失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	xmlFile.close();
+
+	if( dom.documentElement().tagName() != tr( "UniqueValueEncode" ) )
+	{
+		QMessageBox::information(0, tr("失败"), tr("加载了不正确的文件"), QMessageBox::Ok);
+		return;
+	}
+
+	loadUValueEncodeFromDom( dom );
+}             
+
+void FormEncode::loadRangeEncode()
+{
+	if( ui.m_pCBoxEncodeType->currentText() != tr( "区间编码" ) )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("当前不是区间编码") ), QMessageBox::Ok);
+		return;
+	}
+
+	if(  m_pointList.size() < 2  ||  m_pointList.size() - 1 != ui.m_pTableWidget->rowCount()  || ui.m_pTableWidget->columnCount() != 2 )
+	{
+		QMessageBox::information(0, tr("警告"), QString( tr("区间编码出错") ), QMessageBox::Ok);
+		return;
+	}
+
+	QString strPath = QFileDialog::getOpenFileName( this,tr("Open XML"), "E:", tr("Xml (*.xml)"));
+	
+	if( strPath.isEmpty() )
+	{
+		return;
+	}
+	
+	QFile xmlFile( strPath );
+
+	if( !xmlFile.open( QIODevice::ReadOnly ))
+	{
+		QMessageBox::information(0, tr("失败"), tr("打开文件失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	QDomDocument dom;
+	
+	if( !dom.setContent( &xmlFile , false ) )
+	{
+		xmlFile.close();
+		QMessageBox::information(0, tr("失败"), tr("加载编码文件失败!"), QMessageBox::Ok);
+		return;
+	}
+
+	xmlFile.close();
+
+	if( dom.documentElement().tagName() != tr( "RangeEncode" ) )
+	{
+		QMessageBox::information(0, tr("失败"), tr("加载了不正确的文件"), QMessageBox::Ok);
+		return;
+	}
+
+	loadRangeEncodeFromDom( dom );
+}
+
+void FormEncode::loadUValueEncodeFromDom( const QDomDocument& dom )
+{
+	QDomNodeList eleList = dom.elementsByTagName( tr( "Item" ) );
+
+	int nRowCount = ui.m_pTableWidget->rowCount();
+	int nElementCount = eleList.count();
+	
+	QTableWidget *pTableWidget = ui.m_pTableWidget;
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		for( int j = 0 ; j != nElementCount ; ++j )
+		{
+			if( pTableWidget->item( i , 0 )->text() ==  eleList.at( j ).toElement().attribute( tr( "uvalue" ) )  )
+			{
+				pTableWidget->item( i , 1 )->setText( eleList.at( j ).toElement().attribute( tr( "code" ) ) ); 
+			}
+		}
+	}
+	QMessageBox::information(0, tr("成功"), tr("加载编码方案成功"), QMessageBox::Ok);
+}
+
+
+void FormEncode::loadRangeEncodeFromDom( const QDomDocument& dom )
+{
+	//初始化分割点队列和Tablewidget
+	int nOldRowCount = ui.m_pTableWidget->rowCount();
+	for( int i = 1 ; i <  nOldRowCount ; ++i )
+	{
+		m_pointList.removeAt( 1 );
+		ui.m_pTableWidget->removeRow( 1 );
+	}
+
+	if( ui.m_pTableWidget->rowCount() != 1 || m_pointList.size() != 2 )
+	{
+		QMessageBox::information(0, tr("失败"), tr("区间编码出错"), QMessageBox::Ok);
+		return;
+	}
+
+	ui.m_pTableWidget->item( 0 , 0 )->setText( generateRange(  m_pointList.at( 0 ) , m_pointList.at( 1 ) ) );
+	ui.m_pTableWidget->item( 0 , 1 )->setText( tr( "" ) );
+
+	//产生分割点队列
+	QDomNodeList eleList = dom.elementsByTagName( tr( "Range" ) );
+	const int nEleListSize = eleList.size();
+	for( int i = 0 ; i != nEleListSize ; ++i )
+	{
+		double dbTemp = eleList.at( i ).toElement().attribute( tr( "lower" ) ).toDouble();                         //每个区间的下限
+		if( dbTemp > m_pointList.at( 0 ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
+		{
+			int j;
+			for( j = 0 ; dbTemp > m_pointList.at( j ) ;++j ){}
+			m_pointList.insert( j , dbTemp );
+		}
+	}
+	double dbTemp = eleList.at( nEleListSize - 1 ).toElement().attribute( tr( "upper" ) ).toDouble();             //最后一个区间的上限
+	if( dbTemp > m_pointList.at( 0 ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
+	{
+		int j;
+		for( j = 0 ; dbTemp > m_pointList.at( j ) ;++j ){}
+		m_pointList.insert( j , dbTemp );
+	}
+
+	//构建TableWidget
+	const int nPointCount = m_pointList.size();
+	const int nRowCount = nPointCount - 1;                                             
+	ui.m_pTableWidget->setRowCount( nRowCount );
+	ui.m_pTableWidget->setColumnCount( 2 );
+	for( int i = 0 ; i != nRowCount ; ++i )
+	{
+		ui.m_pTableWidget->setItem( i , 0 , new QTableWidgetItem( generateRange( m_pointList.at( i ) , m_pointList.at( i + 1 ) )  ) );
+		ui.m_pTableWidget->setItem( i , 1 , new QTableWidgetItem( tr( "" )  ) );
+	}
+	
+	//获取文件里的编码值
+	for( int i = 0 ; i != nEleListSize ; ++i )                                            
+	{
+		QDomElement eleTemp = eleList.at( i ).toElement();
+		double dbLower = eleTemp.attribute( tr( "lower" ) ).toDouble();
+		double dbUpper = eleTemp.attribute( tr( "upper" ) ).toDouble();
+		for( int j = 0 ; j != nPointCount - 1 ; ++j )
+		{
+			double dbPointLower =  m_pointList.at( j ) ;
+			double dbPointUpper =  m_pointList.at( j + 1  ) ;
+			if( dbLower == dbPointLower && dbUpper == dbPointUpper )
+			{
+				ui.m_pTableWidget->item( j , 1 )->setText( eleTemp.attribute( tr("code") ) );
+			}
+		}
+	}
+	setTableWidgetPropertyAfterGetRanges();
+	QMessageBox::information(0, tr("成功"), tr("加载编码方案成功"), QMessageBox::Ok);
 } 
+
+QString FormEncode::generateRange( const double min , const double max )
+{
+	QString strRange = tr( "( " );
+	strRange.append( QString::number( min , 'f' , 4 )  );
+	strRange.append( tr( " , " ) );
+	strRange.append( QString::number( max , 'f' , 4)  );
+	strRange.append( tr( " ] " ) );
+	return strRange;
+}
