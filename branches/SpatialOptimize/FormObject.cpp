@@ -66,6 +66,7 @@ void FormObject::openDataSource()
 	
 	if (!myfilename.isEmpty())
 	{
+		mDataSource = myfilename;
 		this->txtDataSource->setText(myfilename);		
 	}
 }
@@ -74,10 +75,16 @@ void FormObject::openDataSource()
 /// 显示编码界面
 void FormObject::showEncode()
 {
-	FormEncode myFormEncode;
-
-	myFormEncode.exec();
-
+	if (mDataSource.isEmpty())
+	{
+		FormEncode myFormEncode;
+		myFormEncode.exec();
+	} 
+	else
+	{
+		FormEncode myFormEncode(mDataSource);
+		myFormEncode.exec();
+	}
 }
 
 
