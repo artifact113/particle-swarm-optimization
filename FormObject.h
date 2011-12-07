@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QDialog>
 #include <QString>
+#include <QDomDocument>
 #include <QSet>
 
 

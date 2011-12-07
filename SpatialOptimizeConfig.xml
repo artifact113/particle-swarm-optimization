@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<spatialoptimize name="土地利用结构优化" filename=".\HPGCToolbox\Algorithm\SpatialOptimize.exe">
+<tool name="土地利用结构优化" filename=".\HPGCToolbox\Algorithm\SpatialOptimize.dll">
   <datasource>
     <txtDataSource text="E:\PSO测试数据\DLTB.shp"></txtDataSource>
     <cmbFieldName text="DLMC"></cmbFieldName>
@@ -44,4 +44,4 @@
     <c1 value="2.0"></c1>
     <c2 value="2.0"></c2>
   </algorithm>
-</spatialoptimize>
+</tool>
