@@ -435,7 +435,7 @@ void HPGCToolbox::addTool()
 	QString newConfig = "./HPGCToolbox/ToolConfig/tool_" + newId + ".xml";
 	
 	// 新建工具配置文件
-	createToolConfig(newConfig, newName, newId);
+	createToolConfig(newConfig, newName, currentItem->text(3));
 
 	// 写入配置文件
 	QDomElement newElement = document.createElement("tool");
@@ -570,11 +570,18 @@ void HPGCToolbox::showProperty()
 void HPGCToolbox::openTool()
 {
 	QTreeWidgetItem* currentItem = treeToolbox->currentItem();
+	QString toolname(currentItem->text(0));
 	QString tooltype = currentItem->text(2);
 	if (tooltype == "tool")
 	{
-		QString filename = 	currentItem->parent()->text(3); 
+		QString config(currentItem->text(3));
+		if (!XmlOperator::XmlVerify(config, ""))
+		{
+			QMessageBox::critical(NULL, QString::fromUtf8("HPGCToolbox"), QString::fromUtf8("配置文件内容格式不正确！"));
+			return;
+		}
 
+		QString filename = 	currentItem->parent()->text(3);
 		QLibrary myLibrary(filename);
 		typedef AlgorithmPlugin* (*TypeClassFactory)();
 		typedef void* (*TypeUnload)(AlgorithmPlugin*);
@@ -583,7 +590,7 @@ void HPGCToolbox::openTool()
 		if (pClassFactory && pUnload)
 		{
 			AlgorithmPlugin* myPlugin = (*pClassFactory)();
-			myPlugin->pluginMain();
+			myPlugin->showUI(config, toolname, NULL);
 			(*pUnload)(myPlugin);
 		}
 	}
@@ -591,6 +598,32 @@ void HPGCToolbox::openTool()
 }
 
 
+/// 弹出指标管理窗口
+void HPGCToolbox::showIndicators()
+{
+	IndicatorManagement myForm;
+	if (!myForm.loadConfig())
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		return;
+	}
+
+	myForm.exec();
+}
+
+
+/// 弹出公式管理窗口
+void HPGCToolbox::showFormulas()
+{
+	FormulaManagement myForm;
+	if (!myForm.loadConfig())
+	{
+		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		return;
+	}
+
+	myForm.exec();
+}
 /***********************************************protected******************************************/
 /// 窗口大小变更事件
 void HPGCToolbox::resizeEvent(QResizeEvent* event)
@@ -664,7 +697,7 @@ QTreeWidgetItem HPGCToolbox::elementToItem(QDomElement &element)
 
 
 /// 新建工具配置文件
-bool HPGCToolbox::createToolConfig(const QString &filename, const QString &name, const QString &id)
+bool HPGCToolbox::createToolConfig(const QString &savefilename, const QString &name, const QString &filename)
 {
 	QDomDocument document;
 	QDomProcessingInstruction instruction = document.createProcessingInstruction("xml", "version='1.0' encoding='utf-8'");
@@ -672,43 +705,15 @@ bool HPGCToolbox::createToolConfig(const QString &filename, const QString &name,
 
 	QDomElement rootElement = document.createElement("tool");	
 	rootElement.setAttribute("name", name);
-	rootElement.setAttribute("id", id);
+	rootElement.setAttribute("filename", filename);
 	document.appendChild(rootElement);
 
 
-	if (!XmlOperator::XmlWrite(document, filename))
+	if (!XmlOperator::XmlWrite(document, savefilename))
 	{
 		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
 		return false;
 	}
 
 	return true;
-}
-
-
-/// 弹出指标管理窗口
-void HPGCToolbox::showIndicators()
-{
-	IndicatorManagement myForm;
-	if (!myForm.loadConfig())
-	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
-		return;
-	}
-	
-	myForm.exec();
-}
-
-
-/// 弹出公式管理窗口
-void HPGCToolbox::showFormulas()
-{
-	FormulaManagement myForm;
-	if (!myForm.loadConfig())
-	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
-		return;
-	}
-
-	myForm.exec();
 }

@@ -1,9 +1,11 @@
 ﻿#ifndef _INDICATORPLUGIN_H_
 #define _INDICATORPLUGIN_H_
 
-#include <string>
+#include <vector>
+#include <QString>
+#include <QWidget>
+#include <QDomElement>
 #include "HPGCToolboxGlobal.h"
-
 using namespace std;
 
 class IndicatorPlugin
@@ -22,25 +24,25 @@ public:
 	}
 
 	/// 名称
-	virtual string name()
+	virtual QString name()
 	{
 		return "";
 	}
 
 	/// 版本
-	virtual string version()
+	virtual QString version()
 	{
 		return "";
 	}	    
 
 	/// 描述
-	virtual string description()
+	virtual QString description()
 	{
 		return "";
 	}
 
 	/// 帮助
-	virtual string help()
+	virtual QString help()
 	{
 		return "";
 	}
@@ -51,8 +53,15 @@ public:
 		return INDICATOR;
 	}
 
+	/// 显示参数设置界面
+	virtual void showUI(const QString &dataSource, const QString &fieldName, QDomElement* parameter, QWidget* parent) = 0;
+
+	/// 验证参数合法性
+	virtual bool verifyParameter(const QDomElement &parameter) = 0;
+
 	/// 算法入口
-	virtual double pluginMain() = 0;
+	virtual double calculateValue(const QString &dataSource, const QString &fieldName, const QDomElement &parameter, const vector<QString> &values) = 0;
+
 };
 
 #endif // _INDICATORPLUGIN_H_

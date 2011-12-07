@@ -73,6 +73,10 @@ private:
 
 	/// 新建工具配置文件
 	bool createToolConfig(const QString &filename, const QString &name, const QString &id);
+
+	/// 显示参数配置界面
+
+
 };
 
 
