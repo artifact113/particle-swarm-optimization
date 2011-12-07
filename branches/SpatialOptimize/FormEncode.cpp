@@ -771,7 +771,7 @@ void FormEncode::loadRangeEncode()
 		return;
 	}
 
-	if(  m_pointList.size() < 2  ||  m_pointList.size() - 1 != ui.m_pTableWidget->rowCount()  || ui.m_pTableWidget->columnCount() != 2 )
+	if(  m_pointList.size() < 2  ||  m_pointList.size() - 1 != ui.m_pTableWidget->rowCount()  || ui.m_pTableWidget->rowCount() == 0  )
 	{
 		QMessageBox::information(0, tr("警告"), QString( tr("区间编码出错") ), QMessageBox::Ok);
 		return;
@@ -836,41 +836,26 @@ void FormEncode::loadUValueEncodeFromDom( const QDomDocument& dom )
 
 void FormEncode::loadRangeEncodeFromDom( const QDomDocument& dom )
 {
-	//初始化分割点队列和Tablewidget
-	int nOldRowCount = ui.m_pTableWidget->rowCount();
-	for( int i = 1 ; i <  nOldRowCount ; ++i )
-	{
-		m_pointList.removeAt( 1 );
-		ui.m_pTableWidget->removeRow( 1 );
-	}
+	const int nOffSet = ui.m_pTableWidget->rowCount() - 1;
 
-	if( ui.m_pTableWidget->rowCount() != 1 || m_pointList.size() != 2 )
-	{
-		QMessageBox::information(0, tr("失败"), tr("区间编码出错"), QMessageBox::Ok);
-		return;
-	}
-
-	ui.m_pTableWidget->item( 0 , 0 )->setText( generateRange(  m_pointList.at( 0 ) , m_pointList.at( 1 ) ) );
-	ui.m_pTableWidget->item( 0 , 1 )->setText( tr( "" ) );
-
-	//产生分割点队列
+	//在最后一个区间添加分割点
 	QDomNodeList eleList = dom.elementsByTagName( tr( "Range" ) );
 	const int nEleListSize = eleList.size();
 	for( int i = 0 ; i != nEleListSize ; ++i )
 	{
 		double dbTemp = eleList.at( i ).toElement().attribute( tr( "lower" ) ).toDouble();                         //每个区间的下限
-		if( dbTemp > m_pointList.at( 0 ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
+		if( dbTemp > m_pointList.at( nOffSet ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
 		{
 			int j;
-			for( j = 0 ; dbTemp > m_pointList.at( j ) ;++j ){}
+			for( j = nOffSet ; dbTemp > m_pointList.at( j ) ;++j ){}
 			m_pointList.insert( j , dbTemp );
 		}
 	}
 	double dbTemp = eleList.at( nEleListSize - 1 ).toElement().attribute( tr( "upper" ) ).toDouble();             //最后一个区间的上限
-	if( dbTemp > m_pointList.at( 0 ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
+	if( dbTemp > m_pointList.at( nOffSet ) && dbTemp < m_pointList.at( m_pointList.size() - 1 )  )
 	{
 		int j;
-		for( j = 0 ; dbTemp > m_pointList.at( j ) ;++j ){}
+		for( j = nOffSet ; dbTemp > m_pointList.at( j ) ;++j ){}
 		m_pointList.insert( j , dbTemp );
 	}
 
@@ -879,7 +864,7 @@ void FormEncode::loadRangeEncodeFromDom( const QDomDocument& dom )
 	const int nRowCount = nPointCount - 1;                                             
 	ui.m_pTableWidget->setRowCount( nRowCount );
 	ui.m_pTableWidget->setColumnCount( 2 );
-	for( int i = 0 ; i != nRowCount ; ++i )
+	for( int i = nOffSet ; i != nRowCount ; ++i )
 	{
 		ui.m_pTableWidget->setItem( i , 0 , new QTableWidgetItem( generateRange( m_pointList.at( i ) , m_pointList.at( i + 1 ) )  ) );
 		ui.m_pTableWidget->setItem( i , 1 , new QTableWidgetItem( tr( "" )  ) );
@@ -891,7 +876,7 @@ void FormEncode::loadRangeEncodeFromDom( const QDomDocument& dom )
 		QDomElement eleTemp = eleList.at( i ).toElement();
 		double dbLower = eleTemp.attribute( tr( "lower" ) ).toDouble();
 		double dbUpper = eleTemp.attribute( tr( "upper" ) ).toDouble();
-		for( int j = 0 ; j != nPointCount - 1 ; ++j )
+		for( int j = nOffSet ; j != nPointCount - 1 ; ++j )
 		{
 			double dbPointLower =  m_pointList.at( j ) ;
 			double dbPointUpper =  m_pointList.at( j + 1  ) ;
