@@ -1,7 +1,6 @@
 ﻿#include "Plugin.h"
 #include "AlgorithmPlugin.h"
 #include "FormObject.h"
-#include <QDomElement>
 
 
 /// 构造函数
@@ -19,14 +18,14 @@ Plugin::~Plugin()
 
 
 /// 显示参数设置界面
-void showUI(const QString &config, const QString &toolName, QWidget* parent)
+void Plugin::showUI(const QString &config, const QString &toolName, QWidget* parent)
 {
 	FormObject myForm(config, toolName, parent);
 	myForm.exec();
 }
 
 /// 算法入口
-int Plugin::pluginMain()
+int Plugin::pluginMain(const QString &config)
 {
 	return 0;
 }

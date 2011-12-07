@@ -2,9 +2,10 @@
 #define _ALGORITHMPLUGIN_H_
 
 #include <QString>
+#include <QWidget>
 #include "HPGCToolboxGlobal.h"
-
 using namespace std;
+
 
 class AlgorithmPlugin
 {

@@ -9,11 +9,10 @@
 # define SPATIALOPTIMIZE_EXPORT Q_DECL_IMPORT
 #endif
 
-#include <string>
+#include <QString>
+#include <QWidget>
 #include "AlgorithmPlugin.h"
 #include "HPGCToolboxGlobal.h"
-
-using namespace std;
 
  
 class Plugin : public AlgorithmPlugin	/// 所有的插件必须继承AlgorithmPlugin类

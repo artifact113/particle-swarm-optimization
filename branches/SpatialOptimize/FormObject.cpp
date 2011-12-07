@@ -1,11 +1,14 @@
 ﻿#include "FormObject.h"
-#include <string>
+#include <QString>
 #include <QDialog>
 #include <QFileDialog>
 #include <QString>
 #include <QMessageBox>
+#include <QDomDocument>
+#include <QDomProcessingInstruction>
 #include "FormEncode.h"
 #include "ShapefileOperator.h"
+#include "XmlOperator.h"
 
 
 /***********************************************public*********************************************/
@@ -15,6 +18,7 @@ FormObject::FormObject(const QString &config, const QString &toolName, QWidget* 
 {
 	setupUi(this);
 	this->setWindowTitle(toolName);
+	initData();
 
 	connect(btnOpenDataSource, SIGNAL(clicked()), this, SLOT(openDataSource()));
 
@@ -37,7 +41,21 @@ FormObject::~FormObject()
 /// 初始化配置
 void FormObject::initData()
 {
+	if (!XmlOperator::XmlVerify(mConfig, ""))
+	{
+		QDomProcessingInstruction instruction = mConfigDocument.createProcessingInstruction("xml", "version='1.0' encoding='utf-8'");
+		mConfigDocument.appendChild(instruction);
+		
+		
+		return;
+	} 
 
+		
+
+
+
+	mConfigDocument = XmlOperator::XmlRead(mConfig);
+	
 }
 
 
@@ -68,11 +86,11 @@ void FormObject::fillFieldName(const QString &filename)
 {
 	this->cmbFieldName->clear();
 
-	vector<string> fieldNames(ShapefileReader::GetFieldNames((const char *)filename.toUtf8()));
-	vector<string>::iterator iter;
+	vector<QString> fieldNames(ShapefileReader::GetFieldNames(filename));
+	vector<QString>::iterator iter;
 	for (iter = fieldNames.begin(); iter != fieldNames.end(); ++iter)
 	{
-		QString fieldName(QString::fromLocal8Bit((*iter).c_str()));
+		QString fieldName(*iter);
 		this->cmbFieldName->addItem(fieldName);
 	}
 }
