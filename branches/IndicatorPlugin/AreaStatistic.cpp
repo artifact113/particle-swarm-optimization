@@ -8,5 +8,5 @@ double AreaStatistic::sumArea(const QString &dataSource, const QString &fieldNam
 {
 	double totalArea = 0;
 
-	return totalArea;
+	return totalArea;  
 }
