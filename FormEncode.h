@@ -5,9 +5,9 @@
 #include "dataProvider.h"
 #include <QDialog>
 #include <QString>
-#include <set>
+#include <QDomDocument>
+#include <QList>
 
-using namespace std;
 
 class FormEncode : public QDialog  
 {
@@ -23,6 +23,8 @@ public slots:
 	void ClickOnButnAdd();
 	void ClickOnButnDelete();
 	void ClickOnButnConfirm();
+	void ClickOnButnSave();
+	void ClickOnButnLoad();
 
 	void ActivateCBoxField( int nIndex );
 	void ActivateCBoxEncodeType( int nIndex );
@@ -33,19 +35,27 @@ private:
 	void getUValues( );                                  //根据当前界面状态获取唯一值，本身不打开文件
 	bool isReadyToGetUValues();
 	void setTableWidgetPropertyAfterGetUValues();
-	void initialiseSet();
+	void initialiseList();
 	bool isReadyToGetRanges();
-	void showRangesFromSet(); 
-	void setTableWidgetPropertyAfterGetGetRanges();
+	void setTableWidgetPropertyAfterGetRanges();
 	bool checkOutputFieldName();
 	void writeUValueEncode();                            //只在ClickOnButnConfirm()中调用
 	void writeRangeEncode();                             //只在ClickOnButnConfirm()中调用
+	void saveUValueEncode();                             
+	void saveRangeEncode();
+	void generateUValueEncodeDom( QDomDocument& dom );                     //只在saveUValueEncode()中调用
+	void generateRangeEncodeDom( QDomDocument& dom );                      //只在saveRangeEncode()中调用
+	void loadUValueEncode();             
+	void loadRangeEncode();  
+	void loadUValueEncodeFromDom( const QDomDocument& dom );             //只在loadRangeEncode()中调用
+	void loadRangeEncodeFromDom( const QDomDocument& dom );              //只在loadRangeEncode()中调用
+	QString generateRange( const double min , const double max );
 
 
 private:
 	Ui::FormEncode ui;
 	ShapefileProvider m_shapefile;
-	set<double> m_rangeSet;
+	QList<double> m_pointList;
 
 };
 
