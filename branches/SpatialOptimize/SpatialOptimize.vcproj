@@ -163,6 +163,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\dataProvider.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\dataProvider.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ExpressionConstructor.cpp"
 				>
 			</File>
