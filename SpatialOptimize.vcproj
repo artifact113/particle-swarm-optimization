@@ -85,7 +85,7 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\HPGCToolbox\Algorithm"
+			OutputDirectory=".\QGIS\Debug\HPGCToolbox\Algorithm"
 			IntermediateDirectory="$(SolutionDir)$(ConfigurationName)"
 			ConfigurationType="2"
 			>
