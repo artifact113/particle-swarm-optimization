@@ -68,7 +68,7 @@ public:
 	/// 类型
 	PLUGINTYPE type()
 	{
-		return INDICATOR;
+		return FORMULA;
 	}
 
 	/// 算法入口

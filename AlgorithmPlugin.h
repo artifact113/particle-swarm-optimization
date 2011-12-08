@@ -49,7 +49,7 @@ public:
 	/// 类型
 	PLUGINTYPE type()
 	{
-		return INDICATOR;
+		return ALGORITHM;
 	}
 
 	/// 显示参数设置界面
