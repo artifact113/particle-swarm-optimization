@@ -577,7 +577,7 @@ void HPGCToolbox::openTool()
 		QString config(currentItem->text(3));
 		if (!XmlOperator::XmlVerify(config, ""))
 		{
-			QMessageBox::critical(NULL, QString::fromUtf8("HPGCToolbox"), QString::fromUtf8("配置文件内容格式不正确！"));
+			QMessageBox::critical(NULL, QString::fromLocal8Bit("HPGCToolbox"), QString::fromLocal8Bit("配置文件内容格式不正确！"));
 			return;
 		}
 
@@ -604,7 +604,7 @@ void HPGCToolbox::showIndicators()
 	IndicatorManagement myForm;
 	if (!myForm.loadConfig())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		QMessageBox::critical(NULL, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("载入配置文件失败!"));
 		return;
 	}
 
@@ -618,7 +618,7 @@ void HPGCToolbox::showFormulas()
 	FormulaManagement myForm;
 	if (!myForm.loadConfig())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to load the config file!"));
+		QMessageBox::critical(NULL, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("载入配置文件失败!"));
 		return;
 	}
 
