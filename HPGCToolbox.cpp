@@ -140,15 +140,15 @@ void HPGCToolbox::showRightMenu(const QPoint &pos)
 	QTreeWidgetItem* item = treeToolbox->itemAt(pos);
 
 	QMenu* popMenu = new QMenu(treeToolbox);
-	QAction* addToolbox = new QAction(QIcon(":/toolbox"), tr("AddToolbox"), 0);
-	QAction* addToolset = new QAction(QIcon(":/toolset"), tr("AddToolset"), 0);
-	QAction* addTool = new QAction(QIcon(":/tool"), tr("AddTool"), 0);
-	QAction* renTool = new QAction(QIcon(":/rename"), tr("Rename"), 0);
-	QAction* delTool = new QAction(QIcon(":/delete"), tr("Delete"), 0);
-	QAction* properties = new QAction(QIcon(":/property"), tr("Property"), 0);
-	QAction* openTool = new QAction(QIcon(":/opentool"),tr("Open"), 0);
-	QAction* indicatorManagement = new QAction(QIcon(":/indicator"), tr("Indicator Management"), 0);
-	QAction* formulaManagement = new QAction(QIcon(":/formula"), tr("Formula Management"), 0);
+	QAction* addToolbox = new QAction(QIcon(":/toolbox"), QString::fromLocal8Bit("添加工具箱"), 0);
+	QAction* addToolset = new QAction(QIcon(":/toolset"), QString::fromLocal8Bit("添加工具集"), 0);
+	QAction* addTool = new QAction(QIcon(":/tool"), QString::fromLocal8Bit("添加工具"), 0);
+	QAction* renTool = new QAction(QIcon(":/rename"), QString::fromLocal8Bit("重命名"), 0);
+	QAction* delTool = new QAction(QIcon(":/delete"), QString::fromLocal8Bit("删除"), 0);
+	QAction* properties = new QAction(QIcon(":/property"), QString::fromLocal8Bit("属性"), 0);
+	QAction* openTool = new QAction(QIcon(":/opentool"),QString::fromLocal8Bit("打开"), 0);
+	QAction* indicatorManagement = new QAction(QIcon(":/indicator"), QString::fromLocal8Bit("指标管理"), 0);
+	QAction* formulaManagement = new QAction(QIcon(":/formula"), QString::fromLocal8Bit("公式管理"), 0);
 
 
 	connect(addToolbox, SIGNAL(triggered()), this, SLOT(addToolbox()));
