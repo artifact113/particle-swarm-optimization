@@ -52,7 +52,7 @@ bool IndicatorManagement::loadConfig()
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return false;
 	}
 
@@ -60,7 +60,7 @@ bool IndicatorManagement::loadConfig()
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return false;
 	}
 
@@ -95,16 +95,16 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 
 	if(name.isEmpty())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("New name cannot be empty!"));
-		item->setText(0, QObject::tr("New Name"));
+		QMessageBox::warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("名称不能为空!"));
+		item->setText(0, "新名称");
 		return;
 	}
 
 	// 指标名称唯一性检测
-	/*if (indicatorType == "indicatorset" && !isNameUnique(name))
+	if (indicatorType == "indicator" && !isNameUnique(name))
 	{
-		QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Already exists same named indicatorset!\nSame name may cause problems,we sugguest that every indicator should has a unique name."));
-	}*/
+		QMessageBox::information(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("已经存在相同名称的指标。\n强烈建议保持指标名称唯一性,以避免不可预期的错误！"));
+	}
 	
 
 	// 配置文件
@@ -113,7 +113,7 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -121,7 +121,7 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -130,7 +130,7 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, indicatorType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
@@ -138,7 +138,7 @@ void IndicatorManagement::updateIndicatorName(QTreeWidgetItem* item, int column)
 	changedElement->setAttribute("name", name);
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed update to config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 	}
 }
 
@@ -149,23 +149,23 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 	QTreeWidgetItem* item = treeIndicator->itemAt(pos);
 
 	QMenu* popMenu = new QMenu(treeIndicator);
-	QAction* addIndicatorTopbox = new QAction(QIcon(":/folder"), tr("Add Indicatorbox"), 0);
-	QAction* addIndicatorbox = new QAction(QIcon(":/folder"), tr("Add Indicatorbox"), 0);
-	QAction* addIndicatorset = new QAction(QIcon(":/indicatorset"), tr("Add Indicatorset"), 0);
-	QAction* renIndicator = new QAction(QIcon(":/rename"), tr("Rename"), 0);
-	QAction* delIndicator = new QAction(QIcon(":/delete"), tr("Delete"), 0);
-	QAction* properties = new QAction(QIcon(":/property"), tr("Property"), 0);
+	QAction* addIndicatorbox = new QAction(QIcon(":/folder"), QString::fromLocal8Bit("添加指标箱"), 0);
+	QAction* addIndicatorset = new QAction(QIcon(":/indicatorset"), QString::fromLocal8Bit("添加指标集"), 0);
+	QAction* addIndicator = new QAction(QIcon(":/indicatorset"), QString::fromLocal8Bit("添加指标"), 0);
+	QAction* renIndicator = new QAction(QIcon(":/rename"), QString::fromLocal8Bit("重命名"), 0);
+	QAction* delIndicator = new QAction(QIcon(":/delete"), QString::fromLocal8Bit("删除"), 0);
+	QAction* properties = new QAction(QIcon(":/property"), QString::fromLocal8Bit("属性"), 0);
 
-	connect(addIndicatorTopbox, SIGNAL(triggered()), this, SLOT(addIndicatorTopbox()));
 	connect(addIndicatorbox, SIGNAL(triggered()), this, SLOT(addIndicatorbox()));
 	connect(addIndicatorset, SIGNAL(triggered()), this, SLOT(addIndicatorset()));
+	connect(addIndicator, SIGNAL(triggered()), this, SLOT(addIndicator()));
 	connect(renIndicator, SIGNAL(triggered()), this, SLOT(renameIndicator()));
 	connect(delIndicator, SIGNAL(triggered()), this, SLOT(deleteIndicator()));
 	connect(properties, SIGNAL(triggered()), this, SLOT(showProperty()));
 
 	if (!item)
 	{
-		popMenu->addAction(addIndicatorTopbox);
+		popMenu->addAction(addIndicatorbox);
 		popMenu->exec(QCursor::pos());
 		return;
 	}
@@ -173,13 +173,20 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 	QString indicatorType = item->text(2);
 	if (indicatorType == "indicatorbox")
 	{
-		popMenu->addAction(addIndicatorbox);
 		popMenu->addAction(addIndicatorset);
 		popMenu->addSeparator();
 		popMenu->addAction(renIndicator);
 		popMenu->addAction(delIndicator);
 	}
 	else if (indicatorType == "indicatorset")
+	{
+		popMenu->addAction(addIndicator);
+		popMenu->addAction(addIndicatorset);
+		popMenu->addSeparator();
+		popMenu->addAction(renIndicator);
+		popMenu->addAction(delIndicator);
+	}
+	else if (indicatorType == "indicator")
 	{
 		popMenu->addAction(properties);
 		popMenu->addSeparator();
@@ -191,8 +198,8 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 }
 
 
-/// 添加顶部指标箱
-void IndicatorManagement::addIndicatorTopbox()
+/// 添加指标箱
+void IndicatorManagement::addIndicatorbox()
 {
 	QString id = "0";
 	QString indicatorType = "indicatorboxfolder";
@@ -203,7 +210,7 @@ void IndicatorManagement::addIndicatorTopbox()
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -211,7 +218,7 @@ void IndicatorManagement::addIndicatorTopbox()
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -220,14 +227,14 @@ void IndicatorManagement::addIndicatorTopbox()
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, indicatorType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName = tr("New Indicatorbox");
+	QString newName ="新指标箱";
 
 	// 写到配置文件
 	QDomElement newElement = document.createElement("indicatorbox");
@@ -238,7 +245,7 @@ void IndicatorManagement::addIndicatorTopbox()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 		return;
 	}
 
@@ -268,8 +275,8 @@ void IndicatorManagement::addIndicatorTopbox()
 }
 
 
-/// 添加指标箱
-void IndicatorManagement::addIndicatorbox()
+/// 添加指标集
+void IndicatorManagement::addIndicatorset()
 {
 	QTreeWidgetItem* currentItem = treeIndicator->currentItem();
 	QString id = currentItem->text(1);
@@ -281,7 +288,7 @@ void IndicatorManagement::addIndicatorbox()
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -289,7 +296,7 @@ void IndicatorManagement::addIndicatorbox()
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -298,17 +305,17 @@ void IndicatorManagement::addIndicatorbox()
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, indicatorType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName = tr("New Indicatorbox");
+	QString newName = "新指标集";
 
 	// 写到配置文件
-	QDomElement newElement = document.createElement("indicatorbox");
+	QDomElement newElement = document.createElement("indicatorset");
 	newElement.setAttribute("name", newName);
 	newElement.setAttribute("id", newId);	
 	changedElement->appendChild(newElement);
@@ -316,7 +323,7 @@ void IndicatorManagement::addIndicatorbox()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 		return;
 	}
 
@@ -332,7 +339,7 @@ void IndicatorManagement::addIndicatorbox()
 	newItem->setIcon(0, QIcon(":/folder"));
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
-	newItem->setText(2, "indicatorbox");
+	newItem->setText(2, "indicatorset");
 	newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 	newItem->setExpanded(true);
 	currentItem->addChild(newItem);
@@ -346,11 +353,11 @@ void IndicatorManagement::addIndicatorbox()
 
 
 
-/// 添加指标集
-void IndicatorManagement::addIndicatorset()
+/// 添加指标
+void IndicatorManagement::addIndicator()
 {
 	// 指定指标算法包
-	QString myfilename = QFileDialog::getOpenFileName(this, QObject::tr("Specify indicatorset package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
+	QString myfilename = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("指定指标算法包"), "/", QString::fromLocal8Bit("动态链接库(*.dll)"));
 
 	if (!myfilename.isEmpty())
 	{
@@ -358,10 +365,10 @@ void IndicatorManagement::addIndicatorset()
 		if (!FileOperator::VerifyIndicatorFile(myfilename))
 		{			
 			QMessageBox::StandardButton button;
-			button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect indicator package!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
+			button = QMessageBox::warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("不是合法的指标计算包!\n点击“是”重新指定."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
 			if (button == QMessageBox::Yes)
 			{
-				addIndicatorset();
+				addIndicator();
 			}
 			return;
 		}
@@ -372,7 +379,7 @@ void IndicatorManagement::addIndicatorset()
 
 		if (!FileOperator::CopyFile(myfilename, tofilename))
 		{
-			QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed copy file to the program folder!"));
+			QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能将该指标计算包复制到程序文件夹!"));
 			return;
 		}
 
@@ -386,7 +393,7 @@ void IndicatorManagement::addIndicatorset()
 		// 验证配置文件
 		if (!XmlOperator::XmlVerify(filename, ""))
 		{
-			QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+			QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 			return;
 		}
 
@@ -394,7 +401,7 @@ void IndicatorManagement::addIndicatorset()
 		QDomDocument document = XmlOperator::XmlRead(filename);
 		if (document.isNull())
 		{
-			QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+			QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 			return;
 		}
 
@@ -403,7 +410,7 @@ void IndicatorManagement::addIndicatorset()
 		QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, indicatorType);
 		if (!changedElement)
 		{
-			QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+			QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 			return;
 		}
 
@@ -411,11 +418,11 @@ void IndicatorManagement::addIndicatorset()
 		// 新节点信息
 		int count = rootElement.attribute("count", "-1").toInt();
 		QString newId = QString::number(count + 1);
-		QString newName = tr("New Indicatorset");
+		QString newName = "新指标";
 		QString newFilename = tofilename;
 
 		// 写入配置文件
-		QDomElement newElement = document.createElement("indicatorset");
+		QDomElement newElement = document.createElement("indicator");
 		newElement.setAttribute("name", newName);
 		newElement.setAttribute("id", newId);
 		newElement.setAttribute("filename", newFilename);
@@ -424,7 +431,7 @@ void IndicatorManagement::addIndicatorset()
 
 		if (!XmlOperator::XmlWrite(document, filename))
 		{
-			QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+			QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 			return;
 		}
 
@@ -436,18 +443,16 @@ void IndicatorManagement::addIndicatorset()
 		}
 
 		QTreeWidgetItem* newItem = new QTreeWidgetItem(currentItem);	
-		newItem->setIcon(0, QIcon(":/indicatorset"));
+		newItem->setIcon(0, QIcon(":/indicator"));
 		newItem->setText(0, newName);
 		newItem->setText(1, newId);
-		newItem->setText(2, "indicatorset");
+		newItem->setText(2, "indicator");
 		newItem->setText(3, newFilename);
 		newItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEditable | Qt::ItemIsEnabled);
 		newItem->setExpanded(true);
 		currentItem->addChild(newItem);
 		treeIndicator->setCurrentItem(newItem, 0);
-		treeIndicator->editItem(newItem);
-
-		
+		treeIndicator->editItem(newItem);		
 
 		connect(treeIndicator, SIGNAL(itemChanged(QTreeWidgetItem*, int)), this, SLOT(updateIndicatorName(QTreeWidgetItem*, int)));
 	}
@@ -473,7 +478,7 @@ void IndicatorManagement::deleteIndicator()
 	QString indicatorType = currentItem->text(2);
 
 	// 确认删除
-	QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("This will delete ALL sub-indicators!\nClick YES to confirm."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
+	QMessageBox::StandardButton button = QMessageBox::warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("删除操作将会附带删除所有子节点\n点击“是”确认删除"), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Cancel);
 	if (button == QMessageBox::Cancel)
 	{
 		return;
@@ -485,7 +490,7 @@ void IndicatorManagement::deleteIndicator()
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -493,7 +498,7 @@ void IndicatorManagement::deleteIndicator()
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -502,7 +507,7 @@ void IndicatorManagement::deleteIndicator()
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, indicatorType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
@@ -512,7 +517,7 @@ void IndicatorManagement::deleteIndicator()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::warning(NULL, tr("IndicatorManagement"), tr("Failed update to config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 		return;
 	}
 
@@ -538,7 +543,7 @@ void IndicatorManagement::showProperty()
 	if (currentItem)
 	{
 		QString indicatorType = currentItem->text(2);
-		if (indicatorType == "indicatorset")
+		if (indicatorType == "indicator")
 		{
 			FormProperty myForm(currentItem, INDICATOR);
 			myForm.exec();
@@ -593,7 +598,11 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 	else if (indicatorType == "indicatorset")
 	{
 		item.setIcon(0, QIcon(":/indicatorset"));
-		item.setText(3, element.attribute("filename", "NULL"));
+	}
+	else if (indicatorType == "indicator")
+	{
+		item.setIcon(0, QIcon(":/indicator"));
+		item.setText(3, element.attribute("filename", ""));
 	}
 
 	return item;
@@ -604,24 +613,17 @@ QTreeWidgetItem IndicatorManagement::elementToItem(QDomElement &element)
 bool IndicatorManagement::isNameUnique(const QString &newName)
 {
 	treeIndicator->setColumnCount(3);
-	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicatorset", Qt::MatchFixedString | Qt::MatchCaseSensitive | Qt::MatchRecursive, 2));
+	QList<QTreeWidgetItem*> indicators(treeIndicator->findItems("indicator", Qt::MatchFixedString | Qt::MatchCaseSensitive | Qt::MatchRecursive, 2));
 	treeIndicator->setColumnCount(1);
 
-	QList<QString> names;
+	int count = 0;
 	QList<QTreeWidgetItem*>::iterator iterIndicator;
 	for (iterIndicator = indicators.begin(); iterIndicator != indicators.end(); ++iterIndicator)
 	{
-		names<<((*iterIndicator)->text(0));
-	}
-
-	int count = 0;
-	QList<QString>::iterator iterName;
-	for (iterName = names.begin(); iterName != names.end(); ++iterName)
-	{
-		if ((*iterName) == newName)
+		if (((*iterIndicator)->text(0)) == newName)
 		{
 			++count;
-		}		
+		}
 	}
 
 	if (count == 1)
@@ -631,7 +633,7 @@ bool IndicatorManagement::isNameUnique(const QString &newName)
 	else
 	{
 		return false;
-	}	
+	}
 
 }
 

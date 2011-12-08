@@ -28,7 +28,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 
 
 	// 设置窗口图标和标题
-	QString title = QObject::tr("Properties - ") + mCurrentItem->text(0);
+	QString title = QString::fromLocal8Bit("属性 - ") + mCurrentItem->text(0);
 	this->setWindowTitle(title);
 	if (mType == ALGORITHM)
 	{
@@ -36,7 +36,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	}
 	else if(mType == INDICATOR)
 	{
-		this->setWindowIcon(QIcon(":/indicatorset"));
+		this->setWindowIcon(QIcon(":/indicator"));
 	}
 	else if(mType == FORMULA)
 	{
@@ -74,7 +74,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -82,7 +82,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -91,7 +91,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, toolType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
@@ -102,7 +102,7 @@ FormProperty::FormProperty(QTreeWidgetItem* currentItem, const PLUGINTYPE &type,
 	// 验证算法包
 	if (!FileOperator::VerifyFile(myfilename, mType))
 	{			
-		QMessageBox::StandardButton button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
+		QMessageBox::StandardButton button = QMessageBox::warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("不是合法的算法包!\n点击“是”重新指定."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
 		if (button == QMessageBox::Yes)
 		{
 			changeFile();
@@ -141,21 +141,21 @@ void FormProperty::saveConfig()
 	// 名称不能为空
 	if (myname.isEmpty())
 	{
-		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("Name cannot be empty!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("名称不能为空!"));
 		return;		
 	}
 
 	// 算法包也不能为空
 	if (myfilename.isEmpty())
 	{
-		QMessageBox::critical(NULL, tr("HPGCToolbox"), tr("You must specify a algorithm package!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("必须指定一个算法包!"));
 		return;
 	}
 
 	// 验证算法包
 	if (!FileOperator::VerifyFile(myfilename, mType))
 	{			
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm package!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("无效算法包!"));
 		return;
 	}
 
@@ -179,7 +179,7 @@ void FormProperty::saveConfig()
 
 	if (!FileOperator::CopyFile(myfilename, tofilename))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed copy file to the program folder!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能将该指标计算包复制到程序文件夹!"));
 		return;
 	}
 
@@ -203,7 +203,7 @@ void FormProperty::saveConfig()
 	// 验证配置文件
 	if (!XmlOperator::XmlVerify(filename, ""))
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect config file!"));
+		QMessageBox::critical(this,  QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件格式不正确！"));
 		return;
 	}
 
@@ -211,7 +211,7 @@ void FormProperty::saveConfig()
 	QDomDocument document = XmlOperator::XmlRead(filename);
 	if (document.isNull())
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to read config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("读取配置文件失败!"));
 		return;
 	}
 
@@ -220,7 +220,7 @@ void FormProperty::saveConfig()
 	QDomElement* changedElement = XmlOperator::elementByID(rootElement, id, toolType);
 	if (!changedElement)
 	{
-		QMessageBox::critical(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Failed to find the match record!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("配置文件中未找到相应的记录!"));
 		return;
 	}
 
@@ -229,7 +229,7 @@ void FormProperty::saveConfig()
 
 	if (!XmlOperator::XmlWrite(document, filename))
 	{
-		QMessageBox::warning(NULL, tr("HPGCToolbox"), tr("Failed update to config file!"));
+		QMessageBox::critical(this, QString::fromLocal8Bit("错误"), QString::fromLocal8Bit("未能保存至配置文件!"));
 		return;
 	}
 
@@ -242,7 +242,7 @@ void FormProperty::saveConfig()
 /// 变更算法包
 void FormProperty::changeFile()
 {
-	QString newFilename = QFileDialog::getOpenFileName(this, QObject::tr("Respecify algorithm package"), "/", QObject::tr("Dynamic Link Library(*.dll)"));
+	QString newFilename = QFileDialog::getOpenFileName(this, QString::fromLocal8Bit("指定算法包"), "/", QString::fromLocal8Bit("动态链接库(*.dll)"));
 	if (!newFilename.isEmpty())
 	{
 		if (FileOperator::VerifyAlgorithmFile(newFilename))
@@ -254,7 +254,7 @@ void FormProperty::changeFile()
 		else
 		{
 			QMessageBox::StandardButton button;
-			button = QMessageBox::warning(NULL, QObject::tr("HPGCToolbox"), QObject::tr("Incorrect algorithm file!\nClick YES to respecify one."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
+			button = QMessageBox::warning(this, QString::fromLocal8Bit("警告"), QString::fromLocal8Bit("不是合法的算法包!\n点击“是”重新指定."), QMessageBox::Yes | QMessageBox::Cancel, QMessageBox::Yes);
 			if (button == QMessageBox::Yes)
 			{
 				changeFile();

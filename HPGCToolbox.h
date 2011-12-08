@@ -8,6 +8,7 @@
 #include <QDomElement>
 #include <QTreeWidget>
 #include <QFile>
+#include <QString>
 #include "qgisinterface.h"
 
 
