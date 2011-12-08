@@ -151,7 +151,7 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 	QMenu* popMenu = new QMenu(treeIndicator);
 	QAction* addIndicatorbox = new QAction(QIcon(":/folder"), QString::fromLocal8Bit("添加指标箱"), 0);
 	QAction* addIndicatorset = new QAction(QIcon(":/indicatorset"), QString::fromLocal8Bit("添加指标集"), 0);
-	QAction* addIndicator = new QAction(QIcon(":/indicatorset"), QString::fromLocal8Bit("添加指标"), 0);
+	QAction* addIndicator = new QAction(QIcon(":/indicator"), QString::fromLocal8Bit("添加指标"), 0);
 	QAction* renIndicator = new QAction(QIcon(":/rename"), QString::fromLocal8Bit("重命名"), 0);
 	QAction* delIndicator = new QAction(QIcon(":/delete"), QString::fromLocal8Bit("删除"), 0);
 	QAction* properties = new QAction(QIcon(":/property"), QString::fromLocal8Bit("属性"), 0);
@@ -174,6 +174,7 @@ void IndicatorManagement::showRightMenu(const QPoint &pos)
 	if (indicatorType == "indicatorbox")
 	{
 		popMenu->addAction(addIndicatorset);
+		popMenu->addAction(addIndicator);
 		popMenu->addSeparator();
 		popMenu->addAction(renIndicator);
 		popMenu->addAction(delIndicator);
@@ -234,7 +235,7 @@ void IndicatorManagement::addIndicatorbox()
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName ="新指标箱";
+	QString newName(QString::fromLocal8Bit("新指标箱"));
 
 	// 写到配置文件
 	QDomElement newElement = document.createElement("indicatorbox");
@@ -312,7 +313,7 @@ void IndicatorManagement::addIndicatorset()
 	// 新节点信息
 	int count = rootElement.attribute("count", "-1").toInt();
 	QString newId = QString::number(count + 1);
-	QString newName = "新指标集";
+	QString newName(QString::fromLocal8Bit("新指标集"));
 
 	// 写到配置文件
 	QDomElement newElement = document.createElement("indicatorset");
@@ -336,7 +337,7 @@ void IndicatorManagement::addIndicatorset()
 
 	// 添加到treeIndicator中显示
 	QTreeWidgetItem* newItem = new QTreeWidgetItem(currentItem);	
-	newItem->setIcon(0, QIcon(":/folder"));
+	newItem->setIcon(0, QIcon(":/indicatorset"));
 	newItem->setText(0, newName);
 	newItem->setText(1, newId);
 	newItem->setText(2, "indicatorset");
@@ -418,7 +419,7 @@ void IndicatorManagement::addIndicator()
 		// 新节点信息
 		int count = rootElement.attribute("count", "-1").toInt();
 		QString newId = QString::number(count + 1);
-		QString newName = "新指标";
+		QString newName(QString::fromLocal8Bit("新指标"));
 		QString newFilename = tofilename;
 
 		// 写入配置文件
