@@ -1,17 +1,17 @@
-﻿#include "Tools.h"
+#include "tool.h"
 #include <cstdlib>
 #include <ctime>
+using namespace std;
 
 
-
+/**********************************************Random********************************************/
 Random::Random()
 {
-	state = (unsigned)time(NULL);
+	state = time(NULL);
     if( state == 0 )
 	{
         state = 1;
 	}
-
 }
 
 
