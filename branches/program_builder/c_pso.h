@@ -11,17 +11,17 @@ class CParticleSwarm;
 /// 粒子类
 class CParticle {
 public:
-	vector<double> position;			// 粒子的当前位置;
+	vector<double> position;				// 粒子的当前位置;
 
-	double cost;						// 粒子的消费量,值越低越好;
+	double cost;							// 粒子的消费量,值越低越好;
 
-	vector<double> local_best_position;	// 粒子的历史最佳位置;
+	vector<double> personal_best_position;	// 粒子的历史最佳位置;
 
-	double local_best_cost;				// 粒子的历史最佳消费量;
+	double personal_best_cost;				// 粒子的历史最佳消费量;
 
-	vector<double> velocity;			// 粒子的运动速度;
+	vector<double> velocity;				// 粒子的运动速度;
 
-	CParticleSwarm* swarm;				// 粒子所属的种群
+	CParticleSwarm* swarm;					// 粒子所属的种群
 
 
 	/// 构造函数;
