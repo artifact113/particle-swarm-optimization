@@ -7,7 +7,9 @@ using namespace std;
 
 class Problem {
 public:
-	virtual double GetFitness(vector<double> &solution) { return 0.0;}
+	virtual vector<double> GetValueRange(int dimension) = 0;
+
+	virtual double GetFitness(vector<double> &solution) = 0;
 };
 
 #endif

@@ -9,9 +9,13 @@ class Program {
 public:
 	int GetGeneration();
 
-	vector<double> GetSolution();
+	double GetTime();	
 
 	double GetFitness();
+
+	int GetStallGeneration();
+
+	vector<double> GetSolution();
 
 private:
 	Algorthm* _algorithm;

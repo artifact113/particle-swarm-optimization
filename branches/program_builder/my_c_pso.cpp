@@ -75,17 +75,19 @@ void ParticleSwarm::InitSwarm(CFunctionBase* functionbase, int swarm_size, int d
 
 
 /*********************************************************FunctionBase************************************/
+FunctionBase::FunctionBase(Problem* problem) 
+: _problem(problem){
+
+}
+
 vector<double> FunctionBase::GetValueRange(int dimension)
 {
-	vector<double> value_range;
-	value_range.push_back(-10);
-	value_range.push_back(10);
-	return value_range;
+	return _problem->GetValueRange(dimension);
 }
 
 double FunctionBase::GetFitness(vector<double> &position)
 {
-	return 100;
+	return _problem->GetFitness(position);
 }
 
 

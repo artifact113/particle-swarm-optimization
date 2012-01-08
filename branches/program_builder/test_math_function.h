@@ -6,6 +6,8 @@
 
 class SphereFunction : public Problem {
 public:
+	vector<double> GetValueRange(int dimension);
+
 	double GetFitness(vector<double> &solution);
 };
 

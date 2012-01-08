@@ -3,7 +3,11 @@
 
 class Algorthm {
 public:
-	virtual 
+	virtual int GetGeneration() = 0;
+
+	virtual double GetFitness() = 0;
+
+	virtual vector<double> GetSolution() = 0;
 };
 
 
