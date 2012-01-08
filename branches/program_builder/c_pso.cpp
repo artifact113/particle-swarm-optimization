@@ -45,7 +45,7 @@ void CParticle::UpdateVelocityAndPosition(vector<double> &global_best_position)
 	double c1 = swarm->tendency_own_best;
 	double r1 = swarm->_rnd.NextDouble();
 	double c2 = swarm->tendency_global_best;
-	double r2 = swarm->_Rnd.NextDouble();
+	double r2 = swarm->_rnd.NextDouble();
 
 	int dimension = this->position.size();
 	for (int i = 0; i != dimension; ++i)
