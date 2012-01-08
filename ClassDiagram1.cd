@@ -3,7 +3,7 @@
   <Class Name="ProgramBuilder">
     <Position X="4" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAIAQEAAAAAAAAAAAAgAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAIAAEAAAAAAAAAAAAgAAA=</HashCode>
       <FileName>program_builder.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -26,6 +26,48 @@
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>program_director.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CParticle">
+    <Position X="0.5" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>IgAACAACgAEAAAAAAAAAIAAAAAAQAAAAAAQAAIACAAA=</HashCode>
+      <FileName>c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CParticleSwarm">
+    <Position X="4" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACCAAgAgAAUAQEiAIAAEAAgEEAAAAIAAAAAAAAA=</HashCode>
+      <FileName>c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CFunctionBase">
+    <Position X="7.5" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Particle">
+    <Position X="0.5" Y="10" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAgACAECAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>my_c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ParticleSwarm">
+    <Position X="4" Y="10.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>my_c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FunctionBase">
+    <Position X="7.5" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>my_c_pso.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="微软雅黑" Size="9" />
