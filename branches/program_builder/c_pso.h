@@ -31,6 +31,9 @@ public:
 	/// 析构函数;
 	virtual ~CParticle();
 
+	/// 获取粒子在每一维度上的值域；
+	virtual vector<double> GetValueRange(int dimension) = 0;
+
 	///	消费函数，计算粒子的消费值;
 	virtual void CalculateCost() = 0;
 
@@ -74,9 +77,6 @@ public:
 	/// 析构函数；
 	virtual ~CParticleSwarm();
 
-	/// 获取粒子在每一维度上的值域；
-	virtual vector<double> GetValueRange(int dimension) = 0;
-
 	/// 粒子群的当前代最好粒子的位置，第一个粒子的位置；
 	vector<double> CurrentBestPosition();
 
@@ -92,18 +92,6 @@ public:
 
 
 bool CompareTo(const CParticle* p1, const CParticle* p2);
-
-
-/// 消费函数类
-class CFunctionBase
-{
-public:
-	virtual ~CFunctionBase();
-
-	virtual double FitnessFunction(vector<double> &position) = 0;
-
-	virtual vector<double> RangeFunction(int dimension) = 0;
-};
 
 
 #endif // C_PSO_H_

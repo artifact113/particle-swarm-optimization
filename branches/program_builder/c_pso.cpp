@@ -51,10 +51,10 @@ void CParticle::UpdateVelocityAndPosition(vector<double> &global_best_position)
 	for (int i = 0; i != dimension; ++i)
 	{
 		// 值域上界
-		double position_high = swarm->GetValueRange(i).at(1);
+		double position_high = this->GetValueRange(i).at(1);
 
 		// 值域下界
-		double position_low = swarm->GetValueRange(i).at(0);
+		double position_low = this->GetValueRange(i).at(0);
 
 		// 获取最大速度
 		double xmax = position_high - position_low;        
@@ -169,7 +169,7 @@ void CParticleSwarm::Iteration()
 			this->particles.at(j)->UpdateVelocityAndPosition(this->CurrentBestPosition());
 		}
 	}
-}
+} 
 
 
 /// 根据消费量对粒子进行排序，从小到大
