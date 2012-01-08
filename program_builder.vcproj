@@ -179,6 +179,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\my_c_pso.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\tool.cpp"
 				>
 			</File>
@@ -194,6 +198,10 @@
 			</File>
 			<File
 				RelativePath=".\c_pso.h"
+				>
+			</File>
+			<File
+				RelativePath=".\my_c_pso.h"
 				>
 			</File>
 			<File

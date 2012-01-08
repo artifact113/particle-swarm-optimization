@@ -7,7 +7,6 @@ using namespace std;
 
 class Random;
 class CParticleSwarm;
-class CFunctionBase;
 
 /// 粒子类
 class CParticle {
@@ -83,7 +82,7 @@ public:
 	/// 粒子群的当前代最好粒子的消费量，第一个粒子的消费量；
 	double CurrentBestCost();
 
-	/// 粒子群整体迭代一次；
+	/// 粒子群整体迭代一次(可重定义)；
 	virtual void Iteration();
 
 	/// 根据消费量对粒子进行排序，从小到大；
@@ -93,5 +92,12 @@ public:
 
 bool CompareTo(const CParticle* p1, const CParticle* p2);
 
+
+class CFunctionBase {
+public:
+	virtual vector<double> GetValueRange(int dimension) = 0;
+
+	virtual double GetFitness(vector<double> &solution) = 0;
+};
 
 #endif // C_PSO_H_
