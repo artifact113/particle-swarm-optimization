@@ -2,6 +2,7 @@
 #define MY_C_PSO_H_
 
 #include "c_pso.h"
+#include "problem.h"
 using namespace std;
 
 
@@ -41,13 +42,15 @@ private:
 
 class FunctionBase : public CFunctionBase {
 public:
+	FunctionBase(Problem* problem);
+
 	vector<double> GetValueRange(int dimension);
 
 	double GetFitness(vector<double> &position);
 
 
 private:
-
+	Problem* _problem;
 };
 
 #endif // MY_C_PSO_H_

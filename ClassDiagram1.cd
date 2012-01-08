@@ -64,9 +64,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="FunctionBase">
-    <Position X="7.5" Y="8" Width="2.5" />
+    <Position X="7.5" Y="10.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAACAAAAAAQAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>my_c_pso.h</FileName>
     </TypeIdentifier>
   </Class>
