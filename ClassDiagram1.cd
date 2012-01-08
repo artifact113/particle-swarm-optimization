@@ -31,7 +31,7 @@
   <Class Name="CParticle">
     <Position X="0.5" Y="5.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>IgAACAACgAEAAAAAAAAAIAAAAAAQAAAAAAQAAIACAAA=</HashCode>
+      <HashCode>IgAACAACAAEAAAAAAAAAIAAACQAQAAAAAAQAAIACAAA=</HashCode>
       <FileName>c_pso.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -68,6 +68,20 @@
     <TypeIdentifier>
       <HashCode>AAAAAAACAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>my_c_pso.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Problem">
+    <Position X="7.5" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>problem.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SphereFunction">
+    <Position X="7.5" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>test_math_function.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="微软雅黑" Size="9" />

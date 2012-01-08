@@ -10,7 +10,7 @@ using namespace std;
 /// 构造函数
 CParticle::CParticle()
 {	
-	local_best_cost = MAX_DOUBLE;
+	personal_best_cost = MAX_DOUBLE;
 }
 
 
@@ -24,10 +24,10 @@ CParticle::~CParticle()
 ///	更新粒子的历史最佳位置
 void CParticle::UpdateBest()
 {
-	if(cost < local_best_cost)
+	if(cost < personal_best_cost)
 	{		
-		local_best_position = position;	// 将当前位置拷贝作历史最佳位置
-		local_best_cost = cost;
+		personal_best_position = position;	// 将当前位置拷贝作历史最佳位置
+		personal_best_cost = cost;
 	}
 }
 
@@ -35,7 +35,7 @@ void CParticle::UpdateBest()
 /// 更新粒子的位置与速度
 void CParticle::UpdateVelocityAndPosition(vector<double> &global_best_position)
 {
-	if (local_best_position.empty())
+	if (personal_best_position.empty())
 	{
 		this->UpdateBest();
 	}
@@ -62,7 +62,7 @@ void CParticle::UpdateVelocityAndPosition(vector<double> &global_best_position)
 
 		// 计算新的速度
 		double new_velocity = m * velocity.at(i) +
-				c1 * r1 * (local_best_position.at(i) - position.at(i)) +
+				c1 * r1 * (personal_best_position.at(i) - position.at(i)) +
 				c2 * r2 * (global_best_position.at(i) - position.at(i));
 
 		//限制速度不超过vmax

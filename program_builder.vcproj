@@ -183,6 +183,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\test_math_function.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\tool.cpp"
 				>
 			</File>
@@ -198,6 +202,10 @@
 			</File>
 			<File
 				RelativePath=".\c_pso.h"
+				>
+			</File>
+			<File
+				RelativePath=".\c_pso_algorithm.h"
 				>
 			</File>
 			<File
@@ -222,6 +230,10 @@
 			</File>
 			<File
 				RelativePath=".\pso_program_builder.h"
+				>
+			</File>
+			<File
+				RelativePath=".\test_math_function.h"
 				>
 			</File>
 			<File
