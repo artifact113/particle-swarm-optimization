@@ -6,7 +6,16 @@
 
 class CPSO : public Algorthm {
 public:
+	CPSO(ParticleSwarm* swarm);
 
+	int GetGeneration();
+
+	double GetFitness();
+
+	vector<double> GetSolution();
+
+private:
+	ParticleSwarm* _swarm;
 };
 
 

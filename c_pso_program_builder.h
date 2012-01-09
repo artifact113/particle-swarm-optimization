@@ -1,12 +1,12 @@
-﻿#ifndef PSO_PROGRAM_BUILDER_H_
-#define PSO_PROGRAM_BUILDER_H_
+﻿#ifndef C_PSO_PROGRAM_BUILDER_H_
+#define C_PSO_PROGRAM_BUILDER_H_
 
 #include "program_builder.h"
 
 
-class PSOProgramBuilder : public ProgramBuilder {
+class CPSOProgramBuilder : public ProgramBuilder {
 public:
-	PSOProgramBuilder();
+	CPSOProgramBuilder();
 
 	virtual void BuildProgram();
 	virtual void BuildAlgorithm();
@@ -18,4 +18,4 @@ private:
 	Program* _program;
 };
 
-#endif // PSO_PROGRAM_BUILDER_H_
+#endif // C_PSO_PROGRAM_BUILDER_H_
