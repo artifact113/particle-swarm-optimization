@@ -17,6 +17,10 @@ public:
 
 	vector<double> GetSolution();
 
+
+	void SetAlgorithm(Algorthm* algorithm);
+
+	void SetProblem(Problem* problem);
 private:
 	Algorthm* _algorithm;
 	Problem* _problem;	

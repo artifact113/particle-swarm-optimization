@@ -175,6 +175,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\c_pso_algorithm.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\c_pso_program_builder.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -209,6 +217,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\c_pso_program_builder.h"
+				>
+			</File>
+			<File
 				RelativePath=".\my_c_pso.h"
 				>
 			</File>
@@ -226,10 +238,6 @@
 			</File>
 			<File
 				RelativePath=".\program_director.h"
-				>
-			</File>
-			<File
-				RelativePath=".\pso_program_builder.h"
 				>
 			</File>
 			<File

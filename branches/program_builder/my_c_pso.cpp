@@ -3,16 +3,11 @@ using namespace std;
 
 /******************************************************Particle****************************************/
 /// 构造函数
-Particle::Particle(CFunctionBase* functionbase, 
-				   CParticleSwarm* swarm, 
-				   vector<double> &position, 
-				   vector<double> &velocity)
-: _functionbase(functionbase)
+Particle::Particle(CParticleSwarm* swarm, vector<double> &position, vector<double> &velocity)
 {
 	this->swarm = swarm;
 	this->position = position;
 	this->velocity = velocity;
-	this->CalculateCost();
 }
 
 
@@ -20,6 +15,11 @@ Particle::Particle(CFunctionBase* functionbase,
 Particle::~Particle()
 {
 	
+}
+
+void Particle::SetFunctionBase(CFunctionBase* functionbase) {
+	_functionbase = functionbase;
+	this->CalculateCost();
 }
 
 
@@ -40,16 +40,14 @@ void Particle::CalculateCost()
 
 /***********************************************************ParticleSwarm***********************************/
 /// 构造函数
-ParticleSwarm::ParticleSwarm(CFunctionBase* functionbase, int swarm_size, int dimension)
+ParticleSwarm::ParticleSwarm(int swarm_size, int dimension)
 {
-	InitSwarm(functionbase,swarm_size, dimension);
-
-	SortParticles();
+	InitSwarm(functionbase,swarm_size, dimension);	
 }
 
 
 /// 初始化函数
-void ParticleSwarm::InitSwarm(CFunctionBase* functionbase, int swarm_size, int dimension)
+void ParticleSwarm::InitSwarm(int swarm_size, int dimension)
 {
 	Random rnd;
 	for (int i=0; i != swarm_size; ++i)
@@ -67,12 +65,21 @@ void ParticleSwarm::InitSwarm(CFunctionBase* functionbase, int swarm_size, int d
 			velocity.push_back(vx);
 		}
 
-		Particle* my_particle = new Particle(functionbase,this,position,velocity);
+		Particle* my_particle = new Particle(this,position,velocity);
 		this->particles.push_back(my_particle);
 	}
 }
 
 
+void ParticleSwarm::SetFunctionBase(CFunctionBase* functionbase) {
+	vector<Particle*>::iterator iter;
+	for (iter = particles.begin(); iter != particles.end(); ++iter)
+	{
+		(*iter)->SetFunctionBase(functionbase);
+	}
+
+	this->SortParticles();
+}
 
 /*********************************************************FunctionBase************************************/
 FunctionBase::FunctionBase(Problem* problem) 
