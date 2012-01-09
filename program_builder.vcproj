@@ -175,14 +175,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\c_pso_algorithm.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\c_pso_program_builder.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\main.cpp"
 				>
 			</File>
@@ -205,19 +197,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\algorithm.h"
-				>
-			</File>
-			<File
 				RelativePath=".\c_pso.h"
-				>
-			</File>
-			<File
-				RelativePath=".\c_pso_algorithm.h"
-				>
-			</File>
-			<File
-				RelativePath=".\c_pso_program_builder.h"
 				>
 			</File>
 			<File
@@ -226,18 +206,6 @@
 			</File>
 			<File
 				RelativePath=".\problem.h"
-				>
-			</File>
-			<File
-				RelativePath=".\program.h"
-				>
-			</File>
-			<File
-				RelativePath=".\program_builder.h"
-				>
-			</File>
-			<File
-				RelativePath=".\program_director.h"
 				>
 			</File>
 			<File
