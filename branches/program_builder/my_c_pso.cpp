@@ -3,11 +3,16 @@ using namespace std;
 
 /******************************************************Particle****************************************/
 /// 构造函数
-Particle::Particle(CParticleSwarm* swarm, vector<double> &position, vector<double> &velocity)
+Particle::Particle(CFunctionBase* functionbase, 
+				   CParticleSwarm* swarm, 
+				   vector<double> &position, 
+				   vector<double> &velocity)
+: _functionbase(functionbase)
 {
 	this->swarm = swarm;
 	this->position = position;
 	this->velocity = velocity;
+	this->CalculateCost();
 }
 
 
@@ -15,11 +20,6 @@ Particle::Particle(CParticleSwarm* swarm, vector<double> &position, vector<doubl
 Particle::~Particle()
 {
 	
-}
-
-void Particle::SetFunctionBase(CFunctionBase* functionbase) {
-	_functionbase = functionbase;
-	this->CalculateCost();
 }
 
 
@@ -40,14 +40,16 @@ void Particle::CalculateCost()
 
 /***********************************************************ParticleSwarm***********************************/
 /// 构造函数
-ParticleSwarm::ParticleSwarm(int swarm_size, int dimension)
+ParticleSwarm::ParticleSwarm(CFunctionBase* functionbase, int swarm_size, int dimension)
 {
-	InitSwarm(functionbase,swarm_size, dimension);	
+	InitSwarm(functionbase,swarm_size, dimension);
+
+	SortParticles();
 }
 
 
 /// 初始化函数
-void ParticleSwarm::InitSwarm(int swarm_size, int dimension)
+void ParticleSwarm::InitSwarm(CFunctionBase* functionbase, int swarm_size, int dimension)
 {
 	Random rnd;
 	for (int i=0; i != swarm_size; ++i)
@@ -65,21 +67,12 @@ void ParticleSwarm::InitSwarm(int swarm_size, int dimension)
 			velocity.push_back(vx);
 		}
 
-		Particle* my_particle = new Particle(this,position,velocity);
+		Particle* my_particle = new Particle(functionbase,this,position,velocity);
 		this->particles.push_back(my_particle);
 	}
 }
 
 
-void ParticleSwarm::SetFunctionBase(CFunctionBase* functionbase) {
-	vector<Particle*>::iterator iter;
-	for (iter = particles.begin(); iter != particles.end(); ++iter)
-	{
-		(*iter)->SetFunctionBase(functionbase);
-	}
-
-	this->SortParticles();
-}
 
 /*********************************************************FunctionBase************************************/
 FunctionBase::FunctionBase(Problem* problem) 
@@ -96,7 +89,3 @@ double FunctionBase::GetFitness(vector<double> &position)
 {
 	return _problem->GetFitness(position);
 }
-
-
-
-

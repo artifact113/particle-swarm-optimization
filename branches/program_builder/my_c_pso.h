@@ -12,12 +12,10 @@ class ParticleSwarm;
 class Particle : public CParticle {
 public:
 	/// 构造函数；
-	Particle(CParticleSwarm* swarm, vector<double> &position, vector<double> &velocity);
+	Particle(CFunctionBase* functionbase, CParticleSwarm* swarm, vector<double> &position, vector<double> &velocity);
 		
 	/// 析构函数；
 	~Particle();
-
-	void SetFunctionBase(CFunctionBase* functionbase);
 
 	// 获取值域;
 	vector<double> GetValueRange(int dimension);
@@ -33,13 +31,11 @@ private:
 class ParticleSwarm : public CParticleSwarm {
 public:
 	/// 构造函数；
-	ParticleSwarm(int swarmSize, int dimension);
+	ParticleSwarm(CFunctionBase* functionbase, int swarm_size, int dimension);
 
 private:
 	/// 初始化函数；
-	void InitSwarm(int swarmSize, int dimension);
-
-	void SetFunctionBase(CFunctionBase* functionbase);
+	void InitSwarm(CFunctionBase* functionbase, int swarm_size, int dimension);
 };
 
 
